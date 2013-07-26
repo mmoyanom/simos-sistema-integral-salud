@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- activity_login -->
+    <string name="activity_login_logo_content_description">Seguro Integral de Salud</string>
+    <string name="activity_login_btn_login_text">Ingresar</string>
+    <string name="activity_login_username_hint">Usuario</string>
+    <string name="activity_login_password_hint">Constraseña</string>
+    <!---->
+    
+    <!-- Messages -->
+    <string name="msg_no_internet_connection">No es posible ingresar al sistema. Por favor, verifique su conexión a internet o intente más tarde.</string>
+    <string name="msg_please_wait">Por favor, espere &#8230;</string>
+    <string name="msg_cancelled_by_user">El proceso ha sido cancelado por el usuario.</string>
+    <string name="msg_login_user_password_invalid">El usuario y contraseña no son válidos.</string>
+    <string name="msg_login_failed">No se puede ingresar al sistema, intente más tarde.</string>
+    <string name="msg_login_succeeded">Ingreso correcto.</string>
+    <!---->
+    
+    <!-- Main Menu Options titles -->
+    <string-array name="main_menu_titles">
+        <item>Iniciar jornada</item>
+        <item>Finalizar jornada</item>
+        <item>Sincronización</item>
+    </string-array>
+    <string-array name="main_menu_desc">
+        <item>Seleccione ésta opción comenzar el día.</item>
+        <item>Seleccione ésta opción para finalizar las actividades del día.</item>
+        <item>Envío de encuestas pendientes, Descargar parámetros, etc.</item>
+    </string-array>
+    <string-array name="main_menu_values">
+        <item>gob.sis.simos.BeginWorkingDayActivity</item>
+        <item>gob.sis.simos.EndWorkingDayActivity</item>
+        <item>gob.sis.simos.SyncMenuActivity</item>
+    </string-array>
+    <!--  -->
+    
+    <!-- Button Text -->
+    <string name="btn_text_OK">Aceptar</string>
+    <!---->
+    
+    <!-- titles -->
+    <string name="app_name">simos</string>
+    <string name="action_settings">Settings</string>
+    <string name="main_menu">Menú principal</string>
+    <!--  -->
+    
+    
+    
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_anexo01">Anexo01Activity</string>
+    <string name="title_activity_annx02">Annx02Activity</string>
+
+    
+    <string name="country_prompt">Choose a country</string>
+    <string-array name="country_arrays">
+        <item>Seleccione un elemento</item>
+        <item>Elemento 1</item>
+        <item>Elemento 2</item>
+        <item>Elemento 3</item>
+        <item>Elemento 4</item>
+    </string-array>
+ 
+    <string name="entrega_prompt">Seleccione tipo de entrega</string>
+    <string-array name="entrega_arrays">
+        <item>Totalmente</item>
+        <item>Parcialmente</item>
+        <item>No entregado</item>
+    </string-array>
+    
+    <string name="receta_prompt">Seleccione tipo de entrega</string>
+    <string-array name="receta_arrays">
+        <item>Comercial</item>
+        <item>Genérico</item>
+    </string-array>
+</resources>
