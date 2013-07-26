@@ -2,12 +2,14 @@ package gob.sis.simos;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
+import android.app.ActionBar;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,8 +38,6 @@ public class PersonInformationActivity extends RoboActivity implements OnChecked
 		
 		this.setContentView(R.layout.activity_person_information);
 		
-		this.setTitle("Información del encuestado");
-		
 		Typeface font0 = Typeface.createFromAsset(getAssets(), "fonts/Arial Rounded Bold.ttf");
 		
 		this._lblIdentification.setTypeface(font0);
@@ -54,6 +54,20 @@ public class PersonInformationActivity extends RoboActivity implements OnChecked
 		this._layoutReason.setVisibility(View.GONE);
 		
 		this._rgReference.setOnCheckedChangeListener(this);
+		
+		getActionBar().setDisplayShowHomeEnabled(false);
+		/*getActionBar().setDisplayShowTitleEnabled(false);
+		getActionBar().setDisplayShowHomeEnabled(false);
+		getActionBar().setTitle("Hola");*/
+		
+		/*LinearLayout actionBarLayout = (LinearLayout) getLayoutInflater().inflate(
+	            R.layout.actionbar_person_information,null);
+		
+		ActionBar actionBar = this.getActionBar();
+		actionBar.setDisplayShowHomeEnabled(false);
+	    actionBar.setDisplayShowTitleEnabled(false);
+	    actionBar.setDisplayShowCustomEnabled(true);
+	    actionBar.setCustomView(actionBarLayout);*/
 		
 	}
 
@@ -73,8 +87,23 @@ public class PersonInformationActivity extends RoboActivity implements OnChecked
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		//super.onCreateOptionsMenu(menu);
+		
+		/*MenuItem menuItemCreateCart = menu.findItem(R.id.action_next);
+	    if (menuItemCreateCart  == null) {
+	        menuItemCreateCart  = menu.add(0, R.id.action_next, 0, "Siguiente");
+	    }
+	    
+		TextView tv = new TextView(this);
+	    tv.setText("Hola");
+	    tv.setTextColor(getResources().getColor(R.color.actionButton_color));
+	    tv.setBackgroundColor(getResources().getColor(R.color.item_color));
+	    
+	    menuItemCreateCart.setActionView(tv);*/
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.person_information_menu, menu);
+	    
 		return super.onCreateOptionsMenu(menu);
 	}
 	
