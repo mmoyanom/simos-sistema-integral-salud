@@ -35,34 +35,35 @@ public final class R {
         public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
-        public static final int bg=0x7f020000;
-        public static final int bg_rectangle_section=0x7f020001;
-        public static final int bg_texture01=0x7f020002;
-        public static final int check=0x7f020003;
-        public static final int check32=0x7f020004;
-        public static final int check_drawable=0x7f020005;
-        public static final int container_disp_body=0x7f020006;
-        public static final int container_disp_bottom=0x7f020007;
-        public static final int container_rounded=0x7f020008;
-        public static final int gray_button=0x7f020009;
-        public static final int ic_launcher=0x7f02000a;
-        public static final int login_back=0x7f02000b;
-        public static final int logo_minsa=0x7f02000c;
-        public static final int off=0x7f02000d;
-        public static final int on=0x7f02000e;
-        public static final int prescription=0x7f02000f;
-        public static final int red_button=0x7f020010;
-        public static final int rounded_annex_spinner=0x7f020011;
-        public static final int rounded_annex_textfield=0x7f020012;
-        public static final int rounded_annex_title=0x7f020013;
-        public static final int rounded_button_firma_red=0x7f020014;
-        public static final int rounded_label_observaciones=0x7f020015;
-        public static final int rounded_login_button=0x7f020016;
-        public static final int rounded_password_edittext=0x7f020017;
-        public static final int rounded_textfield_observaciones=0x7f020018;
-        public static final int rounded_user_edittext=0x7f020019;
-        public static final int sis=0x7f02001a;
-        public static final int textarea=0x7f02001b;
+        public static final int actionbar_item=0x7f020000;
+        public static final int bg=0x7f020001;
+        public static final int bg_rectangle_section=0x7f020002;
+        public static final int bg_texture01=0x7f020003;
+        public static final int check=0x7f020004;
+        public static final int check32=0x7f020005;
+        public static final int check_drawable=0x7f020006;
+        public static final int container_disp_body=0x7f020007;
+        public static final int container_disp_bottom=0x7f020008;
+        public static final int container_rounded=0x7f020009;
+        public static final int gray_button=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int login_back=0x7f02000c;
+        public static final int logo_minsa=0x7f02000d;
+        public static final int off=0x7f02000e;
+        public static final int on=0x7f02000f;
+        public static final int prescription=0x7f020010;
+        public static final int red_button=0x7f020011;
+        public static final int rounded_annex_spinner=0x7f020012;
+        public static final int rounded_annex_textfield=0x7f020013;
+        public static final int rounded_annex_title=0x7f020014;
+        public static final int rounded_button_firma_red=0x7f020015;
+        public static final int rounded_label_observaciones=0x7f020016;
+        public static final int rounded_login_button=0x7f020017;
+        public static final int rounded_password_edittext=0x7f020018;
+        public static final int rounded_textfield_observaciones=0x7f020019;
+        public static final int rounded_user_edittext=0x7f02001a;
+        public static final int sis=0x7f02001b;
+        public static final int textarea=0x7f02001c;
     }
     public static final class id {
         public static final int Toplabel=0x7f0b003f;
@@ -200,6 +201,7 @@ public final class R {
         public static final int title_activity_settings=0x7f07000f;
     }
     public static final class style {
+        public static final int ActionBar_Style=0x7f090013;
         public static final int Annex02ActionBar=0x7f09000e;
         public static final int Annx02Theme=0x7f090002;
         /** 
@@ -243,6 +245,7 @@ public final class R {
  general styles for the action bar 
          */
         public static final int MyActionBar=0x7f09000d;
+        public static final int Theme01=0x7f090012;
         public static final int TitleTextStyle=0x7f090011;
         public static final int annex02_spinner=0x7f090007;
         public static final int annex02_switch=0x7f090009;
