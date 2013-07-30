@@ -1,12 +1,11 @@
 package gob.sis.simos.service.config;
 
 import java.util.List;
-import roboguice.application.RoboApplication;
 import com.google.inject.Module;
 
-public class SimosApplication extends RoboApplication {
+public class SimosApplication {
 
-	private Module module = new ServiceModule();
+	/*private Module module = new ServiceModule();
 	
 	
 	@Override
@@ -16,6 +15,6 @@ public class SimosApplication extends RoboApplication {
 	
 	public void setModule(Module module) {
 		this.module = module;
-	}
+	}*/
 	
 }

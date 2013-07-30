@@ -3,80 +3,112 @@
     package="gob.sis.simos"
     android:versionCode="1"
     android:versionName="1.0" >
-    
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="16" />
 
     <application
-        android:name="gob.sis.simos.service.config.SimosApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        >
-        
+        android:label="@string/app_name" >
         <activity
             android:name="gob.sis.simos.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/Annx02Theme"
-            android:screenOrientation="portrait">
-            
+            android:screenOrientation="portrait"
+            android:theme="@style/Annx02Theme" >
         </activity>
         <activity
             android:name="gob.sis.simos.MainMenuActivity"
             android:label="@string/main_menu"
-            android:theme="@style/Annx02Theme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Annx02Theme" >
         </activity>
         <activity
             android:name="gob.sis.simos.EESSListActivity"
             android:label="@string/main_menu"
-            android:theme="@style/Annx02Theme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Annx02Theme" >
         </activity>
         <activity
             android:name="gob.sis.simos.InquestListActivity"
             android:label="@string/main_menu"
-            android:theme="@style/Annx02Theme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Annx02Theme" >
         </activity>
         <activity
             android:name="gob.sis.simos.PersonInformationActivity"
-            android:theme="@style/Theme01"
-            android:label="Encuestado"        
-            android:screenOrientation="portrait">
+            android:label="Encuestado"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme01" >
+        </activity>
+        <activity
+            android:name="gob.sis.simos.InquestPaymentActivity"
+            android:label="Verificación de pagos"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme01" >
+        </activity>
+        <activity
+            android:name="gob.sis.simos.InquestPrescriptionActivity"
+            android:label="Verificación de pagos"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme01" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
+        
+        <activity
+            android:name="gob.sis.simos.InquestPayment02Activity"
+            android:label="Verificación de pagos"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme01" >
+        </activity>
+        <activity
+            android:name="gob.sis.simos.InquestPayment03Activity"
+            android:label="Verificación de pagos"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme01" >
+        </activity>
         <activity
             android:name="gob.sis.simos.SettingsActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
             android:name="gob.sis.simos.Annx02Activity"
-            android:label="@string/title_activity_annx02" android:theme="@style/Annx02Theme">
+            android:label="@string/title_activity_annx02"
+            android:theme="@style/Annx02Theme" >
         </activity>
         <activity
             android:name="gob.sis.simos.Anx02Activity"
-            android:label="@string/title_activity_annx02" android:theme="@style/Annx02Theme">
-            
+            android:label="@string/title_activity_annx02"
+            android:theme="@style/Annx02Theme" >
         </activity>
         <activity
             android:name="gob.sis.simos.Anx01Activity"
-            android:label="@string/title_activity_annx02" android:theme="@style/Annx02Theme">
-            
+            android:label="@string/title_activity_annx02"
+            android:theme="@style/Annx02Theme" >
         </activity>
-        <activity 
+        <activity
             android:name="gob.sis.simos.DynamicActivity"
-            android:label="@string/title_activity_settings" android:theme="@style/Annx02Theme">
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Annx02Theme" >
+        </activity>
+        <activity
+            android:name="gob.sis.simos.TestLoginActivity"
+            android:label="@string/title_activity_test_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="gob.sis.simos.TestSettingsActivity"
+            android:label="@string/title_activity_test_settings" >
         </activity>
     </application>
 
