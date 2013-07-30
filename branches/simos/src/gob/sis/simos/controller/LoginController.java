@@ -5,6 +5,7 @@ import gob.sis.simos.R;
 import gob.sis.simos.dto.LoginResponse;
 import gob.sis.simos.entity.Account;
 import gob.sis.simos.service.LoginService;
+import gob.sis.simos.service.impl.LoginServiceImpl;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -16,22 +17,21 @@ import android.content.Intent;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+@Singleton
 public class LoginController {
 
 	@Inject
 	protected LoginService _service;
+	//protected LoginServiceImpl _service; 
 	@Inject
 	protected Gson gson;
 	private Context _context;
 
-	public LoginController() {
-
-	}
-
 	public void setContext(Context context) {
 		this._context = context;
-		this._service.setContext(this._context);
+		//this._service.setContext(this._context);
 	}
 	
 	public boolean isActiveSession(){

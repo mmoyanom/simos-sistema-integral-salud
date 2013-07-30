@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.google.inject.Inject;
 
+
 public class LoginActivity extends RoboActivity implements OnClickListener, InputFilter, TextWatcher {
 	
 	@InjectView(R.id.username)
