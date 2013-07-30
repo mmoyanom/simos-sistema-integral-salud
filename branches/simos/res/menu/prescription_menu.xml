@@ -6,7 +6,36 @@
         android:enabled="true" 
         android:visible="true"
         android:title="Siguiente"
-        android:showAsAction="always"></item>
+        android:showAsAction="always">
+    </item>
+    <item
+        android:id="@+id/action_more" 
+        android:enabled="true" 
+        android:visible="true"
+        android:title="More"
+        android:icon="@drawable/ic_menu_moreoverflow_normal_holo_light"       
+        android:showAsAction="ifRoom|withText">
+        <menu>
+            <item
+		        android:enabled="true" 
+		        android:visible="true"
+		        android:title="Seleccionar todo"
+		        android:icon="@drawable/ic_menu_mark"
+		        android:showAsAction="ifRoom|withText"/>
+            <item
+		        android:enabled="true" 
+		        android:visible="true"
+		        android:title="Limpiar seleccion"
+		        android:icon="@drawable/ic_menu_close_clear_cancel"
+		        android:showAsAction="ifRoom|withText"/>
+            <item
+		        android:enabled="true" 
+		        android:visible="true"
+		        android:title="Eliminar"
+		        android:icon="@android:drawable/ic_menu_delete"
+		        android:showAsAction="ifRoom|withText"/>
+        </menu>
+    </item>
     <!-- <item
         android:id="@+id/action_add" 
         android:enabled="true" 
