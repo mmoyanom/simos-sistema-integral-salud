@@ -29,7 +29,7 @@ public class InputListAdapter extends ArrayAdapter<Insumos> {
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater) this.getContext()
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.adapter_eess_list, null);
+			v = vi.inflate(R.layout.adapter_selectable_input, null);
 			holder = new ViewHolder();
 			holder.title = (TextView) v.findViewById(R.id.topTitle);
 			v.setTag(holder);

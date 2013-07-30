@@ -58,11 +58,18 @@
             android:label="Verificación de pagos"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
-            <intent-filter>
+        </activity>
+        <activity
+            android:name="gob.sis.simos.AddPrescriptionActivity"
+            android:label="Medicamentos/Insumos"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme01" >
+             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         
         
         <activity

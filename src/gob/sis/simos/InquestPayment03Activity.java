@@ -13,7 +13,7 @@ public class InquestPayment03Activity extends RoboActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		this.setContentView(R.layout.activity_payment_inquest_03);
+		this.setContentView(gob.sis.simos.R.layout.activity_payment_inquest_03);
 		getActionBar().setDisplayShowHomeEnabled(false);
 	}
 	

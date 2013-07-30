@@ -29,7 +29,7 @@ public class MedicineListAdapter extends ArrayAdapter<Medicamento>{
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater) this.getContext()
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.adapter_medicine_selectable, null);
+			v = vi.inflate(R.layout.adapter_selectable_medicine, null);
 			holder = new ViewHolder();
 			holder.title = (TextView) v.findViewById(R.id.topTitle);
 			v.setTag(holder);
