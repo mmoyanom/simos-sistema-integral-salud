@@ -1,18 +1,15 @@
 package gob.sis.simos;
 
 
-import gob.sis.simos.adapters.MedicineListAdapter;
-import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.fragment.InputFragment;
 import gob.sis.simos.fragment.MedicineFragment;
 import gob.sis.simos.service.impl.PrescriptionServiceImpl;
+import gob.sis.simos.ui.DialogSelectPrescriptionType;
 
-import java.util.List;
 import java.util.Locale;
 
-import com.google.inject.Inject;
-
 import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.InjectView;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -24,18 +21,24 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.SubMenu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.Button;
+
+import com.google.inject.Inject;
 
 public class InquestPrescriptionActivity extends RoboFragmentActivity
- implements ActionBar.TabListener {
+ implements ActionBar.TabListener, OnClickListener {
 	
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
 	@Inject
 	protected PrescriptionServiceImpl service;
 	
+	@InjectView(R.id.btn_add)
+	protected Button btnAdd;
 	//static MedicineFragment medicineFragment; 
 	
 	//private List<Medicamento> items;
@@ -46,14 +49,16 @@ public class InquestPrescriptionActivity extends RoboFragmentActivity
 		super.onCreate(arg0);	
 		
 		this.setContentView(R.layout.activity_prescription_pager);
-		
 		//items = service.getListaMedicamento();
 		
 		//adapter = new PrescriptionListAdapter(InquestPrescriptionActivity.this, R.layout.adapter_main_menu, items);
 		
+		this.btnAdd.setOnClickListener(this);
 		
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		actionBar.setDisplayUseLogoEnabled(false);
+		actionBar.setIcon(R.drawable.ic_menu_mark);
 		
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
@@ -84,7 +89,7 @@ public class InquestPrescriptionActivity extends RoboFragmentActivity
 		// TODO Auto-generated method stub
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.prescription_menu, menu);
-		return super.onCreateOptionsMenu(menu);
+		return true;
 	}
 	
 	@Override
@@ -179,5 +184,12 @@ public class InquestPrescriptionActivity extends RoboFragmentActivity
 					ARG_SECTION_NUMBER)));*/
 			return rootView;
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		DialogSelectPrescriptionType dialog = new DialogSelectPrescriptionType(this);
+		dialog.setTitle("Agregar");
+		dialog.show();
 	}
 }

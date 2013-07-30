@@ -1,7 +1,6 @@
 package gob.sis.simos;
 
-import roboguice.activity.RoboActivity;
-import roboguice.inject.InjectView;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectView;
 
 public class InquestPayment02Activity extends RoboActivity implements OnCheckedChangeListener {
 	
@@ -21,12 +22,6 @@ public class InquestPayment02Activity extends RoboActivity implements OnCheckedC
 	
 	@InjectView(R.id.layout_nro_ticket)
 	protected LinearLayout layoutNroTicket;
-	
-	@InjectView(R.id.separator_layout_payment_in)
-	protected View separatorLayountPaymentIn;
-	
-	@InjectView(R.id.layout_payment_in)
-	protected LinearLayout layoutPaymentIn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {	
@@ -48,16 +43,12 @@ public class InquestPayment02Activity extends RoboActivity implements OnCheckedC
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		RadioButton r = (RadioButton) this.findViewById(checkedId);
 		int index = this._rgPaymentLocation.indexOfChild(r);
-		if(index == 0 || index == 4){
+		if(index == 0){
 			this.separatorLayoutTicket.setVisibility(View.VISIBLE);
 			this.layoutNroTicket.setVisibility(View.VISIBLE);
-			this.separatorLayountPaymentIn.setVisibility(View.VISIBLE);
-			this.layoutPaymentIn.setVisibility(View.VISIBLE);
 		} else {
 			this.separatorLayoutTicket.setVisibility(View.GONE);
-			this.layoutNroTicket.setVisibility(View.GONE);
-			this.separatorLayountPaymentIn.setVisibility(View.GONE);
-			this.layoutPaymentIn.setVisibility(View.GONE);
+			this.layoutNroTicket.setVisibility(View.GONE);	
 		}
 	}
 
