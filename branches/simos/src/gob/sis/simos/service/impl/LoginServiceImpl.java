@@ -1,5 +1,6 @@
 package gob.sis.simos.service.impl;
 
+import gob.sis.simos.LoginActivity;
 import gob.sis.simos.db.DBHelper;
 import gob.sis.simos.entity.Account;
 import gob.sis.simos.service.LoginService;
@@ -7,34 +8,42 @@ import gob.sis.simos.soap.SimosSoapServices;
 import java.io.IOException;
 import java.sql.SQLException;
 import org.xmlpull.v1.XmlPullParserException;
+
+import roboguice.inject.ContextSingleton;
 import android.content.Context;
+
+import com.google.inject.Inject;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
-public class LoginServiceImpl implements LoginService {
+@ContextSingleton
+public class LoginServiceImpl{ // implements LoginService {
 
-	private Context _context;
+	@Inject
+	private Context activity;
+	//private Context _context;
 	private DBHelper dbhelper;
 
-	@Override
+	/*@Override
 	public void setContext(Context context) {
 		this._context = context;
-	}
+	}*/
 
-	@Override
+	//@Override
 	public String loginFromServer(String username, String password)
 			throws IOException, XmlPullParserException {
-		SimosSoapServices services = new SimosSoapServices(this._context);
+		//SimosSoapServices services = new SimosSoapServices(this._context);
+		SimosSoapServices services = new SimosSoapServices(activity);
 		return services.Login(username, password);
 	}
 
-	@Override
+	//@Override
 	public Account getStoredAccount(String userLogin, String password) {
 		return null;
 	}
 
-	@Override
+	//@Override
 	public Account getStoredAccount() {
 		Dao<Account, String> dao;
 		try {
@@ -48,7 +57,7 @@ public class LoginServiceImpl implements LoginService {
 		return null;
 	}
 
-	@Override
+	//@Override
 	public int storeAccount(Account account) {
 		Dao<Account, String> dao;
 		try {
@@ -63,7 +72,7 @@ public class LoginServiceImpl implements LoginService {
 
 	public DBHelper getHelper() {
 		if (this.dbhelper == null) {
-			this.dbhelper = OpenHelperManager.getHelper(this._context,
+			this.dbhelper = OpenHelperManager.getHelper(activity, //this._context,
 					DBHelper.class);
 		}
 		return this.dbhelper;

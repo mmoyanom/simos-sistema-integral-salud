@@ -43,6 +43,9 @@
     <string name="app_name">simos</string>
     <string name="action_settings">Settings</string>
     <string name="main_menu">Menú principal</string>
+    
+    <string name="title_section1">Medicamentos</string>
+    <string name="title_section2">Insumos</string>
     <!--  -->
     
     
@@ -52,6 +55,20 @@
     <string name="title_activity_anexo01">Anexo01Activity</string>
     <string name="title_activity_annx02">Annx02Activity</string>
 
+    
+    <string-array name="array_services">
+        <item>Consulta</item>
+        <item>Medicamentos</item>
+		<item>Insumos</item>
+		<item>Examenes auxiliares</item>
+		<item>Procedimientos de apoyo al diagnóstico</item>
+		<item>Traslado de emergencia</item>
+		<item>Alimentación (En caso de traslados por emergencia)</item>
+		<item>Tomografía</item>
+		<item>Procedimientos especiales</item>
+		<item>Resonancia magnética</item>
+		<item>Otros</item>
+    </string-array>
     
     <string name="country_prompt">Choose a country</string>
     <string-array name="country_arrays">
