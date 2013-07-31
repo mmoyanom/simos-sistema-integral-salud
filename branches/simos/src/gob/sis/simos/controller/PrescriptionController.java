@@ -14,6 +14,10 @@ public class PrescriptionController {
 	@Inject
 	protected PrescriptionServiceImpl service;
 	
+	public List<Medicamento> buscarMedicamento(String text){
+		return service.buscarMedicamento(text);
+	}
+	
 	public List<Medicamento> getMedicamentos(){
 		return service.getListaMedicamento();
 	}

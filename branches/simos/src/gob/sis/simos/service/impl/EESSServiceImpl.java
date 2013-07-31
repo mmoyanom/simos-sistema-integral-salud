@@ -22,8 +22,9 @@ public class EESSServiceImpl{// implements EESSService {
 	
 	//private Context _context;
 	private DBHelper dbhelper;
+	
 	@Inject
-	private EESSListActivity activity;
+	private Context context;
 	
 	/*@Override
 	public void setContext(Context context) {
@@ -44,7 +45,7 @@ public class EESSServiceImpl{// implements EESSService {
 
 	public DBHelper getHelper() {
 		if (this.dbhelper == null) {
-			this.dbhelper = OpenHelperManager.getHelper(activity, //this._context,
+			this.dbhelper = OpenHelperManager.getHelper(this.context, //this._context,
 					DBHelper.class);
 		}
 		return this.dbhelper;

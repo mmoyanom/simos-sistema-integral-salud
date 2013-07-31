@@ -1,8 +1,10 @@
 package gob.sis.simos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import roboguice.activity.RoboActivity;
 
 public class InquestPayment03Activity extends RoboActivity {
@@ -22,6 +24,12 @@ public class InquestPayment03Activity extends RoboActivity {
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.person_information_menu, menu);
 		return super.onCreateOptionsMenu(menu);
-		
+	}
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		Intent i = new Intent(this, InquestPrescriptionActivity.class);
+		this.startActivity(i);
+		return true;
 	}
 }

@@ -2,9 +2,11 @@ package gob.sis.simos;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -47,8 +49,14 @@ public class InquestPaymentActivity extends RoboActivity implements OnCheckedCha
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.person_information_menu, menu);
-	    this.menu = menu;
 		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		Intent i = new Intent(this, InquestPayment02Activity.class);
+		this.startActivity(i);
+		return true;
 	}
 
 	@Override

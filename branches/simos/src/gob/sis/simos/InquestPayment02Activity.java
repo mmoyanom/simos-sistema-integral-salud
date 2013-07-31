@@ -1,16 +1,17 @@
 package gob.sis.simos;
 
-import android.opengl.Visibility;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectView;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import roboguice.activity.RoboActivity;
-import roboguice.inject.InjectView;
 
 public class InquestPayment02Activity extends RoboActivity implements OnCheckedChangeListener {
 	
@@ -38,12 +39,19 @@ public class InquestPayment02Activity extends RoboActivity implements OnCheckedC
 	    inflater.inflate(R.menu.person_information_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		Intent i = new Intent(this, InquestPayment03Activity.class);
+		this.startActivity(i);
+		return true;
+	}
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		RadioButton r = (RadioButton) this.findViewById(checkedId);
 		int index = this._rgPaymentLocation.indexOfChild(r);
-		if(index == 0){
+		if(index == 0 || index == 4){
 			this.separatorLayoutTicket.setVisibility(View.VISIBLE);
 			this.layoutNroTicket.setVisibility(View.VISIBLE);
 		} else {

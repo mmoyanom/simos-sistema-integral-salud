@@ -12,6 +12,8 @@ import java.util.Calendar;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import roboguice.inject.ContextSingleton;
+
 import android.content.Context;
 import android.content.Intent;
 
@@ -19,20 +21,13 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-@Singleton
+@ContextSingleton
 public class LoginController {
 
-	@Inject
-	protected LoginService _service;
-	//protected LoginServiceImpl _service; 
-	@Inject
-	protected Gson gson;
-	private Context _context;
-
-	public void setContext(Context context) {
-		this._context = context;
-		//this._service.setContext(this._context);
-	}
+	@Inject private Context _context;
+	@Inject protected LoginServiceImpl _service;
+	@Inject protected Gson gson;
+	
 	
 	public boolean isActiveSession(){
 		if(AppSession.get(AppSession.ACCOUNT) == null){
