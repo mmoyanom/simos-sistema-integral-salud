@@ -2,14 +2,11 @@ package gob.sis.simos;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
-import android.app.ActionBar;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
