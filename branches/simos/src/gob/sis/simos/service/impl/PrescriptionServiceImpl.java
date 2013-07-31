@@ -1,13 +1,12 @@
 package gob.sis.simos.service.impl;
 
+import gob.sis.simos.entity.Insumos;
+import gob.sis.simos.entity.Medicamento;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import roboguice.inject.ContextSingleton;
-
-import gob.sis.simos.entity.Insumos;
-import gob.sis.simos.entity.Medicamento;
-import gob.sis.simos.service.PrescriptionService;
 
 @ContextSingleton
 public class PrescriptionServiceImpl { // implements PrescriptionService {

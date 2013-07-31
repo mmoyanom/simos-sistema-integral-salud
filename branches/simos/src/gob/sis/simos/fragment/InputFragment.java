@@ -2,6 +2,7 @@ package gob.sis.simos.fragment;
 
 import gob.sis.simos.R;
 import gob.sis.simos.adapters.InputListAdapter;
+import gob.sis.simos.controller.PrescriptionController;
 import gob.sis.simos.entity.Insumos;
 import gob.sis.simos.service.impl.PrescriptionServiceImpl;
 
@@ -23,7 +24,8 @@ public class InputFragment extends RoboFragment implements OnItemClickListener {
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
 	@Inject
-	protected PrescriptionServiceImpl service;
+	protected PrescriptionController controller;
+	//protected PrescriptionServiceImpl service;
 
 
 	@Override
@@ -31,7 +33,7 @@ public class InputFragment extends RoboFragment implements OnItemClickListener {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_prescription01,container, false);
 		
-		List<Insumos> items = service.getListaInsumos();
+		List<Insumos> items = controller.getInsumos();
 		
 		ListView lstPrescription = (ListView)rootView.findViewById(R.id.lst_prescription);
 		InputListAdapter adapter = new InputListAdapter(getActivity().getBaseContext(), R.layout.adapter_selectable_input, items);

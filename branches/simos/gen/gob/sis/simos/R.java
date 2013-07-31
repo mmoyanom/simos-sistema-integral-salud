@@ -13,20 +13,25 @@ public final class R {
         public static final int animation_leave=0x7f040001;
     }
     public static final class array {
-        public static final int country_arrays=0x7f090003;
-        public static final int entrega_arrays=0x7f090004;
-        public static final int main_menu_desc=0x7f090001;
+        public static final int array_services=0x7f0a0003;
+        public static final int country_arrays=0x7f0a0004;
+        public static final int entrega_arrays=0x7f0a0005;
+        public static final int main_menu_desc=0x7f0a0001;
         /**  Main Menu Options titles 
          */
-        public static final int main_menu_titles=0x7f090000;
-        public static final int main_menu_values=0x7f090002;
-        public static final int receta_arrays=0x7f090005;
+        public static final int main_menu_titles=0x7f0a0000;
+        public static final int main_menu_values=0x7f0a0002;
+        public static final int pref_example_list_titles=0x7f0a0007;
+        public static final int pref_example_list_values=0x7f0a0008;
+        public static final int pref_sync_frequency_titles=0x7f0a0009;
+        public static final int pref_sync_frequency_values=0x7f0a000a;
+        public static final int receta_arrays=0x7f0a0006;
     }
     public static final class attr {
     }
     public static final class color {
-        public static final int actionButton_color=0x7f070001;
-        public static final int item_color=0x7f070000;
+        public static final int actionButton_color=0x7f080001;
+        public static final int item_color=0x7f080000;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -35,8 +40,8 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f060000;
-        public static final int activity_vertical_margin=0x7f060001;
+        public static final int activity_horizontal_margin=0x7f070000;
+        public static final int activity_vertical_margin=0x7f070001;
     }
     public static final class drawable {
         public static final int actionbar_item=0x7f020000;
@@ -51,95 +56,117 @@ public final class R {
         public static final int container_rounded=0x7f020009;
         public static final int gray_button=0x7f02000a;
         public static final int ic_launcher=0x7f02000b;
-        public static final int login_back=0x7f02000c;
-        public static final int logo_minsa=0x7f02000d;
-        public static final int off=0x7f02000e;
-        public static final int on=0x7f02000f;
-        public static final int prescription=0x7f020010;
-        public static final int red_button=0x7f020011;
-        public static final int rounded_annex_spinner=0x7f020012;
-        public static final int rounded_annex_textfield=0x7f020013;
-        public static final int rounded_annex_title=0x7f020014;
-        public static final int rounded_button_firma_red=0x7f020015;
-        public static final int rounded_label_observaciones=0x7f020016;
-        public static final int rounded_login_button=0x7f020017;
-        public static final int rounded_password_edittext=0x7f020018;
-        public static final int rounded_textfield_observaciones=0x7f020019;
-        public static final int rounded_user_edittext=0x7f02001a;
-        public static final int sis=0x7f02001b;
-        public static final int textarea=0x7f02001c;
+        public static final int ic_menu_close_clear_cancel=0x7f02000c;
+        public static final int ic_menu_mark=0x7f02000d;
+        public static final int ic_menu_moreoverflow_normal_holo_light=0x7f02000e;
+        public static final int login_back=0x7f02000f;
+        public static final int logo_minsa=0x7f020010;
+        public static final int off=0x7f020011;
+        public static final int on=0x7f020012;
+        public static final int prescription=0x7f020013;
+        public static final int red_button=0x7f020014;
+        public static final int rounded_annex_spinner=0x7f020015;
+        public static final int rounded_annex_textfield=0x7f020016;
+        public static final int rounded_annex_title=0x7f020017;
+        public static final int rounded_button_firma_red=0x7f020018;
+        public static final int rounded_label_observaciones=0x7f020019;
+        public static final int rounded_login_button=0x7f02001a;
+        public static final int rounded_password_edittext=0x7f02001b;
+        public static final int rounded_textfield_observaciones=0x7f02001c;
+        public static final int rounded_user_edittext=0x7f02001d;
+        public static final int sis=0x7f02001e;
+        public static final int textarea=0x7f02001f;
     }
     public static final class id {
-        public static final int Toplabel=0x7f0c003f;
-        public static final int action_next=0x7f0c0045;
-        public static final int action_settings=0x7f0c0043;
-        public static final int bottomDescription=0x7f0c003b;
-        public static final int btnLogin=0x7f0c002a;
-        public static final int btn_ok=0x7f0c003d;
-        public static final int button1=0x7f0c000f;
-        public static final int button2=0x7f0c0039;
-        public static final int editText1=0x7f0c0000;
-        public static final int editText2=0x7f0c0005;
-        public static final int editText3=0x7f0c0037;
-        public static final int editText4=0x7f0c0038;
-        public static final int imageView1=0x7f0c0027;
-        public static final int itemRootLayout=0x7f0c0041;
-        public static final int layoutDevoluciones=0x7f0c001d;
-        public static final int layoutDispensacion=0x7f0c0013;
-        public static final int layoutRG1=0x7f0c0015;
-        public static final int layoutRG2=0x7f0c001b;
-        public static final int layoutReclamo=0x7f0c0021;
-        public static final int layout_reason=0x7f0c0035;
-        public static final int lbl_document_type=0x7f0c002d;
-        public static final int lbl_genere=0x7f0c002f;
-        public static final int lbl_have_reference=0x7f0c0032;
-        public static final int lbl_id_number=0x7f0c002e;
-        public static final int lbl_identification=0x7f0c002c;
-        public static final int lbl_patient=0x7f0c0030;
-        public static final int lbl_reason=0x7f0c0036;
-        public static final int lbl_relationship=0x7f0c0031;
-        public static final int linearLayout0=0x7f0c0001;
-        public static final int linearLayout04=0x7f0c0010;
-        public static final int linearLayout1=0x7f0c0007;
-        public static final int linearLayout2=0x7f0c0008;
-        public static final int linearLayout3=0x7f0c0004;
-        public static final int list_task_diary=0x7f0c003c;
-        public static final int lstMainMenu=0x7f0c002b;
-        public static final int lst_eess=0x7f0c0024;
-        public static final int lst_inquest=0x7f0c0025;
-        public static final int ly_01=0x7f0c001f;
-        public static final int menu_new_form=0x7f0c0044;
-        public static final int password=0x7f0c0029;
-        public static final int radioGroup=0x7f0c0040;
-        public static final int radioGroup1=0x7f0c0014;
-        public static final int radioGroup2=0x7f0c001a;
-        public static final int radioGroup3=0x7f0c001e;
-        public static final int radioGroup4=0x7f0c0022;
-        public static final int radioGroup5=0x7f0c0023;
-        public static final int rg_refence=0x7f0c0033;
-        public static final int rootLayout=0x7f0c0026;
-        public static final int rootLayout_answer_type_01=0x7f0c003e;
-        public static final int scroller=0x7f0c0012;
-        public static final int separator_reason=0x7f0c0034;
-        public static final int spinner1=0x7f0c0002;
-        public static final int spinner10=0x7f0c0020;
-        public static final int spinner2=0x7f0c000e;
-        public static final int spinner3=0x7f0c000a;
-        public static final int spinner4=0x7f0c000c;
-        public static final int spinner5=0x7f0c0011;
-        public static final int spinner6=0x7f0c0016;
-        public static final int spinner7=0x7f0c0017;
-        public static final int spinner8=0x7f0c0018;
-        public static final int textView1=0x7f0c000d;
-        public static final int textView2=0x7f0c0009;
-        public static final int textView3=0x7f0c000b;
-        public static final int textView4=0x7f0c0003;
-        public static final int textView5=0x7f0c0006;
-        public static final int textbox=0x7f0c0042;
-        public static final int topTitle=0x7f0c003a;
-        public static final int txtCompPago=0x7f0c001c;
-        public static final int txtMonto=0x7f0c0019;
-        public static final int username=0x7f0c0028;
+        public static final int Toplabel=0x7f0d004f;
+        public static final int action_forgot_password=0x7f0d0058;
+        public static final int action_more=0x7f0d0057;
+        public static final int action_next=0x7f0d0055;
+        public static final int action_search=0x7f0d0056;
+        public static final int action_settings=0x7f0d0053;
+        public static final int bottomDescription=0x7f0d0045;
+        public static final int btnLogin=0x7f0d002a;
+        public static final int btn_add=0x7f0d0040;
+        public static final int btn_cancel=0x7f0d004a;
+        public static final int btn_comercial=0x7f0d004c;
+        public static final int btn_generico=0x7f0d004b;
+        public static final int btn_ok=0x7f0d0049;
+        public static final int button1=0x7f0d000f;
+        public static final int button2=0x7f0d0043;
+        public static final int checkBox1=0x7f0d0047;
+        public static final int editText1=0x7f0d0000;
+        public static final int editText2=0x7f0d0005;
+        public static final int editText3=0x7f0d0041;
+        public static final int editText4=0x7f0d0042;
+        public static final int imageView1=0x7f0d0027;
+        public static final int itemRootLayout=0x7f0d0051;
+        public static final int layoutDevoluciones=0x7f0d001d;
+        public static final int layoutDispensacion=0x7f0d0013;
+        public static final int layoutRG1=0x7f0d0015;
+        public static final int layoutRG2=0x7f0d001b;
+        public static final int layoutReclamo=0x7f0d0021;
+        public static final int layout_amount=0x7f0d0033;
+        public static final int layout_nro_ticket=0x7f0d0031;
+        public static final int layout_reason=0x7f0d003c;
+        public static final int lbl_document_type=0x7f0d0035;
+        public static final int lbl_genere=0x7f0d002d;
+        public static final int lbl_have_reference=0x7f0d0039;
+        public static final int lbl_id_number=0x7f0d0036;
+        public static final int lbl_identification=0x7f0d0034;
+        public static final int lbl_patient=0x7f0d0037;
+        public static final int lbl_reason=0x7f0d003d;
+        public static final int lbl_relationship=0x7f0d0038;
+        public static final int linearLayout0=0x7f0d0001;
+        public static final int linearLayout04=0x7f0d0010;
+        public static final int linearLayout1=0x7f0d0007;
+        public static final int linearLayout2=0x7f0d0008;
+        public static final int linearLayout3=0x7f0d0004;
+        public static final int list_task_diary=0x7f0d0048;
+        public static final int lstMainMenu=0x7f0d002b;
+        public static final int lst_eess=0x7f0d0024;
+        public static final int lst_inquest=0x7f0d0025;
+        public static final int lst_prescription=0x7f0d004d;
+        public static final int lst_result=0x7f0d003e;
+        public static final int ly_01=0x7f0d001f;
+        public static final int menu_new_form=0x7f0d0054;
+        public static final int pager=0x7f0d003f;
+        public static final int password=0x7f0d0029;
+        public static final int radioGroup=0x7f0d0050;
+        public static final int radioGroup1=0x7f0d0014;
+        public static final int radioGroup2=0x7f0d001a;
+        public static final int radioGroup3=0x7f0d001e;
+        public static final int radioGroup4=0x7f0d0022;
+        public static final int radioGroup5=0x7f0d0023;
+        public static final int rg_have_ticket=0x7f0d002e;
+        public static final int rg_payment_location=0x7f0d002f;
+        public static final int rg_refence=0x7f0d003a;
+        public static final int rg_services=0x7f0d002c;
+        public static final int rootLayout=0x7f0d0026;
+        public static final int rootLayout_answer_type_01=0x7f0d004e;
+        public static final int scroller=0x7f0d0012;
+        public static final int separator_layout_amount=0x7f0d0032;
+        public static final int separator_layout_nro_ticket=0x7f0d0030;
+        public static final int separator_reason=0x7f0d003b;
+        public static final int spinner1=0x7f0d0002;
+        public static final int spinner10=0x7f0d0020;
+        public static final int spinner2=0x7f0d000e;
+        public static final int spinner3=0x7f0d000a;
+        public static final int spinner4=0x7f0d000c;
+        public static final int spinner5=0x7f0d0011;
+        public static final int spinner6=0x7f0d0016;
+        public static final int spinner7=0x7f0d0017;
+        public static final int spinner8=0x7f0d0018;
+        public static final int text=0x7f0d0046;
+        public static final int textView1=0x7f0d000d;
+        public static final int textView2=0x7f0d0009;
+        public static final int textView3=0x7f0d000b;
+        public static final int textView4=0x7f0d0003;
+        public static final int textView5=0x7f0d0006;
+        public static final int textbox=0x7f0d0052;
+        public static final int topTitle=0x7f0d0044;
+        public static final int txtCompPago=0x7f0d001c;
+        public static final int txtMonto=0x7f0d0019;
+        public static final int username=0x7f0d0028;
     }
     public static final class layout {
         public static final int activity_annxsecond=0x7f030000;
@@ -149,75 +176,117 @@ public final class R {
         public static final int activity_inquest=0x7f030004;
         public static final int activity_login=0x7f030005;
         public static final int activity_main_menu=0x7f030006;
-        public static final int activity_person_information=0x7f030007;
-        public static final int activity_settings=0x7f030008;
-        public static final int adapter_eess_list=0x7f030009;
-        public static final int adapter_inquest_list=0x7f03000a;
-        public static final int adapter_main_menu=0x7f03000b;
-        public static final int dialog_diary_task=0x7f03000c;
-        public static final int dynamic=0x7f03000d;
-        public static final int item_answer_type_01=0x7f03000e;
-        public static final int item_dynamic_question=0x7f03000f;
-        public static final int item_spinner=0x7f030010;
+        public static final int activity_payment_inquest_01=0x7f030007;
+        public static final int activity_payment_inquest_02=0x7f030008;
+        public static final int activity_payment_inquest_03=0x7f030009;
+        public static final int activity_person_information=0x7f03000a;
+        public static final int activity_prescription_add=0x7f03000b;
+        public static final int activity_prescription_pager=0x7f03000c;
+        public static final int activity_settings=0x7f03000d;
+        public static final int adapter_eess_list=0x7f03000e;
+        public static final int adapter_inquest_list=0x7f03000f;
+        public static final int adapter_main_menu=0x7f030010;
+        public static final int adapter_searchlist_medicine=0x7f030011;
+        public static final int adapter_selectable_input=0x7f030012;
+        public static final int adapter_selectable_medicine=0x7f030013;
+        public static final int dialog_diary_task=0x7f030014;
+        public static final int dialog_enter_quantity=0x7f030015;
+        public static final int dialog_prescription_type=0x7f030016;
+        public static final int dynamic=0x7f030017;
+        public static final int fragment_prescription01=0x7f030018;
+        public static final int item_answer_type_01=0x7f030019;
+        public static final int item_dynamic_question=0x7f03001a;
+        public static final int item_spinner=0x7f03001b;
     }
     public static final class menu {
-        public static final int anexo01=0x7f0b0000;
-        public static final int annx02=0x7f0b0001;
-        public static final int login=0x7f0b0002;
-        public static final int person_information_menu=0x7f0b0003;
-        public static final int settings=0x7f0b0004;
+        public static final int anexo01=0x7f0c0000;
+        public static final int annx02=0x7f0c0001;
+        public static final int login=0x7f0c0002;
+        public static final int person_information_menu=0x7f0c0003;
+        public static final int prescription_add_menu=0x7f0c0004;
+        public static final int prescription_menu=0x7f0c0005;
+        public static final int settings=0x7f0c0006;
+        public static final int test_login=0x7f0c0007;
     }
     public static final class raw {
-        public static final int simos=0x7f050000;
+        public static final int simos=0x7f060000;
     }
     public static final class string {
-        public static final int action_settings=0x7f08000c;
-        public static final int activity_login_btn_login_text=0x7f080001;
+        public static final int action_forgot_password=0x7f09001c;
+        public static final int action_settings=0x7f09000c;
+        public static final int action_sign_in_register=0x7f09001a;
+        public static final int action_sign_in_short=0x7f09001b;
+        public static final int activity_login_btn_login_text=0x7f090001;
         /**  activity_login 
          */
-        public static final int activity_login_logo_content_description=0x7f080000;
-        public static final int activity_login_password_hint=0x7f080003;
-        public static final int activity_login_username_hint=0x7f080002;
+        public static final int activity_login_logo_content_description=0x7f090000;
+        public static final int activity_login_password_hint=0x7f090003;
+        public static final int activity_login_username_hint=0x7f090002;
         /**  titles 
          */
-        public static final int app_name=0x7f08000b;
+        public static final int app_name=0x7f09000b;
         /**   
  Button Text 
          */
-        public static final int btn_text_OK=0x7f08000a;
-        public static final int country_prompt=0x7f080012;
-        public static final int entrega_prompt=0x7f080013;
+        public static final int btn_text_OK=0x7f09000a;
+        public static final int country_prompt=0x7f090014;
+        public static final int entrega_prompt=0x7f090015;
+        public static final int error_field_required=0x7f090021;
+        public static final int error_incorrect_password=0x7f090020;
+        public static final int error_invalid_email=0x7f09001e;
+        public static final int error_invalid_password=0x7f09001f;
         /**   
          */
-        public static final int hello_world=0x7f08000e;
-        public static final int main_menu=0x7f08000d;
-        public static final int msg_cancelled_by_user=0x7f080006;
-        public static final int msg_login_failed=0x7f080008;
-        public static final int msg_login_succeeded=0x7f080009;
-        public static final int msg_login_user_password_invalid=0x7f080007;
+        public static final int hello_world=0x7f090010;
+        public static final int login_progress_signing_in=0x7f09001d;
+        public static final int main_menu=0x7f09000d;
+        public static final int msg_cancelled_by_user=0x7f090006;
+        public static final int msg_login_failed=0x7f090008;
+        public static final int msg_login_succeeded=0x7f090009;
+        public static final int msg_login_user_password_invalid=0x7f090007;
         /**  Messages 
          */
-        public static final int msg_no_internet_connection=0x7f080004;
-        public static final int msg_please_wait=0x7f080005;
-        public static final int receta_prompt=0x7f080014;
-        public static final int title_activity_anexo01=0x7f080010;
-        public static final int title_activity_annx02=0x7f080011;
-        public static final int title_activity_settings=0x7f08000f;
+        public static final int msg_no_internet_connection=0x7f090004;
+        public static final int msg_please_wait=0x7f090005;
+        public static final int pref_default_display_name=0x7f090027;
+        public static final int pref_description_social_recommendations=0x7f090025;
+        /**  Example settings for Data & Sync 
+         */
+        public static final int pref_header_data_sync=0x7f090029;
+        /**  Strings related to Settings 
+ Example General settings 
+         */
+        public static final int pref_header_general=0x7f090023;
+        /**  Example settings for Notifications 
+         */
+        public static final int pref_header_notifications=0x7f09002c;
+        public static final int pref_ringtone_silent=0x7f09002f;
+        public static final int pref_title_add_friends_to_messages=0x7f090028;
+        public static final int pref_title_display_name=0x7f090026;
+        public static final int pref_title_new_message_notifications=0x7f09002d;
+        public static final int pref_title_ringtone=0x7f09002e;
+        public static final int pref_title_social_recommendations=0x7f090024;
+        public static final int pref_title_sync_frequency=0x7f09002a;
+        public static final int pref_title_system_sync_settings=0x7f09002b;
+        public static final int pref_title_vibrate=0x7f090030;
+        /**  Strings related to login 
+         */
+        public static final int prompt_email=0x7f090018;
+        public static final int prompt_password=0x7f090019;
+        public static final int receta_prompt=0x7f090016;
+        public static final int title_activity_anexo01=0x7f090012;
+        public static final int title_activity_annx02=0x7f090013;
+        public static final int title_activity_settings=0x7f090011;
+        public static final int title_activity_test_login=0x7f090017;
+        public static final int title_activity_test_settings=0x7f090022;
+        public static final int title_section1=0x7f09000e;
+        public static final int title_section2=0x7f09000f;
     }
     public static final class style {
-        public static final int ActionBar_Style=0x7f0a0013;
-        public static final int Annex02ActionBar=0x7f0a000e;
-        public static final int Annx02Theme=0x7f0a0002;
+        public static final int ActionBar_Style=0x7f0b0014;
+        public static final int Annex02ActionBar=0x7f0b000e;
+        public static final int Annx02Theme=0x7f0b0002;
         /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
@@ -229,37 +298,43 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0a0000;
+        public static final int AppBaseTheme=0x7f0b0000;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f0a0001;
-        public static final int CustomActionBarTheme=0x7f0a0010;
+        public static final int AppTheme=0x7f0b0001;
+        public static final int CustomActionBarTheme=0x7f0b0010;
         /**  the theme applied to the application or activity 
  other activity and action bar styles here 
  the theme applied to the application or activity 
  other activity and action bar styles here 
          */
-        public static final int CustomActivityTheme=0x7f0a000c;
+        public static final int CustomActivityTheme=0x7f0b000c;
+        public static final int LoginFormContainer=0x7f0b0012;
         /**  style for the action bar backgrounds 
  general styles for the action bar 
  style for the action bar backgrounds 
  general styles for the action bar 
          */
-        public static final int MyActionBar=0x7f0a000d;
-        public static final int Theme01=0x7f0a0012;
-        public static final int TitleTextStyle=0x7f0a0011;
-        public static final int annex02_spinner=0x7f0a0007;
-        public static final int annex02_switch=0x7f0a0009;
-        public static final int annex02_textfield=0x7f0a0008;
-        public static final int annex02_title=0x7f0a000a;
-        public static final int button_style_02=0x7f0a000b;
-        public static final int edittext=0x7f0a0004;
-        public static final int login_activity_style=0x7f0a0003;
-        public static final int login_button=0x7f0a0005;
-        public static final int settings_label=0x7f0a0006;
-        public static final int titleTextStyle=0x7f0a000f;
+        public static final int MyActionBar=0x7f0b000d;
+        public static final int Theme01=0x7f0b0013;
+        public static final int TitleTextStyle=0x7f0b0011;
+        public static final int annex02_spinner=0x7f0b0007;
+        public static final int annex02_switch=0x7f0b0009;
+        public static final int annex02_textfield=0x7f0b0008;
+        public static final int annex02_title=0x7f0b000a;
+        public static final int button_style_02=0x7f0b000b;
+        public static final int edittext=0x7f0b0004;
+        public static final int login_activity_style=0x7f0b0003;
+        public static final int login_button=0x7f0b0005;
+        public static final int settings_label=0x7f0b0006;
+        public static final int titleTextStyle=0x7f0b000f;
+    }
+    public static final class xml {
+        public static final int pref_data_sync=0x7f050000;
+        public static final int pref_general=0x7f050001;
+        public static final int pref_headers=0x7f050002;
+        public static final int pref_notification=0x7f050003;
     }
 }

@@ -2,9 +2,7 @@ package gob.sis.simos.adapters;
 
 import gob.sis.simos.R;
 import gob.sis.simos.entity.Medicamento;
-
 import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class MedicineListAdapter extends ArrayAdapter<Medicamento>{
+public class MedicamentoListAdapter extends ArrayAdapter<Medicamento> {
 
 	private List<Medicamento> items;
 	
-	public MedicineListAdapter(Context context, int textViewResourceId,
+	public MedicamentoListAdapter(Context context, int textViewResourceId,
 			List<Medicamento> objects) {
 		super(context, textViewResourceId, objects);
 		this.items = objects;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
@@ -29,9 +27,9 @@ public class MedicineListAdapter extends ArrayAdapter<Medicamento>{
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater) this.getContext()
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.adapter_selectable_medicine, null);
+			v = vi.inflate(R.layout.adapter_searchlist_medicine, null);
 			holder = new ViewHolder();
-			holder.title = (TextView) v.findViewById(R.id.topTitle);
+			holder.title = (TextView) v.findViewById(R.id.text);
 			v.setTag(holder);
 		} else
 			holder = (ViewHolder) v.getTag();
@@ -46,4 +44,6 @@ public class MedicineListAdapter extends ArrayAdapter<Medicamento>{
 		public TextView title;
 	}
 	
+	
+
 }
