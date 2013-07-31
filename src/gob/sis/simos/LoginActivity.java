@@ -50,8 +50,6 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		this._controller.setContext(this);
-		
 		try {
 			if(!DBHelper.databaseExists()){
 				DBHelper.copyDataBase(this);

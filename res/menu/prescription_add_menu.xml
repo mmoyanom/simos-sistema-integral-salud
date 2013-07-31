@@ -6,11 +6,4 @@
           android:showAsAction="ifRoom|collapseActionView"
           android:actionViewClass="android.widget.SearchView">
     </item>
-    <!--<item
-        android:id="@+id/action_more" 
-        android:enabled="true" 
-        android:visible="true"
-        android:title="More"
-        android:icon="@drawable/ic_menu_moreoverflow_normal_holo_light"       
-        android:showAsAction="ifRoom|withText"></item>-->
 </menu>

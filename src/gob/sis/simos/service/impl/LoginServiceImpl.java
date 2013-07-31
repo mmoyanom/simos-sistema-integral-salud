@@ -1,12 +1,12 @@
 package gob.sis.simos.service.impl;
 
-import gob.sis.simos.LoginActivity;
 import gob.sis.simos.db.DBHelper;
 import gob.sis.simos.entity.Account;
-import gob.sis.simos.service.LoginService;
 import gob.sis.simos.soap.SimosSoapServices;
+
 import java.io.IOException;
 import java.sql.SQLException;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import roboguice.inject.ContextSingleton;

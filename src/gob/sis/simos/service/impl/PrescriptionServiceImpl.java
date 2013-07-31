@@ -14,6 +14,21 @@ public class PrescriptionServiceImpl { // implements PrescriptionService {
 	//@Override
 	public List<Medicamento> getListaMedicamento() {
 		List<Medicamento> items = new ArrayList<Medicamento>();
+		for(int i=0; i < 3; i++){
+			Medicamento m = new Medicamento();
+			m.setId(""+(i+1));
+			m.setName("Medicamento "+(i+1));
+			m.setDescription("Medida");
+			m.setPrescribed(3);
+			m.setCommited(2);
+			m.setCategory("Categoria");
+			items.add(m);
+		}
+		return items;
+	}
+	
+	public List<Medicamento> buscarMedicamento(String text) {
+		List<Medicamento> items = new ArrayList<Medicamento>();
 		for(int i=0; i < 10; i++){
 			Medicamento m = new Medicamento();
 			m.setId(""+(i+1));
