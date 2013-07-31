@@ -2,14 +2,17 @@ package gob.sis.simos;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
@@ -100,8 +103,15 @@ public class PersonInformationActivity extends RoboActivity implements OnChecked
 	    menuItemCreateCart.setActionView(tv);*/
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.person_information_menu, menu);
-	    
 		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		//Toast.makeText(this, "Click!", Toast.LENGTH_LONG).show();
+		Intent i = new Intent(this, InquestPaymentActivity.class);
+		this.startActivity(i);
+		return true;
 	}
 	
 }

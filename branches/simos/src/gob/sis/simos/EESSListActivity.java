@@ -1,22 +1,22 @@
 package gob.sis.simos;
 
-import java.util.List;
-
-import com.google.inject.Inject;
-
 import gob.sis.simos.adapters.EESSListAdapter;
 import gob.sis.simos.controller.EESSController;
 import gob.sis.simos.entity.EESS;
 import gob.sis.simos.ui.DialogDiaryTask;
+
+import java.util.List;
+
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
+import com.google.inject.Inject;
 
 public class EESSListActivity extends RoboActivity implements OnItemClickListener {
 
@@ -32,7 +32,7 @@ public class EESSListActivity extends RoboActivity implements OnItemClickListene
 
 		this.setContentView(R.layout.activity_eess_list);
 
-		this._controller.setContext(this);
+		//this._controller.setContext(this);
 
 		List<EESS> items = this._controller.getEESSList();
 		EESSListAdapter adapter = new EESSListAdapter(this,

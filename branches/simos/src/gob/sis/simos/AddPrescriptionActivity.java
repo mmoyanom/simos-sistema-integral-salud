@@ -38,7 +38,7 @@ public class AddPrescriptionActivity extends RoboActivity implements OnClickList
 		this.getActionBar().setDisplayShowHomeEnabled(false);
 		this.getActionBar().setIcon(R.drawable.ic_menu_close_clear_cancel);
 		
-		MedicamentoListAdapter adapter = new MedicamentoListAdapter(this, R.layout.adapter_searchlist_medicine, controller.getMedicamentos());
+		MedicamentoListAdapter adapter = new MedicamentoListAdapter(this, R.layout.adapter_searchlist_medicine, controller.buscarMedicamento(""));
 		this.lstResult.setAdapter(adapter);
 		this.lstResult.setOnItemClickListener(this);
 	}

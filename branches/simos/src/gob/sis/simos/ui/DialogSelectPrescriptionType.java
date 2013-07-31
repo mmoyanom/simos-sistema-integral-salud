@@ -8,8 +8,8 @@ import android.widget.Button;
 
 public class DialogSelectPrescriptionType extends Dialog implements android.view.View.OnClickListener{
 
-	private Button btnGenerico;
-	private Button btnComercial;
+	public Button btnGenerico;
+	public Button btnComercial;
 	
 	public DialogSelectPrescriptionType(Context context, int theme) {
 		super(context, theme);

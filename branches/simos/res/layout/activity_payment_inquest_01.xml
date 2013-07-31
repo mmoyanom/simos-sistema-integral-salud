@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_back"
+    android:background="@drawable/bg_rectangle_section"
     android:orientation="vertical" >
     
     <!-- <TextView 
@@ -18,10 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical"
-        android:background="@drawable/bg_rectangle_section">
+        android:orientation="vertical">
         <LinearLayout 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

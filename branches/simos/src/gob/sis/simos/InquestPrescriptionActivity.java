@@ -3,6 +3,7 @@ package gob.sis.simos;
 
 import gob.sis.simos.fragment.InputFragment;
 import gob.sis.simos.fragment.MedicineFragment;
+import gob.sis.simos.ui.DialogEnterQuantity;
 import gob.sis.simos.ui.DialogSelectPrescriptionType;
 
 import java.util.Locale;
@@ -12,6 +13,7 @@ import roboguice.inject.InjectView;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,10 +22,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class InquestPrescriptionActivity extends RoboFragmentActivity
  implements ActionBar.TabListener, OnClickListener {
@@ -34,6 +38,8 @@ public class InquestPrescriptionActivity extends RoboFragmentActivity
 	
 	@InjectView(R.id.btn_add)
 	protected Button btnAdd;
+	
+	DialogSelectPrescriptionType dialog;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -81,8 +87,20 @@ public class InquestPrescriptionActivity extends RoboFragmentActivity
 	}
 	
 	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		Toast.makeText(this, "Encuesta guardada con éxito!", Toast.LENGTH_SHORT).show();
+		Intent i = new Intent(this, PersonInformationActivity.class);
+		this.startActivity(i);
+		return true;
+	}
+	
+	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
+		if(tab.getPosition() == 0){
+			this.btnAdd.setText("Agregar medicamento");
+		} else if(tab.getPosition() == 1){
+			this.btnAdd.setText("Agregar insumo");
+		}
 		mViewPager.setCurrentItem(tab.getPosition());
 	}
 
@@ -176,8 +194,24 @@ public class InquestPrescriptionActivity extends RoboFragmentActivity
 
 	@Override
 	public void onClick(View v) {
-		DialogSelectPrescriptionType dialog = new DialogSelectPrescriptionType(this);
-		dialog.setTitle("Agregar");
-		dialog.show();
+		if(v == this.btnAdd){
+			dialog = new DialogSelectPrescriptionType(this);
+			dialog.setTitle(btnAdd.getText());
+			dialog.btnComercial.setOnClickListener(this);
+			dialog.btnGenerico.setOnClickListener(this);
+			dialog.show();
+		}else if (dialog != null){
+			if(v == dialog.btnComercial){
+				dialog.dismiss();
+				DialogEnterQuantity dialogQuantity = new DialogEnterQuantity(this);
+				dialogQuantity.setTitle("Comercial");
+				dialogQuantity.show();
+			}else if(v == dialog.btnGenerico){
+				dialog.dismiss();
+				Intent i = new Intent(this, AddPrescriptionActivity.class);
+				this.startActivity(i);
+			}
+		}
+		
 	}
 }
