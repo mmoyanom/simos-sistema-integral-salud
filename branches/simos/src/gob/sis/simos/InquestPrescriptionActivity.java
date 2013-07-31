@@ -3,7 +3,6 @@ package gob.sis.simos;
 
 import gob.sis.simos.fragment.InputFragment;
 import gob.sis.simos.fragment.MedicineFragment;
-import gob.sis.simos.service.impl.PrescriptionServiceImpl;
 import gob.sis.simos.ui.DialogSelectPrescriptionType;
 
 import java.util.Locale;
@@ -21,37 +20,26 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import com.google.inject.Inject;
 
 public class InquestPrescriptionActivity extends RoboFragmentActivity
  implements ActionBar.TabListener, OnClickListener {
 	
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
-	@Inject
-	protected PrescriptionServiceImpl service;
+	
 	
 	@InjectView(R.id.btn_add)
 	protected Button btnAdd;
-	//static MedicineFragment medicineFragment; 
-	
-	//private List<Medicamento> items;
-	//private static PrescriptionListAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);	
 		
 		this.setContentView(R.layout.activity_prescription_pager);
-		//items = service.getListaMedicamento();
-		
-		//adapter = new PrescriptionListAdapter(InquestPrescriptionActivity.this, R.layout.adapter_main_menu, items);
 		
 		this.btnAdd.setOnClickListener(this);
 		

@@ -3,7 +3,7 @@ package gob.sis.simos;
 import java.util.ArrayList;
 import java.util.List;
 
-import gob.sis.simos.adapters.InquestListAdapter;
+import gob.sis.simos.adapters.InquestSelectableListAdapter;
 import android.os.Bundle;
 import android.widget.ListView;
 import roboguice.activity.RoboActivity;
@@ -23,7 +23,7 @@ public class InquestListActivity extends RoboActivity {
 		List<String> items = new ArrayList<String>();
 		items.add("Primer formulario");
 		
-		InquestListAdapter adapter = new InquestListAdapter(this, R.layout.adapter_inquest_list, items);
+		InquestSelectableListAdapter adapter = new InquestSelectableListAdapter(this, R.layout.adapter_inquest_list, items);
 		this._lstInquest.setAdapter(adapter);
 	}
 	
