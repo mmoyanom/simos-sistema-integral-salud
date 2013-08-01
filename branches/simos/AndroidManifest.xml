@@ -22,10 +22,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Annx02Theme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         <activity
             android:name="gob.sis.simos.MainMenuActivity"
@@ -52,7 +49,7 @@
             android:theme="@style/Theme01" >
         </activity>
         <activity
-            android:name="gob.sis.simos.InquestPaymentActivity"
+            android:name="gob.sis.simos.InquestPaymentActivity00"
             android:label="Verificación de pagos"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
@@ -68,19 +65,27 @@
             android:label="Medicamentos/Insumos"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
-            
+        </activity>
+        <activity
+            android:name="gob.sis.simos.InquestMainActivity"
+            android:label="Encuesta"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme01" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         
         
-        
         <activity
-            android:name="gob.sis.simos.InquestPayment02Activity"
+            android:name="gob.sis.simos.InquestPayment01Activity"
             android:label="Verificación de pagos"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
         </activity>
         <activity
-            android:name="gob.sis.simos.InquestPayment03Activity"
+            android:name="gob.sis.simos.InquestPayment02Activity"
             android:label="Verificación de pagos"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >

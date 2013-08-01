@@ -27,7 +27,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class InquestPrescriptionActivity extends RoboFragmentActivity
  implements ActionBar.TabListener, OnClickListener {
@@ -40,6 +39,8 @@ public class InquestPrescriptionActivity extends RoboFragmentActivity
 	protected Button btnAdd;
 	
 	DialogSelectPrescriptionType dialog;
+	
+	public static final int ADD_PRESCRIPTION = 1;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -88,10 +89,13 @@ public class InquestPrescriptionActivity extends RoboFragmentActivity
 	
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		Toast.makeText(this, "Encuesta guardada con éxito!", Toast.LENGTH_SHORT).show();
-		Intent i = new Intent(this, PersonInformationActivity.class);
-		this.startActivity(i);
 		return true;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		this.setResult(RESULT_OK);
+		this.finish();
 	}
 	
 	@Override
@@ -116,8 +120,6 @@ public class InquestPrescriptionActivity extends RoboFragmentActivity
 		
 	}
 	
-	
-
 	
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -209,7 +211,7 @@ public class InquestPrescriptionActivity extends RoboFragmentActivity
 			}else if(v == dialog.btnGenerico){
 				dialog.dismiss();
 				Intent i = new Intent(this, AddPrescriptionActivity.class);
-				this.startActivity(i);
+				this.startActivityForResult(i, ADD_PRESCRIPTION);
 			}
 		}
 		
