@@ -27,6 +27,7 @@ public class InputFragment extends RoboFragment implements OnItemClickListener {
 	protected PrescriptionController controller;
 	//protected PrescriptionServiceImpl service;
 
+	public ListView lstPrescription;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,7 +36,7 @@ public class InputFragment extends RoboFragment implements OnItemClickListener {
 		
 		List<Insumos> items = controller.getInsumos();
 		
-		ListView lstPrescription = (ListView)rootView.findViewById(R.id.lst_prescription);
+		lstPrescription = (ListView)rootView.findViewById(R.id.lst_prescription);
 		InputListAdapter adapter = new InputListAdapter(getActivity().getBaseContext(), R.layout.adapter_selectable_input, items);
 		lstPrescription.setAdapter(adapter);
 		lstPrescription.setOnItemClickListener(this);

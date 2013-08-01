@@ -109,7 +109,7 @@ public class PersonInformationActivity extends RoboActivity implements OnChecked
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		//Toast.makeText(this, "Click!", Toast.LENGTH_LONG).show();
-		Intent i = new Intent(this, InquestPaymentActivity.class);
+		Intent i = new Intent(this, InquestPaymentActivity00.class);
 		this.startActivity(i);
 		return true;
 	}
