@@ -4,9 +4,6 @@ import gob.sis.simos.adapters.MedicamentoListAdapter;
 import gob.sis.simos.controller.PrescriptionController;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.ui.DialogEnterQuantity;
-
-import com.google.inject.Inject;
-
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.app.ActionBar.LayoutParams;
@@ -19,7 +16,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
+
+import com.google.inject.Inject;
 
 public class AddPrescriptionActivity extends RoboActivity implements OnClickListener, SearchView.OnQueryTextListener, OnItemClickListener {
 	
@@ -28,6 +26,8 @@ public class AddPrescriptionActivity extends RoboActivity implements OnClickList
 	
 	@InjectView(R.id.lst_result)
 	protected ListView lstResult;
+	
+	DialogEnterQuantity dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +56,19 @@ public class AddPrescriptionActivity extends RoboActivity implements OnClickList
 	    searchView.setIconifiedByDefault(false);
 	    searchView.setSubmitButtonEnabled(true);
 	    
-	    
 		return true;
 	}
 
 	@Override
 	public void onClick(View v) {
-		Toast.makeText(this, "Click", Toast.LENGTH_LONG).show();
+		if(dialog != null){
+			if(v == dialog.btnOK){
+				this.setResult(RESULT_OK);
+				this.finish();
+			} else if (v == dialog.btnCANCEL){
+				
+			}
+		}
 	}
 
 	@Override
@@ -82,9 +88,10 @@ public class AddPrescriptionActivity extends RoboActivity implements OnClickList
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		
 		Medicamento m = (Medicamento)this.lstResult.getItemAtPosition(position);
-		
-		DialogEnterQuantity dialog = new DialogEnterQuantity(this);
+		dialog = new DialogEnterQuantity(this);
 		dialog.setTitle(m.getName());
+		dialog.btnOK.setOnClickListener(this);
+		dialog.btnCANCEL.setOnClickListener(this);
 		dialog.show();
 	}
 

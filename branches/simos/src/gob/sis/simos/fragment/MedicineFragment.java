@@ -5,9 +5,12 @@ import gob.sis.simos.adapters.MedicineSelectableListAdapter;
 import gob.sis.simos.controller.PrescriptionController;
 import gob.sis.simos.entity.Medicamento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import roboguice.fragment.RoboFragment;
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.ListView;
 
 import com.google.inject.Inject;
 
+@ContentView(R.layout.fragment_prescription01)
 public class MedicineFragment extends RoboFragment implements OnItemClickListener {
 
 	
@@ -25,25 +29,23 @@ public class MedicineFragment extends RoboFragment implements OnItemClickListene
 
 	@Inject
 	protected PrescriptionController controller;
-	//protected PrescriptionServiceImpl service;
+	
+	public ListView lstPrescription;
 
+	public MedicineSelectableListAdapter adapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_prescription01, container, false);
 		
-		List<Medicamento> items = controller.getMedicamentos();
+		List<Medicamento> items =  new ArrayList<Medicamento>();//controller.getMedicamentos();
 		
-		ListView lstPrescription = (ListView)rootView.findViewById(R.id.lst_prescription);
-		MedicineSelectableListAdapter adapter = new MedicineSelectableListAdapter(getActivity().getBaseContext(), R.layout.adapter_selectable_medicine, items);
+		lstPrescription = (ListView)rootView.findViewById(R.id.lst_prescription);
+		adapter = new MedicineSelectableListAdapter(getActivity().getBaseContext(), R.layout.adapter_selectable_medicine, items);
 		lstPrescription.setAdapter(adapter);
 		lstPrescription.setOnItemClickListener(this);
 		
-		/*TextView dummyTextView = (TextView) rootView
-				.findViewById(R.id.section_label);
-		dummyTextView.setText(Integer.toString(getArguments().getInt(
-				ARG_SECTION_NUMBER)));*/
 		return rootView;
 	}
 
