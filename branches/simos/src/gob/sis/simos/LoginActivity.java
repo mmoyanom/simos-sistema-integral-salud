@@ -98,13 +98,8 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 	}
 	
 	private void doLogin(){
-		if(this.checkInternetConnection()){
-			this._loginTask = new LoginTask();
-			this._loginTask.execute();
-		} else {
-			this.showToastMessage(R.string.msg_no_internet_connection);
-		    return;
-		}
+		this._loginTask = new LoginTask();
+		this._loginTask.execute();
 	}
 	
 	private void showToastMessage(int textResource){
@@ -191,10 +186,6 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 						LoginActivity.this._password.setText("");
 						LoginActivity.this.showToastMessage(R.string.msg_login_succeeded);
 						LoginActivity.this._controller.startActivity(i);
-						/*Intent intent = new Intent();
-						intent.putExtra("data", "data");
-						LoginActivity.this.setResult(1,intent);
-						LoginActivity.this.finish();*/
 						break;
 					case LOGIN_INVALID:
 						this._progressDialog.dismiss();
