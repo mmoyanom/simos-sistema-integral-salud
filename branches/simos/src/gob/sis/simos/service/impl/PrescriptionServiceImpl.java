@@ -1,6 +1,6 @@
 package gob.sis.simos.service.impl;
 
-import gob.sis.simos.entity.Insumos;
+import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 
 import java.util.ArrayList;
@@ -43,10 +43,10 @@ public class PrescriptionServiceImpl { // implements PrescriptionService {
 	}
 
 	//@Override
-	public List<Insumos> getListaInsumos() {
-		List<Insumos> items = new ArrayList<Insumos>();
+	public List<Insumo> getListaInsumos() {
+		List<Insumo> items = new ArrayList<Insumo>();
 		for(int i=0;i < 3; i++){
-			Insumos in = new Insumos();
+			Insumo in = new Insumo();
 			in.setId(""+(i+1));
 			in.setName("Insumo "+(i+1));
 			in.setDescription("Medida");

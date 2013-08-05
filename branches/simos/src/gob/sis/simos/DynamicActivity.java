@@ -3,7 +3,7 @@ package gob.sis.simos;
 import gob.sis.simos.R;
 import java.util.ArrayList;
 import java.util.List;
-import gob.sis.simos.dto.Answer;
+import gob.sis.simos.dto.Respuesta;
 import gob.sis.simos.ui.UICheckBoxGroup;
 import gob.sis.simos.ui.UIRadioGroupQuestion;
 import gob.sis.simos.ui.UITextQuestion;
@@ -26,9 +26,9 @@ public class DynamicActivity extends Activity implements OnCheckedChangeListener
 		UIRadioGroupQuestion rd = new UIRadioGroupQuestion(this,"Texto de la pregunta");
 		rootLayout.addView(rd,0);
 		
-		List<Answer> items = new ArrayList<Answer>();
+		List<Respuesta> items = new ArrayList<Respuesta>();
 		for(int i = 0; i < 4 ; i++){
-			Answer a = new Answer();
+			Respuesta a = new Respuesta();
 			a.setText("Texto de la respuesta "+(i+1));
 			a.setValue("Valor "+(i+1));
 			items.add(a);
