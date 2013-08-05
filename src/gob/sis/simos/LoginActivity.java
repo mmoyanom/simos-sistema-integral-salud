@@ -57,7 +57,7 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 		} catch (IOException e) {
 			Toast.makeText(this, "Error copiando la base de datos.", Toast.LENGTH_SHORT).show();
 		}
-		setContentView(R.layout.activity_login);
+		setContentView(R.layout.actvt_login);
 		getActionBar().setIcon(R.drawable.logo_minsa);
 		getActionBar().setTitle("");
 		
@@ -186,7 +186,7 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 				switch(result.resultType){
 					case LOGIN_SUCCEEDED:
 						this._progressDialog.dismiss();
-						Intent i = new Intent(LoginActivity.this,MainMenuActivity.class);
+						Intent i = new Intent(LoginActivity.this,MenuPrincipalActivity.class);
 						LoginActivity.this._username.setText("");
 						LoginActivity.this._password.setText("");
 						LoginActivity.this.showToastMessage(R.string.msg_login_succeeded);

@@ -1,12 +1,8 @@
 package gob.sis.simos;
 
 import gob.sis.simos.R;
-
-import pe.gob.simos.app.photo.PhotoHandler;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.os.Bundle;

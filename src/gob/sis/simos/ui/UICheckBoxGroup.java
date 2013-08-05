@@ -1,6 +1,6 @@
 package gob.sis.simos.ui;
 
-import gob.sis.simos.dto.Answer;
+import gob.sis.simos.dto.Respuesta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class UICheckBoxGroup extends LinearLayout {
 
 	private TextView _topLabel;
 	private LinearLayout _checkBoxLayout;
-	private List<Answer> _items;
+	private List<Respuesta> _items;
 
 	public UICheckBoxGroup(Context context) {
 		super(context);
@@ -46,13 +46,13 @@ public class UICheckBoxGroup extends LinearLayout {
 		return this._topLabel.getText();
 	}
 
-	public void setItems(List<Answer> items) {
+	public void setItems(List<Respuesta> items) {
 		this._items = items;
 		this.update();
 	}
 
 	public void update() {
-		for (Answer answer : _items) {
+		for (Respuesta answer : _items) {
 			CheckBox cb = new CheckBox(getContext());
 			cb.setText(answer.getText());
 			this.add(cb);
@@ -63,8 +63,8 @@ public class UICheckBoxGroup extends LinearLayout {
 		this._checkBoxLayout.addView(checkBox);
 	}
 	
-	public List<Answer> getAnswerArray(){
-		List<Answer> checkedItems = new ArrayList<Answer>();
+	public List<Respuesta> getAnswerArray(){
+		List<Respuesta> checkedItems = new ArrayList<Respuesta>();
 		for(int x = 0 ; x < this._items.size() ; x++){
 			CheckBox cb = (CheckBox) this._checkBoxLayout.getChildAt(x);
 			if(cb.isChecked()){

@@ -1,7 +1,7 @@
 package gob.sis.simos.db;
 
-import gob.sis.simos.entity.Account;
-import gob.sis.simos.entity.EESS;
+import gob.sis.simos.entity.Cuenta;
+import gob.sis.simos.entity.EstablecimientoSalud;
 import gob.sis.simos.resources.AppProperties;
 
 import java.io.File;
@@ -24,8 +24,8 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
 	private static final String DATABASE_NAME = "simos.sqlite";
 	private static final int DATABASE_VERSION = 1;
-	private Dao<Account, String> accountDao;
-	private Dao<EESS, String> EESSDao;
+	private Dao<Cuenta, String> accountDao;
+	private Dao<EstablecimientoSalud, String> EESSDao;
 
 	public DBHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,7 +38,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(SQLiteDatabase arg0, ConnectionSource connectionSource) {
 		try{
 			
-			TableUtils.createTableIfNotExists(connectionSource,Account.class);
+			TableUtils.createTableIfNotExists(connectionSource,Cuenta.class);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,16 +52,16 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 		onCreate(db, connectionSource);
 	}
 
-	public Dao<Account, String> getAccountDao() throws SQLException {
+	public Dao<Cuenta, String> getAccountDao() throws SQLException {
 		if (accountDao == null) {
-			accountDao = getDao(Account.class);
+			accountDao = getDao(Cuenta.class);
 		}
 		return accountDao;
 	}
 	
-	public Dao<EESS, String> getEESSDao() throws SQLException {
+	public Dao<EstablecimientoSalud, String> getEESSDao() throws SQLException {
 		if(EESSDao == null){
-			EESSDao = getDao(EESS.class);
+			EESSDao = getDao(EstablecimientoSalud.class);
 		}
 		return EESSDao;
 	}

@@ -3,7 +3,7 @@ package gob.sis.simos.controller;
 import gob.sis.simos.AppSession;
 import gob.sis.simos.R;
 import gob.sis.simos.dto.LoginResponse;
-import gob.sis.simos.entity.Account;
+import gob.sis.simos.entity.Cuenta;
 import gob.sis.simos.service.LoginService;
 import gob.sis.simos.service.impl.LoginServiceImpl;
 
@@ -39,7 +39,7 @@ public class LoginController {
 	public Result login(String username, String password){
 		Result result = null;
 		try {
-			Account account = this._service.getStoredAccount();
+			Cuenta account = this._service.getStoredAccount();
 			
 			if(account != null){ //do login locally
 				result = new Result();
@@ -69,7 +69,7 @@ public class LoginController {
 				}
 				else if(response.getResult().equals(LoginResponse.SUCCESS))
 				{
-					account = new Account();
+					account = new Cuenta();
 					account.setUsername(response.getUserLogin());
 					account.setPassword(password);
 					account.setUserId(response.getUserId());
