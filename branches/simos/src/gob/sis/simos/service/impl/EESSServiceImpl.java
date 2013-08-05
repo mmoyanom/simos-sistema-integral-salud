@@ -11,10 +11,10 @@ import com.j256.ormlite.dao.Dao;
 
 import android.content.Context;
 
-import gob.sis.simos.EESSListActivity;
+import gob.sis.simos.ListaEstablecimientoSaludActivity;
 import gob.sis.simos.db.DBHelper;
-import gob.sis.simos.entity.EESS;
-import gob.sis.simos.service.EESSService;
+import gob.sis.simos.entity.EstablecimientoSalud;
+import gob.sis.simos.service.EstablecimientoSaludService;
 
 
 @ContextSingleton
@@ -32,10 +32,10 @@ public class EESSServiceImpl{// implements EESSService {
 	}*/
 	
 	//@Override
-	public List<EESS> getEESSList() {
+	public List<EstablecimientoSalud> getEESSList() {
 		try {
-			Dao<EESS, String> dao = getHelper().getEESSDao();
-			List<EESS> items = dao.queryForAll();
+			Dao<EstablecimientoSalud, String> dao = getHelper().getEESSDao();
+			List<EstablecimientoSalud> items = dao.queryForAll();
 			return items;
 		} catch (SQLException e) {
 			e.printStackTrace();

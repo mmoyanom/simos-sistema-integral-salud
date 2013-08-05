@@ -1,7 +1,7 @@
 package gob.sis.simos.service.impl;
 
 import gob.sis.simos.db.DBHelper;
-import gob.sis.simos.entity.Account;
+import gob.sis.simos.entity.Cuenta;
 import gob.sis.simos.soap.SimosSoapServices;
 
 import java.io.IOException;
@@ -39,17 +39,17 @@ public class LoginServiceImpl{ // implements LoginService {
 	}
 
 	//@Override
-	public Account getStoredAccount(String userLogin, String password) {
+	public Cuenta getStoredAccount(String userLogin, String password) {
 		return null;
 	}
 
 	//@Override
-	public Account getStoredAccount() {
-		Dao<Account, String> dao;
+	public Cuenta getStoredAccount() {
+		Dao<Cuenta, String> dao;
 		try {
 			dao = getHelper().getAccountDao();
-			QueryBuilder<Account, String> qb = dao.queryBuilder();
-			Account account = qb.limit((long)1).queryForFirst();
+			QueryBuilder<Cuenta, String> qb = dao.queryBuilder();
+			Cuenta account = qb.limit((long)1).queryForFirst();
 			return account;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,8 +58,8 @@ public class LoginServiceImpl{ // implements LoginService {
 	}
 
 	//@Override
-	public int storeAccount(Account account) {
-		Dao<Account, String> dao;
+	public int storeAccount(Cuenta account) {
+		Dao<Cuenta, String> dao;
 		try {
 			dao = getHelper().getAccountDao();
 			dao.create(account);

@@ -25,25 +25,25 @@
             
         </activity>
         <activity
-            android:name="gob.sis.simos.MainMenuActivity"
+            android:name="gob.sis.simos.MenuPrincipalActivity"
             android:label="@string/main_menu"
             android:screenOrientation="portrait"
             android:theme="@style/Annx02Theme" >
         </activity>
         <activity
-            android:name="gob.sis.simos.EESSListActivity"
+            android:name="gob.sis.simos.ListaEstablecimientoSaludActivity"
             android:label="@string/main_menu"
             android:screenOrientation="portrait"
             android:theme="@style/Annx02Theme" >
         </activity>
         <activity
-            android:name="gob.sis.simos.InquestListActivity"
+            android:name="gob.sis.simos.ListaEncuestasActivity"
             android:label="@string/main_menu"
             android:screenOrientation="portrait"
             android:theme="@style/Annx02Theme" >
         </activity>
         <activity
-            android:name="gob.sis.simos.PersonInformationActivity"
+            android:name="gob.sis.simos.InformacionEncuestadoActivity"
             android:label="Encuestado"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
@@ -55,19 +55,25 @@
             android:theme="@style/Theme01" >
         </activity>
         <activity
-            android:name="gob.sis.simos.InquestPrescriptionActivity"
+            android:name="gob.sis.simos.EntregaRecetasActivity"
             android:label="Verificación de pagos"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
         </activity>
         <activity
-            android:name="gob.sis.simos.AddPrescriptionActivity"
+            android:name="gob.sis.simos.AddToRecetaActivity"
             android:label="Medicamentos/Insumos"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
         </activity>
         <activity
-            android:name="gob.sis.simos.InquestMainActivity"
+            android:name="gob.sis.simos.Encuesta01PrincipalActivity"
+            android:label="Encuesta"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme01" >
+        </activity>
+        <activity
+            android:name="gob.sis.simos.VerificacionPagosActivity"
             android:label="Encuesta"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
@@ -79,13 +85,13 @@
         
         
         <activity
-            android:name="gob.sis.simos.InquestPayment01Activity"
+            android:name="gob.sis.simos.VerificacionPagos01Activity"
             android:label="Verificación de pagos"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
         </activity>
         <activity
-            android:name="gob.sis.simos.InquestPayment02Activity"
+            android:name="gob.sis.simos.VerificacionPagos02Activity"
             android:label="Verificación de pagos"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >

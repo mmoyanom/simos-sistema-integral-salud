@@ -1,6 +1,6 @@
 package gob.sis.simos.ui;
 
-import gob.sis.simos.dto.Answer;
+import gob.sis.simos.dto.Respuesta;
 import java.util.List;
 import android.content.Context;
 import android.widget.LinearLayout;
@@ -13,7 +13,7 @@ public class UIRadioGroupQuestion extends LinearLayout {
 
 	private TextView _topLabel;
 	private RadioGroup _radioGroup;
-	private List<Answer> _items;
+	private List<Respuesta> _items;
 	
 	public UIRadioGroupQuestion(Context context) {
 		super(context);
@@ -72,12 +72,12 @@ public class UIRadioGroupQuestion extends LinearLayout {
 		this._radioGroup.addView(radioButton);
 	}
 
-	public void setItems(List<Answer> items) {
+	public void setItems(List<Respuesta> items) {
 		this._items = items;
 		this.update();
 	}
 
-	public Answer getAnswer() {
+	public Respuesta getAnswer() {
 		RadioButton rb = (RadioButton) this._radioGroup
 				.findViewById(this._radioGroup.getCheckedRadioButtonId());
 		int index = this._radioGroup.indexOfChild(rb);
@@ -89,7 +89,7 @@ public class UIRadioGroupQuestion extends LinearLayout {
 	}
 
 	public void update() {
-		for (Answer answer : _items) {
+		for (Respuesta answer : _items) {
 			RadioButton b = new RadioButton(getContext());
 			b.setText(answer.getText());
 			this.add(b);
