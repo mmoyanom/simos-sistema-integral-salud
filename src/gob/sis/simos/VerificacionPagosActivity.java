@@ -2,9 +2,7 @@ package gob.sis.simos;
 
 import gob.sis.simos.fragment.VerificacionPagos01Fragment;
 import gob.sis.simos.fragment.VerificacionPagos02Fragment;
-import android.opengl.Visibility;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,7 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 public class VerificacionPagosActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener {
 	
@@ -47,17 +44,15 @@ public class VerificacionPagosActivity extends FragmentActivity implements Fragm
 	
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		FragmentManager mgr = getSupportFragmentManager();
-		
 		if(frgmnt1.isVisible()){
+			FragmentManager mgr = getSupportFragmentManager();
 			FragmentTransaction fmt = mgr.beginTransaction();
 			fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			fmt.remove(frgmnt1).add(R.id.fragment_container, frgmnt2);
 			fmt.addToBackStack(dynamicFragment);
 			fmt.commit();
-			//this.menu.getItem(R.id.action_next).setEnabled(false);;
+			item.setTitle("Guardar");
 		}
-		
 		return true;
 	}
 
@@ -76,6 +71,10 @@ public class VerificacionPagosActivity extends FragmentActivity implements Fragm
 		    if (fm.getBackStackEntryCount() > 0) {
 		        Log.i("MainActivity", "popping backstack");
 		        getSupportFragmentManager().popBackStack();
+		        if(frgmnt2.isVisible()){
+		        	MenuItem item = this.menu.getItem(0);
+		        	item.setTitle("SIGUIENTE");
+		        }
 		    } else {
 		        Log.i("MainActivity", "nothing on backstack, calling super");
 		        super.onBackPressed();  
