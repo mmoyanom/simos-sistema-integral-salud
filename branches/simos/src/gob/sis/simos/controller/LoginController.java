@@ -4,7 +4,6 @@ import gob.sis.simos.AppSession;
 import gob.sis.simos.R;
 import gob.sis.simos.dto.LoginResponse;
 import gob.sis.simos.entity.Cuenta;
-import gob.sis.simos.service.LoginService;
 import gob.sis.simos.service.impl.LoginServiceImpl;
 
 import java.io.IOException;
@@ -13,13 +12,11 @@ import java.util.Calendar;
 import org.xmlpull.v1.XmlPullParserException;
 
 import roboguice.inject.ContextSingleton;
-
 import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 @ContextSingleton
 public class LoginController {
