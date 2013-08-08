@@ -7,6 +7,7 @@ import gob.sis.simos.ui.DialogCantidad;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.app.ActionBar.LayoutParams;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +28,8 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 	@InjectView(R.id.lst_result)
 	protected ListView lstResult;
 	
-	DialogCantidad dialog;
+	private Object obj;
+	private DialogCantidad dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +65,15 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 	public void onClick(View v) {
 		if(dialog != null){
 			if(v == dialog.btnOK){
-				this.setResult(RESULT_OK);
-				this.finish();
+				if(obj != null){
+					if(obj instanceof Medicamento){
+						Medicamento m = (Medicamento)obj;
+						m.setEntregado(dialog.getCantidadEntregada());
+						m.setRecetado(dialog.getCantidadRecetada());
+						this.setResult(RESULT_OK,new Intent().putExtra("data", m));
+						this.finish();
+					}
+				}
 			} else if (v == dialog.btnCANCEL){
 				
 			}
@@ -86,10 +95,10 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		
 		Medicamento m = (Medicamento)this.lstResult.getItemAtPosition(position);
+		obj = m;
 		dialog = new DialogCantidad(this);
-		dialog.setTitle(m.getName());
+		dialog.setTitle(m.getNombre());
 		dialog.btnOK.setOnClickListener(this);
 		dialog.btnCANCEL.setOnClickListener(this);
 		dialog.show();
