@@ -22,7 +22,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,8 +40,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	@InjectView(R.id.btn_add)
 	protected Button btnAdd;
 	
-	DialogTipoReceta dialog;
-	
+	DialogTipoReceta dialog;	
 	MedicamentoCheckListFragment medicineFragment;
 	InsumoCheckListFragment inputFragment;
 	
@@ -95,6 +93,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		
 		return true;
 	}
 	
@@ -154,11 +153,6 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				inputFragment = new InsumoCheckListFragment();
 				return inputFragment;
 			}
-			
-			/*Fragment fragment = new DummySectionFragment();
-			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-			fragment.setArguments(args);*/
 			return null;
 		}
 
@@ -196,15 +190,6 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.frgmnt_medcmntos_check_list,
 					container, false);
-			
-			
-			/*ListView lstPrescription = (ListView)rootView.findViewById(R.id.lst_prescription);
-			lstPrescription.setAdapter(adapter);*/
-			
-			/*TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));*/
 			return rootView;
 		}
 	}
@@ -226,7 +211,8 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 			}else if(v == dialog.btnGenerico){
 				dialog.dismiss();
 				Intent i = new Intent(this, AddToRecetaActivity.class);
-				this.startActivityForResult(i, ADD_PRESCRIPTION);
+				i.putExtra("index", mViewPager.getCurrentItem());
+				this.startActivityForResult(i,1);
 			}
 		}
 		
