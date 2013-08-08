@@ -2,9 +2,9 @@ package gob.sis.simos.entity;
 
 public class Cuantificable {
 
-	protected String id;
-	protected int entregado;
-	protected int recetado;
+	private String id;
+	private int entregado;
+	private int recetado;
 	public String getId() {
 		return id;
 	}
