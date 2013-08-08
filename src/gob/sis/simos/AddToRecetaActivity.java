@@ -1,7 +1,9 @@
 package gob.sis.simos;
 
+import gob.sis.simos.adapters.InsumoListAdapter;
 import gob.sis.simos.adapters.MedicamentoListAdapter;
 import gob.sis.simos.controller.RecetaController;
+import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.ui.DialogCantidad;
 import roboguice.activity.RoboActivity;
@@ -40,8 +42,15 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 		this.getActionBar().setDisplayShowHomeEnabled(false);
 		this.getActionBar().setIcon(R.drawable.ic_menu_close_clear_cancel);
 		
-		MedicamentoListAdapter adapter = new MedicamentoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.buscarMedicamento(""));
-		this.lstResult.setAdapter(adapter);
+		Integer index = getIntent().getExtras().getInt("index");
+		if(index == 0){
+			MedicamentoListAdapter adapter = new MedicamentoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.buscarMedicamento(""));
+			this.lstResult.setAdapter(adapter);
+		} else if(index == 1){
+			InsumoListAdapter adapter = new InsumoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.getInsumos());
+			this.lstResult.setAdapter(adapter);
+		}
+		
 		this.lstResult.setOnItemClickListener(this);
 	}
 	
@@ -64,6 +73,7 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 	@Override
 	public void onClick(View v) {
 		if(dialog != null){
+			dialog.dismiss();
 			if(v == dialog.btnOK){
 				if(obj != null){
 					if(obj instanceof Medicamento){
@@ -71,11 +81,20 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 						m.setEntregado(dialog.getCantidadEntregada());
 						m.setRecetado(dialog.getCantidadRecetada());
 						this.setResult(RESULT_OK,new Intent().putExtra("data", m));
+						this.obj = null;
+						this.finish();
+					} else if(obj instanceof Insumo){
+						Insumo i = (Insumo)obj;
+						i.setEntregado(dialog.getCantidadEntregada());
+						i.setRecetado(dialog.getCantidadRecetada());
+						this.setResult(RESULT_OK,new Intent().putExtra("data", i));
+						this.obj = null;
 						this.finish();
 					}
 				}
 			} else if (v == dialog.btnCANCEL){
-				
+				dialog.reset();
+				this.obj = null;
 			}
 		}
 	}

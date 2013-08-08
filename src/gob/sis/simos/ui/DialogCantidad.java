@@ -40,4 +40,9 @@ public class DialogCantidad extends Dialog  {
 		return npEntregado.getValue();
 	}
 
+	public void reset() {
+		this.npEntregado.setValue(1);
+		this.npRecetado.setValue(1);
+	}
+
 }
