@@ -40,8 +40,7 @@ public class MenuPrincipalActivity extends RoboActivity implements
 	public void onItemClick(AdapterView<?> view, View v, int position,
 			long resourceId) {
 
-		OpcionMenu m = (OpcionMenu) this._lstMainMenu
-				.getItemAtPosition(position);
+		OpcionMenu m = (OpcionMenu) this._lstMainMenu.getItemAtPosition(position);
 		if (m.getId() == 0) {
 			Intent i = new Intent(this, ListaEstablecimientoSaludActivity.class);
 			this.startActivity(i);

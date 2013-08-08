@@ -1,7 +1,13 @@
 package gob.sis.simos.entity;
 
-public class Insumo {
+import java.io.Serializable;
 
+public class Insumo extends Cuantificable implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
 	private String category;

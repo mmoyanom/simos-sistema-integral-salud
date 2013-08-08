@@ -32,18 +32,22 @@ public class MedicamentoCheckListAdapter extends ArrayAdapter<Medicamento>{
 			v = vi.inflate(R.layout.adptr_medcmnto_check_list, null);
 			holder = new ViewHolder();
 			holder.title = (TextView) v.findViewById(R.id.topTitle);
+			holder.description = (TextView) v.findViewById(R.id.bottomDescription);
 			v.setTag(holder);
-		} else
+		} else {
 			holder = (ViewHolder) v.getTag();
+		}
 		Medicamento m = this.items.get(position);
 		if (m != null) {
-			holder.title.setText(m.getName());
+			holder.title.setText(m.getNombre());
+			holder.description.setText("Recetado : "+m.getRecetado()+", Entregado : "+m.getEntregado());
 		}
 		return v;
 	}
 
 	public static class ViewHolder {
 		public TextView title;
+		public TextView description;
 	}
 	
 }
