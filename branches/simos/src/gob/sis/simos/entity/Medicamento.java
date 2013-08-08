@@ -1,51 +1,31 @@
 package gob.sis.simos.entity;
 
-public class Medicamento {
+import java.io.Serializable;
 
-	private String id;
-	private String category;
-	private String name;
-	private String description;
-	private Integer prescribed;
-	private Integer commited;
+public class Medicamento extends Cuantificable implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private String categoria;
+	private String nombre;
+	private String descripcion;
 	
-	public String getCategory() {
-		return category;
+	public String getCategoria() {
+		return categoria;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
-	public String getId() {
-		return id;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setName(String nombre) {
+		this.nombre = nombre;
 	}
-	public String getName() {
-		return name;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public Integer getPrescribed() {
-		return prescribed;
-	}
-	public void setPrescribed(Integer prescribed) {
-		this.prescribed = prescribed;
-	}
-	public Integer getCommited() {
-		return commited;
-	}
-	public void setCommited(Integer commited) {
-		this.commited = commited;
-	}
-	
-	
 	
 }

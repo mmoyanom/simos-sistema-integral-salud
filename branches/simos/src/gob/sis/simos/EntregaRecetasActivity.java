@@ -1,6 +1,9 @@
 package gob.sis.simos;
 
 
+import gob.sis.simos.entity.Cuantificable;
+import gob.sis.simos.entity.Insumo;
+import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.fragment.InsumoCheckListFragment;
 import gob.sis.simos.fragment.MedicamentoCheckListFragment;
 import gob.sis.simos.ui.DialogCantidad;
@@ -19,6 +22,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,11 +38,13 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
 	
-	
 	@InjectView(R.id.btn_add)
 	protected Button btnAdd;
 	
 	DialogTipoReceta dialog;
+	
+	MedicamentoCheckListFragment medicineFragment;
+	InsumoCheckListFragment inputFragment;
 	
 	public static final int ADD_PRESCRIPTION = 1;
 	
@@ -94,8 +100,17 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		this.setResult(RESULT_OK);
-		this.finish();
+		int index = mViewPager.getCurrentItem();
+		if(index == 0){
+			Cuantificable c = (Cuantificable)data.getSerializableExtra("data");
+			if(c != null){
+				if(c instanceof Medicamento){
+					medicineFragment.adapter.add((Medicamento)c);
+				}else if(c instanceof Insumo){
+					inputFragment.adapter.add((Insumo)c);
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -133,10 +148,10 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			if(position == 0){
-				MedicamentoCheckListFragment medicineFragment = new MedicamentoCheckListFragment();
+				medicineFragment = new MedicamentoCheckListFragment();
 				return medicineFragment;
 			} else if(position == 1){
-				InsumoCheckListFragment inputFragment = new InsumoCheckListFragment();
+				inputFragment = new InsumoCheckListFragment();
 				return inputFragment;
 			}
 			

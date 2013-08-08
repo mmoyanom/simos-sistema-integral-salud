@@ -18,10 +18,10 @@ public class PrescriptionServiceImpl { // implements PrescriptionService {
 			Medicamento m = new Medicamento();
 			m.setId(""+(i+1));
 			m.setName("Medicamento "+(i+1));
-			m.setDescription("Medida");
-			m.setPrescribed(3);
-			m.setCommited(2);
-			m.setCategory("Categoria");
+			m.setDescripcion("Medida");
+			m.setRecetado(3);
+			m.setEntregado(2);
+			m.setCategoria("Categoria");
 			items.add(m);
 		}
 		return items;
@@ -33,10 +33,10 @@ public class PrescriptionServiceImpl { // implements PrescriptionService {
 			Medicamento m = new Medicamento();
 			m.setId(""+(i+1));
 			m.setName("Medicamento "+(i+1));
-			m.setDescription("Medida");
-			m.setPrescribed(3);
-			m.setCommited(2);
-			m.setCategory("Categoria");
+			m.setDescripcion("Medida");
+			m.setRecetado(3);
+			m.setEntregado(2);
+			m.setCategoria("Categoria");
 			items.add(m);
 		}
 		return items;

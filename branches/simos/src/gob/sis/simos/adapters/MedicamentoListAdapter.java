@@ -35,7 +35,7 @@ public class MedicamentoListAdapter extends ArrayAdapter<Medicamento> {
 			holder = (ViewHolder) v.getTag();
 		Medicamento m = this.items.get(position);
 		if (m != null) {
-			holder.title.setText(m.getName());
+			holder.title.setText(m.getNombre());
 		}
 		return v;
 	}

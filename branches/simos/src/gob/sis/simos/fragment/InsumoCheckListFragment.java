@@ -4,7 +4,6 @@ import gob.sis.simos.R;
 import gob.sis.simos.adapters.InsumoListAdapter;
 import gob.sis.simos.controller.RecetaController;
 import gob.sis.simos.entity.Insumo;
-import gob.sis.simos.service.impl.PrescriptionServiceImpl;
 
 import java.util.List;
 
@@ -28,6 +27,7 @@ public class InsumoCheckListFragment extends RoboFragment implements OnItemClick
 	//protected PrescriptionServiceImpl service;
 
 	public ListView lstPrescription;
+	public InsumoListAdapter adapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +37,7 @@ public class InsumoCheckListFragment extends RoboFragment implements OnItemClick
 		List<Insumo> items = controller.getInsumos();
 		
 		lstPrescription = (ListView)rootView.findViewById(R.id.lst_insumos);
-		InsumoListAdapter adapter = new InsumoListAdapter(getActivity().getBaseContext(), R.layout.adptr_insms_check_list, items);
+		adapter = new InsumoListAdapter(getActivity().getBaseContext(), R.layout.adptr_insms_check_list, items);
 		lstPrescription.setAdapter(adapter);
 		lstPrescription.setOnItemClickListener(this);
 		
