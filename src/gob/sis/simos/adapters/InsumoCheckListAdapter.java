@@ -1,7 +1,7 @@
 package gob.sis.simos.adapters;
 
 import gob.sis.simos.R;
-import gob.sis.simos.entity.Medicamento;
+import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.ui.UICheckBox;
 
 import java.util.List;
@@ -15,17 +15,17 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class MedicamentoCheckListAdapter extends ArrayAdapter<Medicamento> implements OnCheckedChangeListener{
+public class InsumoCheckListAdapter extends ArrayAdapter<Insumo> implements OnCheckedChangeListener {
 
-	private List<Medicamento> items;
+	private List<Insumo> items;
 	
-	public MedicamentoCheckListAdapter(Context context, int textViewResourceId,
-			List<Medicamento> objects) {
+	public InsumoCheckListAdapter(Context context, int textViewResourceId,
+			List<Insumo> objects) {
 		super(context, textViewResourceId, objects);
 		this.items = objects;
 	}
 	
-	public List<Medicamento> getItems(){
+	public List<Insumo> getItems(){
 		return this.items;
 	}
 	
@@ -45,13 +45,13 @@ public class MedicamentoCheckListAdapter extends ArrayAdapter<Medicamento> imple
 		} else {
 			holder = (ViewHolder) v.getTag();
 		}
-		Medicamento m = this.items.get(position);
-		if (m != null) {
+		Insumo i = this.items.get(position);
+		if (i != null) {
 			holder.checkBox.setIndex(position);
-			holder.checkBox.setChecked(m.isChecked());
+			holder.checkBox.setChecked(i.isChecked());
 			holder.checkBox.setOnCheckedChangeListener(this);
-			holder.title.setText(m.getNombre());
-			holder.description.setText("Recetado : "+m.getRecetado()+", Entregado : "+m.getEntregado());
+			holder.title.setText(i.getNombre());
+			holder.description.setText("Recetado : "+i.getRecetado()+", Entregado : "+i.getEntregado());
 		}
 		return v;
 	}
@@ -65,9 +65,9 @@ public class MedicamentoCheckListAdapter extends ArrayAdapter<Medicamento> imple
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		UICheckBox view = (UICheckBox)buttonView;
-		Medicamento m = items.get(view.getIndex());
-		if(m != null){
-			m.setChecked(isChecked);
+		Insumo i = items.get(view.getIndex());
+		if(i != null){
+			i.setChecked(isChecked);
 		}
 		this.notifyDataSetChanged();
 	}
