@@ -36,7 +36,7 @@ public class InsumoCheckListAdapter extends ArrayAdapter<Insumo> implements OnCh
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater) this.getContext()
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.adptr_medcmnto_check_list, null);
+			v = vi.inflate(R.layout.adptr_insms_check_list, null);
 			holder = new ViewHolder();
 			holder.checkBox = (UICheckBox) v.findViewById(R.id.checkBox);
 			holder.title = (TextView) v.findViewById(R.id.topTitle);
