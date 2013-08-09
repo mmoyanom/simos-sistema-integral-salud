@@ -1,7 +1,7 @@
 package gob.sis.simos;
 
 
-import gob.sis.simos.entity.Cuantificable;
+import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.fragment.InsumoCheckListFragment;
@@ -15,21 +15,22 @@ import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectView;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class EntregaRecetasActivity extends RoboFragmentActivity
  implements ActionBar.TabListener, OnClickListener {
@@ -73,10 +74,6 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 			}
 		});
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			// Create a tab with text corresponding to the page title defined by
-			// the adapter. Also specify this Activity object, which implements
-			// the TabListener interface, as the callback (listener) for when
-			// this tab is selected.
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
@@ -93,22 +90,85 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		
+		if(item.getItemId() == R.id.item_select_all){
+			checkAll();
+		} else if(item.getItemId() == R.id.item_clear) {
+			clear();
+		} else if(item.getItemId() == R.id.item_delete) {
+			delete();
+		}
 		return true;
+	}
+
+	private void delete(){
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+			
+			alertDialogBuilder.setTitle("ELIMINAR");
+			alertDialogBuilder
+				.setMessage("¿Desea eliminar los elementos seleccionados?")
+				.setCancelable(false)
+				.setPositiveButton("Sí",new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog,int id) {
+						if(mViewPager.getCurrentItem() == 0){
+							medicineFragment.deleteCheckedItems();
+						} else if(mViewPager.getCurrentItem() == 1){
+							inputFragment.deleteCheckedItems();
+						}
+					}
+				  })
+				.setNegativeButton("No",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						dialog.cancel();
+					}
+				});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
+	}
+
+	private void clear(){
+		if(mViewPager.getCurrentItem() == 0){
+			medicineFragment.clear();
+		} else if(mViewPager.getCurrentItem() == 1){
+			inputFragment.clear();
+		}
+	}
+
+	private void checkAll() {
+		if(mViewPager.getCurrentItem() == 0){
+			medicineFragment.checkAllItems();
+		} else if(mViewPager.getCurrentItem() == 1){
+			inputFragment.checkAllItems();
+		}
+	}
+
+	private void add(ICuantificable c){
+		if(c != null){
+			if(c instanceof Medicamento){
+				medicineFragment.adapter.add((Medicamento)c);
+			}else if(c instanceof Insumo){
+				inputFragment.adapter.add((Insumo)c);
+			}
+		}
+	}
+	
+	private ICuantificable find(ICuantificable c){
+		if(c != null){
+			if(c instanceof Medicamento){
+				return medicineFragment.findItem(c);
+			}else if(c instanceof Insumo){
+				return inputFragment.findItem(c);
+			}
+		}
+		return null;
 	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		int index = mViewPager.getCurrentItem();
-		if(index == 0){
-			Cuantificable c = (Cuantificable)data.getSerializableExtra("data");
-			if(c != null){
-				if(c instanceof Medicamento){
-					medicineFragment.adapter.add((Medicamento)c);
-				}else if(c instanceof Insumo){
-					inputFragment.adapter.add((Insumo)c);
-				}
-			}
+		ICuantificable c = (ICuantificable)data.getSerializableExtra("data");
+		if(this.find(c) != null){
+			Toast.makeText(this, "Este elemento ya existe en el listado. Si desea añadir modificar las cantidades mantenga seleccionado el elemento.", Toast.LENGTH_LONG).show();
+		} else {
+			this.add(c);
 		}
 	}
 	
@@ -134,7 +194,6 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 		
 	}
 	
-	
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 		public SectionsPagerAdapter(FragmentManager fm) {
@@ -143,9 +202,6 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 
 		@Override
 		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
 			if(position == 0){
 				medicineFragment = new MedicamentoCheckListFragment();
 				return medicineFragment;
@@ -158,7 +214,6 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 
 		@Override
 		public int getCount() {
-			// Show 3 total pages.
 			return 2;
 		}
 
@@ -172,25 +227,6 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				return getString(R.string.title_section2).toUpperCase(l);
 			}
 			return null;
-		}
-	}
-
-	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
-	 */
-	public static class DummySectionFragment extends Fragment {
-		
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.frgmnt_medcmntos_check_list,
-					container, false);
-			return rootView;
 		}
 	}
 

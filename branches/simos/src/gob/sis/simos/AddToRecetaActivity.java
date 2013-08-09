@@ -3,6 +3,7 @@ package gob.sis.simos;
 import gob.sis.simos.adapters.InsumoListAdapter;
 import gob.sis.simos.adapters.MedicamentoListAdapter;
 import gob.sis.simos.controller.RecetaController;
+import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.ui.DialogCantidad;
@@ -30,7 +31,7 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 	@InjectView(R.id.lst_result)
 	protected ListView lstResult;
 	
-	private Object obj;
+	private ICuantificable cuantificable;
 	private DialogCantidad dialog;
 	
 	@Override
@@ -75,26 +76,26 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 		if(dialog != null){
 			dialog.dismiss();
 			if(v == dialog.btnOK){
-				if(obj != null){
-					if(obj instanceof Medicamento){
-						Medicamento m = (Medicamento)obj;
+				if(cuantificable != null){
+					if(cuantificable instanceof Medicamento){
+						Medicamento m = (Medicamento)cuantificable;
 						m.setEntregado(dialog.getCantidadEntregada());
 						m.setRecetado(dialog.getCantidadRecetada());
 						this.setResult(RESULT_OK,new Intent().putExtra("data", m));
-						this.obj = null;
+						this.cuantificable = null;
 						this.finish();
-					} else if(obj instanceof Insumo){
-						Insumo i = (Insumo)obj;
+					} else if(cuantificable instanceof Insumo){
+						Insumo i = (Insumo)cuantificable;
 						i.setEntregado(dialog.getCantidadEntregada());
 						i.setRecetado(dialog.getCantidadRecetada());
 						this.setResult(RESULT_OK,new Intent().putExtra("data", i));
-						this.obj = null;
+						this.cuantificable = null;
 						this.finish();
 					}
 				}
 			} else if (v == dialog.btnCANCEL){
 				dialog.reset();
-				this.obj = null;
+				this.cuantificable = null;
 			}
 		}
 	}
@@ -114,10 +115,14 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		Medicamento m = (Medicamento)this.lstResult.getItemAtPosition(position);
-		obj = m;
+		ICuantificable c = (ICuantificable)this.lstResult.getItemAtPosition(position);
+		cuantificable = c;
 		dialog = new DialogCantidad(this);
-		dialog.setTitle(m.getNombre());
+		if(c instanceof Medicamento){
+			dialog.setTitle(((Medicamento)c).getNombre());
+		} else if(c instanceof Insumo){
+			dialog.setTitle(((Insumo)c).getNombre());
+		}
 		dialog.btnOK.setOnClickListener(this);
 		dialog.btnCANCEL.setOnClickListener(this);
 		dialog.show();

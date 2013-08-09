@@ -48,11 +48,11 @@ public class PrescriptionServiceImpl { // implements PrescriptionService {
 		for(int i=0;i < 3; i++){
 			Insumo in = new Insumo();
 			in.setId(""+(i+1));
-			in.setName("Insumo "+(i+1));
-			in.setDescription("Medida");
-			in.setPrescribed(3);
-			in.setCommited(2);
-			in.setCategory("Categoria");
+			in.setNombre("Insumo "+(i+1));
+			in.setDescripcion("Medida");
+			in.setRecetado(3);
+			in.setEntregado(2);
+			in.setCategoria("Categoria");
 			items.add(in);
 		}
 		return items;

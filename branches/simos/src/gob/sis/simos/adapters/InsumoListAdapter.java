@@ -29,15 +29,15 @@ public class InsumoListAdapter extends ArrayAdapter<Insumo> {
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater) this.getContext()
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.adptr_insms_check_list, null);
+			v = vi.inflate(R.layout.adptr_insms_medcmnto_simple_list, null);
 			holder = new ViewHolder();
-			holder.title = (TextView) v.findViewById(R.id.topTitle);
+			holder.title = (TextView) v.findViewById(R.id.text);
 			v.setTag(holder);
 		} else
 			holder = (ViewHolder) v.getTag();
 		Insumo m = this.items.get(position);
 		if (m != null) {
-			holder.title.setText(m.getName());
+			holder.title.setText(m.getNombre());
 		}
 		return v;
 	}
