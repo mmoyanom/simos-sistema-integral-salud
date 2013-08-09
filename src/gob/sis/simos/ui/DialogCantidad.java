@@ -36,8 +36,16 @@ public class DialogCantidad extends Dialog  {
 		return npRecetado.getValue();			
 	}
 	
+	public void setCantidadRecetada(int value){
+		this.npRecetado.setValue(value);
+	}
+	
 	public int getCantidadEntregada() {
 		return npEntregado.getValue();
+	}
+	
+	public void setCantidadEntregada(int value){
+		this.npEntregado.setValue(value);
 	}
 
 	public void reset() {

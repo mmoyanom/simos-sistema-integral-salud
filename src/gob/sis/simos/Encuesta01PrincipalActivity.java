@@ -121,7 +121,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == ADD_SERVICE){
 			Medicamento m = new Medicamento();
-			m.setName("Medicamento agregado");
+			m.setNombre("Medicamento agregado");
 			medicineFragment.adapter.add(m);
 			Toast.makeText(this, "Servicio guardado, "+resultCode, Toast.LENGTH_SHORT).show();
 		} else if(requestCode == ADD_PRESCRIPTION){
