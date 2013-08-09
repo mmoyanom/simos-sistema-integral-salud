@@ -8,4 +8,5 @@ public interface IMaintainableFragment {
 	public void clear();
 	public void deleteCheckedItems();
 	public ICuantificable findItem(ICuantificable c);
+	public void updateItem(ICuantificable c);
 }

@@ -5,6 +5,7 @@ import gob.sis.simos.adapters.InsumoCheckListAdapter;
 import gob.sis.simos.controller.RecetaController;
 import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
+import gob.sis.simos.ui.DialogCantidad;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,13 +16,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.google.inject.Inject;
 
-public class InsumoCheckListFragment extends RoboFragment implements OnItemClickListener, IMaintainableFragment {
+public class InsumoCheckListFragment extends RoboFragment implements OnClickListener, IMaintainableFragment, OnItemLongClickListener {
 	
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -31,6 +33,10 @@ public class InsumoCheckListFragment extends RoboFragment implements OnItemClick
 	public ListView lstPrescription;
 	public InsumoCheckListAdapter adapter;
 
+	private DialogCantidad dialog;
+	
+	private ICuantificable cuantificable;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -41,17 +47,39 @@ public class InsumoCheckListFragment extends RoboFragment implements OnItemClick
 		lstPrescription = (ListView)rootView.findViewById(R.id.lst_insumos);
 		adapter = new InsumoCheckListAdapter(getActivity().getBaseContext(), R.layout.adptr_insms_check_list, items);
 		lstPrescription.setAdapter(adapter);
-		lstPrescription.setOnItemClickListener(this);
+		lstPrescription.setOnItemLongClickListener(this);
 		
+		dialog = new DialogCantidad(getActivity());
+		dialog.btnOK.setOnClickListener(this);
+		dialog.btnCANCEL.setOnClickListener(this);
 		return rootView;
 	}
-
-
+	
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		System.out.println("click!");
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if(dialog != null){
+			if(v == dialog.btnOK){
+				if(cuantificable != null){
+					updateItem(cuantificable);
+					dialog.dismiss();
+				}
+			} else if(v == dialog.btnCANCEL){
+				dialog.dismiss();
+			}
+		}
 	}
 
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long id) {
+		Insumo in = (Insumo)lstPrescription.getItemAtPosition(position);
+		this.cuantificable = in;
+		dialog.setTitle(in.getNombre());
+		dialog.setCantidadEntregada(cuantificable.getEntregado());
+		dialog.setCantidadRecetada(cuantificable.getRecetado());
+		dialog.show();
+		return true;
+	}
 
 	@Override
 	public void checkAllItems() {
@@ -101,4 +129,18 @@ public class InsumoCheckListFragment extends RoboFragment implements OnItemClick
 		}
 		return null;
 	}
+
+	@Override
+	public void updateItem(ICuantificable c) {
+		// TODO Auto-generated method stub
+		cuantificable.setEntregado(dialog.getCantidadEntregada());
+		cuantificable.setRecetado(dialog.getCantidadRecetada());
+		adapter.notifyDataSetChanged();
+	}
+
+	
+
+
+
+
 }

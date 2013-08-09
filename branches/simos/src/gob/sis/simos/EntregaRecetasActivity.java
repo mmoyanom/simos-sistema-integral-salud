@@ -30,7 +30,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class EntregaRecetasActivity extends RoboFragmentActivity
  implements ActionBar.TabListener, OnClickListener {
@@ -41,9 +40,12 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	@InjectView(R.id.btn_add)
 	protected Button btnAdd;
 	
-	DialogTipoReceta dialog;	
+	DialogTipoReceta dialogTipoReceta;
+	DialogCantidad dialogQuantity;
+	
 	MedicamentoCheckListFragment medicineFragment;
 	InsumoCheckListFragment inputFragment;
+	AlertDialog alert;
 	
 	public static final int ADD_PRESCRIPTION = 1;
 	
@@ -59,6 +61,15 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayUseLogoEnabled(false);
 		actionBar.setIcon(R.drawable.ic_menu_mark);
+		
+		dialogTipoReceta = new DialogTipoReceta(this);
+		dialogTipoReceta.btnComercial.setOnClickListener(this);
+		dialogTipoReceta.btnGenerico.setOnClickListener(this);
+		
+		dialogQuantity = new DialogCantidad(this);
+		dialogQuantity.btnOK.setOnClickListener(this);
+		dialogQuantity.btnCANCEL.setOnClickListener(this);
+		
 		
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
@@ -166,7 +177,15 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		ICuantificable c = (ICuantificable)data.getSerializableExtra("data");
 		if(this.find(c) != null){
-			Toast.makeText(this, "Este elemento ya existe en el listado. Si desea añadir modificar las cantidades mantenga seleccionado el elemento.", Toast.LENGTH_LONG).show();
+			String str = "El elemento '%s' ya existe en el listado. Si desea modificar las cantidades, mantenga seleccionado el elemento."; 
+			if(c instanceof Medicamento){
+				Medicamento m = (Medicamento)c;
+				str = String.format(str, m.getNombre());
+			} else if (c instanceof Insumo){
+				Insumo in = (Insumo)c;
+				str = String.format(str, in.getNombre());
+			}
+			showAlert(str);
 		} else {
 			this.add(c);
 		}
@@ -233,24 +252,62 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	@Override
 	public void onClick(View v) {
 		if(v == this.btnAdd){
-			dialog = new DialogTipoReceta(this);
-			dialog.setTitle(btnAdd.getText());
-			dialog.btnComercial.setOnClickListener(this);
-			dialog.btnGenerico.setOnClickListener(this);
-			dialog.show();
-		}else if (dialog != null){
-			if(v == dialog.btnComercial){
-				dialog.dismiss();
-				DialogCantidad dialogQuantity = new DialogCantidad(this);
-				dialogQuantity.setTitle("Comercial");
-				dialogQuantity.show();
-			}else if(v == dialog.btnGenerico){
-				dialog.dismiss();
+			dialogTipoReceta.setTitle(btnAdd.getText());
+			dialogTipoReceta.show();
+		}
+		if (dialogTipoReceta != null){
+			if(v == dialogTipoReceta.btnComercial){
+				ICuantificable c = mViewPager.getCurrentItem() == 0?new Medicamento() : new Insumo();
+				c.setId(Medicamento.COMERCIAL);
+				if(find(c) != null){
+					dialogTipoReceta.dismiss();
+					showAlert("El elemento 'COMERCIAL' ya existe en el listado. Si desea modificar las cantidades, mantenga seleccionado el elemento.");					
+				} else {
+					dialogTipoReceta.dismiss();
+					dialogQuantity.setTitle("Comercial");
+					dialogQuantity.show();
+				}
+				
+			}else if(v == dialogTipoReceta.btnGenerico){
+				dialogTipoReceta.dismiss();
 				Intent i = new Intent(this, AddToRecetaActivity.class);
 				i.putExtra("index", mViewPager.getCurrentItem());
 				this.startActivityForResult(i,1);
 			}
 		}
-		
+		if (dialogQuantity != null){
+			if(v == dialogQuantity.btnOK){
+				dialogQuantity.dismiss();
+				if(mViewPager.getCurrentItem() == 0){
+					Medicamento c = new Medicamento();
+					c.setId(Medicamento.COMERCIAL);
+					c.setNombre(Medicamento.COMERCIAL);
+					c.setEntregado(dialogQuantity.getCantidadEntregada());
+					c.setRecetado(dialogQuantity.getCantidadRecetada());
+					this.add(c);
+				} else if(mViewPager.getCurrentItem() == 1){
+					Insumo in = new Insumo();
+					in.setId(Insumo.COMERCIAL);
+					in.setNombre(Insumo.COMERCIAL);
+					in.setEntregado(dialogQuantity.getCantidadEntregada());
+					in.setRecetado(dialogQuantity.getCantidadRecetada());
+					this.add(in);
+				}
+				
+			}
+		}
+	}
+	
+	private void showAlert(String text){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(text)
+		       .setCancelable(false)
+		       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   
+		           }
+		       });
+		alert = builder.create();
+		alert.show();
 	}
 }
