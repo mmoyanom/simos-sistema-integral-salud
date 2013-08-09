@@ -2,26 +2,26 @@ package gob.sis.simos.entity;
 
 import java.io.Serializable;
 
-public class Insumo extends Cuantificable implements Serializable {
+public class Insumo implements Serializable, ICuantificable, ICheckable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String id;
-	private String name;
-	private String category;
-	private String description;
-	private Integer prescribed;
-	private Integer commited;
+	private String id;	
+	private String nombre;
+	private String categoria;
+	private String descripcion;
+	private Integer recetado;
+	private Integer entregado;
 	
+	private boolean checked = false;
 	
-	
-	public String getCategory() {
-		return category;
+	public String getCategoria() {
+		return categoria;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 	public String getId() {
 		return id;
@@ -29,29 +29,47 @@ public class Insumo extends Cuantificable implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public String getDescription() {
-		return description;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-	public Integer getPrescribed() {
-		return prescribed;
+	@Override
+	public int getEntregado() {
+		// TODO Auto-generated method stub
+		return this.entregado;
 	}
-	public void setPrescribed(Integer prescribed) {
-		this.prescribed = prescribed;
+	@Override
+	public void setEntregado(int entregado) {
+		// TODO Auto-generated method stub
+		this.entregado = entregado;
 	}
-	public Integer getCommited() {
-		return commited;
+	@Override
+	public int getRecetado() {
+		// TODO Auto-generated method stub
+		return this.recetado;
 	}
-	public void setCommited(Integer commited) {
-		this.commited = commited;
+	@Override
+	public void setRecetado(int recetado) {
+		// TODO Auto-generated method stub
+		this.recetado = recetado;
+	}
+	@Override
+	public void setChecked(boolean checked) {
+		// TODO Auto-generated method stub
+		this.checked = checked;
+	}
+	@Override
+	public boolean isChecked() {
+		// TODO Auto-generated method stub
+		return this.checked;
 	}
 	
 	

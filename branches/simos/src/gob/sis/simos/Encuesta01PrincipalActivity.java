@@ -73,10 +73,6 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			}
 		});
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			// Create a tab with text corresponding to the page title defined by
-			// the adapter. Also specify this Activity object, which implements
-			// the TabListener interface, as the callback (listener) for when
-			// this tab is selected.
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
@@ -143,9 +139,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 
 		@Override
 		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
+			
 			if(position == 0){
 				medicineFragment = new MedicamentoCheckListFragment();
 				return medicineFragment;
@@ -158,7 +152,6 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 
 		@Override
 		public int getCount() {
-			// Show 3 total pages.
 			return 2;
 		}
 
