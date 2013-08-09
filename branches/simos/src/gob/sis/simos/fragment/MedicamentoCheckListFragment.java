@@ -5,6 +5,7 @@ import gob.sis.simos.adapters.MedicamentoCheckListAdapter;
 import gob.sis.simos.controller.RecetaController;
 import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Medicamento;
+import gob.sis.simos.ui.DialogCantidad;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,14 +15,15 @@ import roboguice.fragment.RoboFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.google.inject.Inject;
 
-public class MedicamentoCheckListFragment extends RoboFragment implements OnItemClickListener,IMaintainableFragment {
+public class MedicamentoCheckListFragment extends RoboFragment implements OnClickListener, IMaintainableFragment, OnItemLongClickListener {
 
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -30,7 +32,10 @@ public class MedicamentoCheckListFragment extends RoboFragment implements OnItem
 	
 	public ListView lstPrescription;
 	public MedicamentoCheckListAdapter adapter;
-
+	
+	private DialogCantidad dialog;
+	private ICuantificable cuantificable;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -41,17 +46,38 @@ public class MedicamentoCheckListFragment extends RoboFragment implements OnItem
 		lstPrescription = (ListView)rootView.findViewById(R.id.lst_medicamentos);
 		adapter = new MedicamentoCheckListAdapter(getActivity().getBaseContext(), R.layout.adptr_medcmnto_check_list, items);
 		lstPrescription.setAdapter(adapter);
-		lstPrescription.setOnItemClickListener(this);
+		lstPrescription.setOnItemLongClickListener(this);
 		
+		dialog = new DialogCantidad(getActivity());
+		dialog.btnOK.setOnClickListener(this);
+		dialog.btnCANCEL.setOnClickListener(this);
 		return rootView;
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		System.out.println("click!");
+	public void onClick(View v) {
+		if(dialog != null){
+			if(v == dialog.btnOK){
+				if(cuantificable != null){
+					updateItem(cuantificable);
+					dialog.dismiss();
+				}
+			} else if(v == dialog.btnCANCEL){
+				dialog.dismiss();
+			}
+		}
 	}
-
-	 
+	
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		Medicamento me = adapter.getItem(position);
+		this.cuantificable = me;
+		dialog.setTitle(me.getNombre());
+		dialog.setCantidadEntregada(cuantificable.getEntregado());
+		dialog.setCantidadRecetada(cuantificable.getRecetado());
+		dialog.show();
+		return true;
+	}
 	
 	@Override
 	public void checkAllItems() {
@@ -98,4 +124,13 @@ public class MedicamentoCheckListFragment extends RoboFragment implements OnItem
 		}
 		return null;
 	}
+
+	@Override
+	public void updateItem(ICuantificable c) {
+		// TODO Auto-generated method stub
+		cuantificable.setEntregado(dialog.getCantidadEntregada());
+		cuantificable.setRecetado(dialog.getCantidadRecetada());
+		adapter.notifyDataSetChanged();
+	}
+
 }

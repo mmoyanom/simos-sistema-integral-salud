@@ -17,7 +17,7 @@ public class PrescriptionServiceImpl { // implements PrescriptionService {
 		for(int i=0; i < 3; i++){
 			Medicamento m = new Medicamento();
 			m.setId(""+(i+1));
-			m.setName("Medicamento "+(i+1));
+			m.setNombre("Medicamento "+(i+1));
 			m.setDescripcion("Medida");
 			m.setRecetado(3);
 			m.setEntregado(2);
@@ -32,7 +32,7 @@ public class PrescriptionServiceImpl { // implements PrescriptionService {
 		for(int i=0; i < 10; i++){
 			Medicamento m = new Medicamento();
 			m.setId(""+(i+1));
-			m.setName("Medicamento "+(i+1));
+			m.setNombre("Medicamento "+(i+1));
 			m.setDescripcion("Medida");
 			m.setRecetado(3);
 			m.setEntregado(2);

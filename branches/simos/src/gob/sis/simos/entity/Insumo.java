@@ -8,6 +8,9 @@ public class Insumo implements Serializable, ICuantificable, ICheckable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public static final String COMERCIAL = "COMERCIAL";
+	
 	private String id;	
 	private String nombre;
 	private String categoria;

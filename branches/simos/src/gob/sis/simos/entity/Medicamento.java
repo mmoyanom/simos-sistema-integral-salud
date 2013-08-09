@@ -5,6 +5,9 @@ import java.io.Serializable;
 public class Medicamento implements Serializable, ICuantificable, ICheckable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final String COMERCIAL = "COMERCIAL"; 
+	
 	private String id;
 	private String categoria;
 	private String nombre;
@@ -23,7 +26,7 @@ public class Medicamento implements Serializable, ICuantificable, ICheckable {
 	public String getNombre() {
 		return nombre;
 	}
-	public void setName(String nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 	public String getDescripcion() {
