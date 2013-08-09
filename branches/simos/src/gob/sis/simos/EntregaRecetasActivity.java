@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class EntregaRecetasActivity extends RoboFragmentActivity
  implements ActionBar.TabListener, OnClickListener {
@@ -175,19 +176,23 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		ICuantificable c = (ICuantificable)data.getSerializableExtra("data");
-		if(this.find(c) != null){
-			String str = "El elemento '%s' ya existe en el listado. Si desea modificar las cantidades, mantenga seleccionado el elemento."; 
-			if(c instanceof Medicamento){
-				Medicamento m = (Medicamento)c;
-				str = String.format(str, m.getNombre());
-			} else if (c instanceof Insumo){
-				Insumo in = (Insumo)c;
-				str = String.format(str, in.getNombre());
+		if(requestCode == 1 && resultCode == RESULT_OK){
+			ICuantificable c = (ICuantificable)data.getSerializableExtra("data");
+			if(this.find(c) != null){
+				String str = "El elemento '%s' ya existe en el listado. Si desea modificar las cantidades, mantenga seleccionado el elemento."; 
+				if(c instanceof Medicamento){
+					Medicamento m = (Medicamento)c;
+					str = String.format(str, m.getNombre());
+				} else if (c instanceof Insumo){
+					Insumo in = (Insumo)c;
+					str = String.format(str, in.getNombre());
+				}
+				showAlert(str);
+			} else {
+				this.add(c);
 			}
-			showAlert(str);
-		} else {
-			this.add(c);
+		} else if (requestCode == 1 && resultCode == RESULT_CANCELED){
+			Toast.makeText(this, "Operación cancelada", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
