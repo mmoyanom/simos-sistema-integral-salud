@@ -13,17 +13,18 @@
             android:layout_weight="1"
             android:orientation="horizontal">
             <RadioGroup 
+                android:id="@+id/rg_tipo_receta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:orientation="horizontal">
-                <RadioButton android:text="Estandarizada" android:layout_width="wrap_content" />
+                <RadioButton android:id="@+id/rb_estandarizada" android:text="Estandarizada" android:layout_width="wrap_content"/>
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
-                <RadioButton android:text="No estandarizada" android:layout_width="wrap_content" />
+                <RadioButton android:id="@+id/rb_no_estandarizada" android:text="No estandarizada" android:layout_width="wrap_content" />
             </RadioGroup>
     </LinearLayout>
     <LinearLayout 
