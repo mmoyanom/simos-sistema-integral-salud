@@ -1,10 +1,16 @@
 package gob.sis.simos;
 
+import gob.sis.simos.dto.Receta;
+import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.fragment.InsumoCheckListFragment;
-import gob.sis.simos.fragment.MedicamentoCheckListFragment;
-import gob.sis.simos.ui.DialogAddToReceta;
+import gob.sis.simos.fragment.RecetaCheckListFragment;
 import gob.sis.simos.ui.DialogAddServicio;
+import gob.sis.simos.ui.DialogAddToReceta;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -36,10 +42,12 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	@InjectView(R.id.btn_add)
 	protected Button btnAdd;
 	
+	private List<Receta> recetas;
+	
 	DialogAddServicio addServiceDialog;
 	DialogAddToReceta addPrescriptionDialog;
 	
-	MedicamentoCheckListFragment medicineFragment;
+	RecetaCheckListFragment recetasFragment;
 	InsumoCheckListFragment inputFragment;
 	
 	public static final int ADD_SERVICE = 0;
@@ -49,7 +57,6 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//this.setContentView(R.layout.activity_inquest_00);
 		
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -59,6 +66,8 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		this.btnAdd.setOnClickListener(this);
 		this.addServiceDialog = new DialogAddServicio(this);
 		this.addPrescriptionDialog = new DialogAddToReceta(this);
+		
+		this.recetas = new ArrayList<Receta>();
 		
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
@@ -120,16 +129,30 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == ADD_SERVICE){
-			Medicamento m = new Medicamento();
+			/*Medicamento m = new Medicamento();
 			m.setNombre("Medicamento agregado");
-			medicineFragment.adapter.add(m);
+			recetasFragment.adapter.add(m);
 			Toast.makeText(this, "Servicio guardado, "+resultCode, Toast.LENGTH_SHORT).show();
+			*/
 		} else if(requestCode == ADD_PRESCRIPTION){
-			Toast.makeText(this, "Receta guardada, "+resultCode, Toast.LENGTH_SHORT).show();
+			if(resultCode == RESULT_OK){
+				Receta receta = (Receta)data.getSerializableExtra("receta");
+				if(receta != null){
+					this.add(receta);
+					Toast.makeText(this, "Receta guardada satisfactoriamente.", Toast.LENGTH_SHORT).show();
+				}
+			} else if(resultCode == RESULT_CANCELED){
+				Toast.makeText(this, "Acci—n cancelada.", Toast.LENGTH_SHORT).show();
+			}
 		}
 		
 	}
 
+	private void add(Receta receta){
+		receta.setId(""+(this.recetas.size()+1));
+		this.recetas.add(receta);
+		this.recetasFragment.adapter.add(receta);
+	}
 	
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -141,8 +164,8 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		public Fragment getItem(int position) {
 			
 			if(position == 0){
-				medicineFragment = new MedicamentoCheckListFragment();
-				return medicineFragment;
+				recetasFragment = new RecetaCheckListFragment();
+				return recetasFragment;
 			} else if(position == 1){
 				inputFragment = new InsumoCheckListFragment();
 				return inputFragment;
@@ -193,7 +216,16 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				this.addServiceDialog.dismiss();
 		} else if(v == this.addPrescriptionDialog.btnContinuar){
 				this.addPrescriptionDialog.dismiss();
+				
+				Receta rc = new Receta();
+				List<Insumo> insumos = new ArrayList<Insumo>();
+				rc.setInsumos(insumos);
+				List<Medicamento> medicamentos = new ArrayList<Medicamento>();
+				rc.setMedicamentos(medicamentos);
+				rc.setTipo(addPrescriptionDialog.getTipoReceta());
+				
 				Intent i = new Intent(this, EntregaRecetasActivity.class);
+				i.putExtra("receta", rc);
 				this.startActivityForResult(i, ADD_PRESCRIPTION);
 		} else if(v == this.addPrescriptionDialog.btnCancelar){
 				this.addPrescriptionDialog.dismiss();

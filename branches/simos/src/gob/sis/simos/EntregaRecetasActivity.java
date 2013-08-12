@@ -1,6 +1,7 @@
 package gob.sis.simos;
 
 
+import gob.sis.simos.dto.Receta;
 import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
@@ -40,6 +41,8 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	
 	@InjectView(R.id.btn_add)
 	protected Button btnAdd;
+	
+	private Receta receta;
 	
 	DialogTipoReceta dialogTipoReceta;
 	DialogCantidad dialogQuantity;
@@ -85,16 +88,17 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				actionBar.setSelectedNavigationItem(position);
 			}
 		});
+		
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		this.receta = (Receta) getIntent().getSerializableExtra("receta");
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.prescription_menu, menu);
 		return true;
@@ -108,8 +112,32 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 			clear();
 		} else if(item.getItemId() == R.id.item_delete) {
 			delete();
+		} else if(item.getItemId() == R.id.action_save){
+			saveReceta();
 		}
 		return true;
+	}
+	
+	private void saveReceta(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		
+		alertDialogBuilder.setTitle("Guardar");
+		alertDialogBuilder
+			.setMessage("Desea guardar la receta?")
+			.setCancelable(false)
+			.setPositiveButton("Si",new DialogInterface.OnClickListener(){
+				public void onClick(DialogInterface dialog,int id) {
+					receta.setMedicamentos(medicineFragment.adapter.getItems());
+					receta.setInsumos(inputFragment.adapter.getItems());
+				}
+			  })
+			.setNegativeButton("No",new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					dialog.cancel();
+				}
+			});
+			AlertDialog alertDialog = alertDialogBuilder.create();
+			alertDialog.show();
 	}
 
 	private void delete(){
@@ -117,7 +145,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 			
 			alertDialogBuilder.setTitle("ELIMINAR");
 			alertDialogBuilder
-				.setMessage("¿Desea eliminar los elementos seleccionados?")
+				.setMessage("Desea eliminar los elementos seleccionados?")
 				.setCancelable(false)
 				.setPositiveButton("Sí",new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog,int id) {
@@ -192,7 +220,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				this.add(c);
 			}
 		} else if (requestCode == 1 && resultCode == RESULT_CANCELED){
-			Toast.makeText(this, "Operación cancelada", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Operacion cancelada", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -223,14 +251,18 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
-
+		
 		@Override
 		public Fragment getItem(int position) {
 			if(position == 0){
 				medicineFragment = new MedicamentoCheckListFragment();
+ 				System.out.println("count_receta : "+medicineFragment.adapter.getCount());
+ 				
 				return medicineFragment;
 			} else if(position == 1){
 				inputFragment = new InsumoCheckListFragment();
+				System.out.println("inputFragment : "+inputFragment);
+				System.out.println("medicine : "+receta);
 				return inputFragment;
 			}
 			return null;

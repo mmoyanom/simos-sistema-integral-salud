@@ -27,7 +27,7 @@ public class PrescriptionServiceImpl { // implements PrescriptionService {
 		return items;
 	}
 	
-	public List<Medicamento> buscarMedicamento(String text) {
+	public List<Medicamento> findMedicamento(String text) {
 		List<Medicamento> items = new ArrayList<Medicamento>();
 		for(int i=0; i < 10; i++){
 			Medicamento m = new Medicamento();
@@ -46,6 +46,21 @@ public class PrescriptionServiceImpl { // implements PrescriptionService {
 	public List<Insumo> getListaInsumos() {
 		List<Insumo> items = new ArrayList<Insumo>();
 		for(int i=0;i < 3; i++){
+			Insumo in = new Insumo();
+			in.setId(""+(i+1));
+			in.setNombre("Insumo "+(i+1));
+			in.setDescripcion("Medida");
+			in.setRecetado(3);
+			in.setEntregado(2);
+			in.setCategoria("Categoria");
+			items.add(in);
+		}
+		return items;
+	}
+
+	public List<Insumo> findInsumos(String text) {
+		List<Insumo> items = new ArrayList<Insumo>();
+		for(int i=0;i < 5; i++){
 			Insumo in = new Insumo();
 			in.setId(""+(i+1));
 			in.setNombre("Insumo "+(i+1));

@@ -1,5 +1,7 @@
 package gob.sis.simos;
 
+import java.util.List;
+
 import gob.sis.simos.adapters.InsumoListAdapter;
 import gob.sis.simos.adapters.MedicamentoListAdapter;
 import gob.sis.simos.controller.RecetaController;
@@ -34,6 +36,11 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 	private ICuantificable cuantificable;
 	private DialogCantidad dialog;
 	
+	private int index;
+	
+	//private MedicamentoListAdapter medicamentoAdapter;
+	//private InsumoListAdapter insumoAdapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,9 +50,9 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 		this.getActionBar().setDisplayShowHomeEnabled(false);
 		this.getActionBar().setIcon(R.drawable.ic_menu_close_clear_cancel);
 		
-		Integer index = getIntent().getExtras().getInt("index");
+		index = getIntent().getExtras().getInt("index");
 		if(index == 0){
-			MedicamentoListAdapter adapter = new MedicamentoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.buscarMedicamento(""));
+			MedicamentoListAdapter adapter = new MedicamentoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.findMedicamento(""));
 			this.lstResult.setAdapter(adapter);
 		} else if(index == 1){
 			InsumoListAdapter adapter = new InsumoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.getInsumos());
@@ -108,9 +115,21 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 	@Override
 	public boolean onQueryTextSubmit(String query) {
 		
-		// AQUI SE EJECUTA LA BUSQUEDA!!!
+		if(query.length() > 5) {
+			if(index == 0){
+				List<Medicamento> items = controller.findMedicamento(query);
+				MedicamentoListAdapter adapter = (MedicamentoListAdapter)lstResult.getAdapter();
+				adapter.setItems(items);
+				adapter.notifyDataSetChanged();
+			} else if (index == 1) {
+				List<Insumo> items = controller.findInsumos(query);
+				InsumoListAdapter adapter = (InsumoListAdapter)lstResult.getAdapter();
+				adapter.setItems(items);
+				adapter.notifyDataSetChanged();
+			}
+		}
 		
-		return false;
+		return true;
 	}
 
 	@Override
