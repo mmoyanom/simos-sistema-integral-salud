@@ -19,6 +19,14 @@ public class MedicamentoListAdapter extends ArrayAdapter<Medicamento> {
 		super(context, textViewResourceId, objects);
 		this.items = objects;
 	}
+	
+	public List<Medicamento> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Medicamento> items) {
+		this.items = items;
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

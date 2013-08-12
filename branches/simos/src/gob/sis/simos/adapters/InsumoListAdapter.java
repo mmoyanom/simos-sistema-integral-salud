@@ -22,6 +22,16 @@ public class InsumoListAdapter extends ArrayAdapter<Insumo> {
 		this.items = objects;
 	}
 	
+	public List<Insumo> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Insumo> items) {
+		this.items = items;
+	}
+
+
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
