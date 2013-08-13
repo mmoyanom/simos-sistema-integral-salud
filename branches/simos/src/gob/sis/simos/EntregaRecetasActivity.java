@@ -52,6 +52,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	AlertDialog alert;
 	
 	public static final int ADD_PRESCRIPTION = 1;
+	public static final int EDIT_PRESCRIPTION = 2;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -120,15 +121,35 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	
 	private void saveReceta(){
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		String message = "";
+		Bundle bundle = getIntent().getExtras();
+		if(bundle != null){
+			Integer action = bundle.getInt("action");
+			if(action == ADD_PRESCRIPTION){
+				message = "Desea guardar la receta?";
+			} else if(action == EDIT_PRESCRIPTION){
+				Receta aux = (Receta)getIntent().getSerializableExtra("receta");
+				if(aux.equals(this.receta)){
+					Intent i = new Intent(EntregaRecetasActivity.this, Encuesta01PrincipalActivity.class);
+					i.putExtra("receta",aux);
+					setResult(RESULT_OK,i);
+					finish();
+				}
+			}
+		}
 		
 		alertDialogBuilder.setTitle("Guardar");
 		alertDialogBuilder
-			.setMessage("Desea guardar la receta?")
+			.setMessage(message)
 			.setCancelable(false)
 			.setPositiveButton("Si",new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog,int id) {
 					receta.setMedicamentos(medicineFragment.adapter.getItems());
 					receta.setInsumos(inputFragment.adapter.getItems());
+					Intent i = new Intent(EntregaRecetasActivity.this, Encuesta01PrincipalActivity.class);
+					i.putExtra("receta",receta);
+					setResult(RESULT_OK, i);
+					finish();
 				}
 			  })
 			.setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -255,14 +276,28 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 		@Override
 		public Fragment getItem(int position) {
 			if(position == 0){
-				medicineFragment = new MedicamentoCheckListFragment();
- 				System.out.println("count_receta : "+medicineFragment.adapter.getCount());
- 				
+				medicineFragment = new MedicamentoCheckListFragment(){
+					@Override
+					public void onViewCreated(View view,
+							Bundle savedInstanceState) {
+						if(receta != null){
+							adapter.addAll(receta.getMedicamentos());
+							adapter.notifyDataSetChanged();
+						}
+					}
+				};
 				return medicineFragment;
 			} else if(position == 1){
-				inputFragment = new InsumoCheckListFragment();
-				System.out.println("inputFragment : "+inputFragment);
-				System.out.println("medicine : "+receta);
+				inputFragment = new InsumoCheckListFragment(){
+					@Override
+					public void onViewCreated(View view,
+							Bundle savedInstanceState) {
+						if(receta != null){
+							adapter.addAll(receta.getInsumos());
+							adapter.notifyDataSetChanged();
+						}
+					}
+				};
 				return inputFragment;
 			}
 			return null;

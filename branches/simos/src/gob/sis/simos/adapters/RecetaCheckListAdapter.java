@@ -50,8 +50,8 @@ public class RecetaCheckListAdapter extends ArrayAdapter<Receta> implements OnCh
 			holder.checkBox.setIndex(position);
 			holder.checkBox.setChecked(r.isChecked());
 			holder.checkBox.setOnCheckedChangeListener(this);
-			holder.title.setText(r.getId());
-			holder.description.setText("Tipo : "+r.getTipo());
+			holder.title.setText(r.getId()+"_"+r.getTipo());
+			holder.description.setText("Medicamentos : "+r.getMedicamentos().size()+", Insumos : "+r.getInsumos().size());
 		}
 		return v;
 	}
