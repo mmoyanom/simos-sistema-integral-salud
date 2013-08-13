@@ -1,13 +1,14 @@
 package gob.sis.simos.dto;
 
 import gob.sis.simos.entity.ICheckable;
+import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class Receta implements Serializable, ICheckable {
+public class Receta implements Serializable, ICheckable, ICuantificable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -53,6 +54,27 @@ public class Receta implements Serializable, ICheckable {
 	public boolean isChecked() {
 		// TODO Auto-generated method stub
 		return this.checked;
+	}
+	
+	@Override
+	public int getEntregado() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void setEntregado(int entregado) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public int getRecetado() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void setRecetado(int recetado) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

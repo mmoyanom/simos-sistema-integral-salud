@@ -1,6 +1,7 @@
 package gob.sis.simos;
 
 import gob.sis.simos.dto.Receta;
+import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.fragment.InsumoCheckListFragment;
@@ -16,7 +17,9 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -50,9 +53,11 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	RecetaCheckListFragment recetasFragment;
 	InsumoCheckListFragment inputFragment;
 	
+	AlertDialog alert;
+	
 	public static final int ADD_SERVICE = 0;
 	public static final int ADD_PRESCRIPTION = 1;
-	
+	public static final int EDIT_PRESCRIPTION = 2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -129,29 +134,50 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == ADD_SERVICE){
-			/*Medicamento m = new Medicamento();
-			m.setNombre("Medicamento agregado");
-			recetasFragment.adapter.add(m);
-			Toast.makeText(this, "Servicio guardado, "+resultCode, Toast.LENGTH_SHORT).show();
-			*/
+			
 		} else if(requestCode == ADD_PRESCRIPTION){
 			if(resultCode == RESULT_OK){
-				Receta receta = (Receta)data.getSerializableExtra("receta");
-				if(receta != null){
-					this.add(receta);
+				ICuantificable c = (ICuantificable)data.getSerializableExtra("receta");
+				if(c != null){
+					this.add(c);
 					Toast.makeText(this, "Receta guardada satisfactoriamente.", Toast.LENGTH_SHORT).show();
 				}
 			} else if(resultCode == RESULT_CANCELED){
-				Toast.makeText(this, "Acci—n cancelada.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Accion cancelada.", Toast.LENGTH_SHORT).show();
+			}
+		} else if (requestCode == EDIT_PRESCRIPTION){
+			if(resultCode == RESULT_OK){
+				ICuantificable c = (ICuantificable)data.getSerializableExtra("receta");
+				if(c != null){
+					String msg = "Receta '%s' actualizada satisfactoriamente"; 
+					this.update(c);
+					Toast.makeText(this, String.format(msg, c.getId()), Toast.LENGTH_SHORT).show();
+				}
+			} else if (resultCode == RESULT_CANCELED){
+				Toast.makeText(this, "Accion cancelada.", Toast.LENGTH_SHORT).show();
 			}
 		}
 		
 	}
 
-	private void add(Receta receta){
-		receta.setId(""+(this.recetas.size()+1));
-		this.recetas.add(receta);
-		this.recetasFragment.adapter.add(receta);
+	private void add(ICuantificable c){
+		if(c instanceof Receta){
+			Receta rc = (Receta)c;
+			rc.setId(""+(this.recetas.size()+1));
+			this.recetas.add(rc);
+			this.recetasFragment.adapter.add(rc);
+		}
+	}
+	
+	private void update(ICuantificable c){
+		if(c instanceof Receta){
+			Receta rc = (Receta)c;
+			Integer index = Integer.parseInt(rc.getId().trim());
+			this.recetas.set((index-1), rc);
+			this.recetasFragment.adapter.clear();
+			this.recetasFragment.adapter.addAll(recetas);
+			this.recetasFragment.adapter.notifyDataSetChanged();
+		}
 	}
 	
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -164,11 +190,11 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		public Fragment getItem(int position) {
 			
 			if(position == 0){
-				recetasFragment = new RecetaCheckListFragment();
-				return recetasFragment;
-			} else if(position == 1){
 				inputFragment = new InsumoCheckListFragment();
 				return inputFragment;
+			} else if(position == 1){
+				recetasFragment = new RecetaCheckListFragment();
+				return recetasFragment;
 			}
 			return null;
 		}
@@ -226,10 +252,24 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				
 				Intent i = new Intent(this, EntregaRecetasActivity.class);
 				i.putExtra("receta", rc);
+				i.putExtra("action", ADD_PRESCRIPTION);
 				this.startActivityForResult(i, ADD_PRESCRIPTION);
 		} else if(v == this.addPrescriptionDialog.btnCancelar){
 				this.addPrescriptionDialog.dismiss();
 		}
 		
 	}
+	
+	/*private void showAlert(String text){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(text)
+		       .setCancelable(false)
+		       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   
+		           }
+		       });
+		alert = builder.create();
+		alert.show();
+	}*/
 }
