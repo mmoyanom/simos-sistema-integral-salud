@@ -10,6 +10,7 @@ import gob.sis.simos.fragment.MedicamentoCheckListFragment;
 import gob.sis.simos.ui.DialogCantidad;
 import gob.sis.simos.ui.DialogTipoReceta;
 
+import java.util.Iterator;
 import java.util.Locale;
 
 import roboguice.activity.RoboFragmentActivity;
@@ -188,26 +189,42 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 
 	private void clear(){
 		if(mViewPager.getCurrentItem() == 0){
-			medicineFragment.clear();
+			receta.getMedicamentos().clear();
+			medicineFragment.notifyChanges(receta.getMedicamentos());
 		} else if(mViewPager.getCurrentItem() == 1){
-			inputFragment.clear();
+			receta.getInsumos().clear();
+			inputFragment.notifyChanges(receta.getInsumos());
 		}
 	}
 
 	private void checkAll() {
 		if(mViewPager.getCurrentItem() == 0){
-			medicineFragment.checkAllItems();
+			Iterator<Medicamento> it = this.receta.getMedicamentos().iterator();
+			while(it.hasNext()){
+				Medicamento medicamento = it.next();
+				medicamento.setChecked(true);
+			}
+			medicineFragment.notifyChanges(this.receta.getMedicamentos());
 		} else if(mViewPager.getCurrentItem() == 1){
-			inputFragment.checkAllItems();
+			Iterator<Insumo> it = this.receta.getInsumos().iterator();
+			while(it.hasNext()){
+				Insumo insumo = it.next();
+				insumo.setChecked(true);
+			}
+			inputFragment.notifyChanges(this.receta.getInsumos());
 		}
 	}
 
 	private void add(ICuantificable c){
 		if(c != null){
 			if(c instanceof Medicamento){
-				medicineFragment.adapter.add((Medicamento)c);
+				Medicamento m = (Medicamento)c;
+				receta.getMedicamentos().add(m);
+				medicineFragment.adapter.add(m);
 			}else if(c instanceof Insumo){
-				inputFragment.adapter.add((Insumo)c);
+				Insumo in = (Insumo)c;
+				receta.getInsumos().add(in);
+				inputFragment.adapter.add(in);
 			}
 		}
 	}
