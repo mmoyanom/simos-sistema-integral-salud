@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="D:\simosws\deploy" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Perfil1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="bin/simosws.xml" publishTime="07/05/2013 16:52:08" />
+    <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="06/26/2013 13:57:31" />
+    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="06/26/2013 13:57:31" />
+    <file relUrl="Web.config" publishTime="07/05/2013 16:52:13" />
+    <file relUrl="bin/simosws.dll" publishTime="07/05/2013 16:52:08" />
+    <file relUrl="Default.aspx" publishTime="06/30/2013 18:38:31" />
+    <file relUrl="ApplicationService.asmx" publishTime="06/30/2013 11:34:33" />
+    <file relUrl="bin/simosws.pdb" publishTime="07/05/2013 16:52:08" />
+    <file relUrl="LoginService.asmx" publishTime="06/26/2013 14:02:01" />
+    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="06/26/2013 13:57:31" />
+  </publishProfile>
+</publishData>
