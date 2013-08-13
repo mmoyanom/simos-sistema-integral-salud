@@ -80,6 +80,12 @@ public class InsumoCheckListFragment extends RoboFragment implements OnClickList
 		dialog.show();
 		return true;
 	}
+	
+	public void notifyChanges(List<Insumo> items){
+		adapter.clear();
+		adapter.addAll(items);
+		adapter.notifyDataSetChanged();
+	}
 
 	@Override
 	public void checkAllItems() {
