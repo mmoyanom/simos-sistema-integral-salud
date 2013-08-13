@@ -68,6 +68,12 @@ public class MedicamentoCheckListFragment extends RoboFragment implements OnClic
 		}
 	}
 	
+	public void notifyChanges(List<Medicamento> items){
+		adapter.clear();
+		adapter.addAll(items);
+		adapter.notifyDataSetChanged();
+	}
+	
 	@Override
 	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		Medicamento me = adapter.getItem(position);
