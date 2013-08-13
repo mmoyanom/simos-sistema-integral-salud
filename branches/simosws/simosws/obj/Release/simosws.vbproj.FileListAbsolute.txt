@@ -1,0 +1,10 @@
+D:\simosws\simosws\simosws\bin\simosws.dll
+D:\simosws\simosws\simosws\bin\simosws.pdb
+D:\simosws\simosws\simosws\bin\simosws.xml
+D:\simosws\simosws\simosws\obj\Release\ResolveAssemblyReference.cache
+D:\simosws\simosws\simosws\obj\Release\simosws.Resources.resources
+D:\simosws\simosws\simosws\obj\Release\simosws.dll
+D:\simosws\simosws\simosws\obj\Release\simosws.xml
+D:\simosws\simosws\simosws\obj\Release\simosws.pdb
+D:\simosws\simosws\simosws\obj\Release\GenerateResource.read.1.tlog
+D:\simosws\simosws\simosws\obj\Release\GenerateResource.write.1.tlog
