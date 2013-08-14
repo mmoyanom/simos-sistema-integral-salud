@@ -129,13 +129,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 			if(action == ADD_PRESCRIPTION){
 				message = "Desea guardar la receta?";
 			} else if(action == EDIT_PRESCRIPTION){
-				Receta aux = (Receta)getIntent().getSerializableExtra("receta");
-				if(aux.equals(this.receta)){
-					Intent i = new Intent(EntregaRecetasActivity.this, Encuesta01PrincipalActivity.class);
-					i.putExtra("receta",aux);
-					setResult(RESULT_OK,i);
-					finish();
-				}
+				message = "Desea actualizar la receta?";
 			}
 		}
 		
@@ -172,9 +166,19 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				.setPositiveButton("Sí",new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog,int id) {
 						if(mViewPager.getCurrentItem() == 0){
-							medicineFragment.deleteCheckedItems();
+							Iterator<Medicamento> it = receta.getMedicamentos().iterator();
+							while(it.hasNext()){
+								Medicamento m = it.next();
+								if(m.isChecked()) it.remove();
+							}
+							medicineFragment.notifyChanges(receta.getMedicamentos());
 						} else if(mViewPager.getCurrentItem() == 1){
-							inputFragment.deleteCheckedItems();
+							Iterator<Insumo> it = receta.getInsumos().iterator();
+							while(it.hasNext()){
+								Insumo in = it.next();
+								if(in.isChecked()) it.remove();
+							}
+							inputFragment.notifyChanges(receta.getInsumos());
 						}
 					}
 				  })
@@ -189,10 +193,18 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 
 	private void clear(){
 		if(mViewPager.getCurrentItem() == 0){
-			receta.getMedicamentos().clear();
+			Iterator<Medicamento> it = receta.getMedicamentos().iterator();
+			while(it.hasNext()){
+				Medicamento m = it.next();
+				m.setChecked(false);
+			}
 			medicineFragment.notifyChanges(receta.getMedicamentos());
 		} else if(mViewPager.getCurrentItem() == 1){
-			receta.getInsumos().clear();
+			Iterator<Insumo> it = receta.getInsumos().iterator();
+			while(it.hasNext()){
+				Insumo in = it.next();
+				in.setChecked(false);
+			}
 			inputFragment.notifyChanges(receta.getInsumos());
 		}
 	}
@@ -220,11 +232,11 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 			if(c instanceof Medicamento){
 				Medicamento m = (Medicamento)c;
 				receta.getMedicamentos().add(m);
-				medicineFragment.adapter.add(m);
+				medicineFragment.notifyChanges(receta.getMedicamentos());
 			}else if(c instanceof Insumo){
 				Insumo in = (Insumo)c;
 				receta.getInsumos().add(in);
-				inputFragment.adapter.add(in);
+				inputFragment.notifyChanges(receta.getInsumos());
 			}
 		}
 	}
@@ -232,9 +244,21 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	private ICuantificable find(ICuantificable c){
 		if(c != null){
 			if(c instanceof Medicamento){
-				return medicineFragment.findItem(c);
+				Iterator<Medicamento> it = receta.getMedicamentos().iterator();
+				while(it.hasNext()){
+					Medicamento m = it.next();
+					if(m.getId().equals(c.getId())){
+						return m;
+					}
+				}
 			}else if(c instanceof Insumo){
-				return inputFragment.findItem(c);
+				Iterator<Insumo> it = receta.getInsumos().iterator();
+				while(it.hasNext()){
+					Insumo in = it.next();
+					if(in.getId().equals(c.getId())){
+						return in;
+					}
+				}
 			}
 		}
 		return null;
