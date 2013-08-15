@@ -1,6 +1,7 @@
 package gob.sis.simos;
 
 import gob.sis.simos.dto.Receta;
+import gob.sis.simos.entity.Encuesta01;
 import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
@@ -10,6 +11,7 @@ import gob.sis.simos.ui.DialogAddServicio;
 import gob.sis.simos.ui.DialogAddToReceta;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import roboguice.activity.RoboFragmentActivity;
@@ -19,6 +21,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -44,7 +47,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	@InjectView(R.id.btn_add)
 	protected Button btnAdd;
 	
-	private List<Receta> recetas;
+	private Encuesta01 encuesta;
 	
 	DialogAddServicio addServiceDialog;
 	DialogAddToReceta addPrescriptionDialog;
@@ -71,7 +74,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		this.addServiceDialog = new DialogAddServicio(this);
 		this.addPrescriptionDialog = new DialogAddToReceta(this);
 		
-		this.recetas = new ArrayList<Receta>();
+		this.encuesta = new Encuesta01();
 		
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
@@ -111,7 +114,6 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	@Override
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
@@ -123,11 +125,93 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		if(item.getItemId() == R.id.action_next){
-			Intent i = new Intent(this, VerificacionPagos02Activity.class);
-			this.startActivity(i);
+		
+		if(item.getItemId() == R.id.item_select_all) {
+			checkAll();
+		} else if (item.getItemId() == R.id.item_clear) {
+			clear();
+		} else if (item.getItemId() == R.id.item_delete) {
+			delete();
+		} else if (item.getItemId() == R.id.action_save) {
+			
 		}
 		return true;
+	}
+	
+	private void checkAll(){
+		if(mViewPager.getCurrentItem() == 0){
+			
+		} else if (mViewPager.getCurrentItem() == 1){
+			Iterator<Receta> it = this.encuesta.getRecetas().iterator();
+			while(it.hasNext()){
+				Receta rc = it.next();
+				rc.setChecked(true);
+			}
+			recetasFragment.notifyChanges(this.encuesta.getRecetas());
+		}
+	}
+	
+	private void clear(){
+		if(mViewPager.getCurrentItem() == 0){
+			
+		} else if (mViewPager.getCurrentItem() == 1){
+			Iterator<Receta> it = this.encuesta.getRecetas().iterator();
+			while(it.hasNext()){
+				Receta rc = it.next();
+				rc.setChecked(false);
+			}
+			recetasFragment.notifyChanges(this.encuesta.getRecetas());
+		}
+	}
+	
+	private void delete(){
+		
+		if(mViewPager.getCurrentItem() == 0){
+			
+		} else if(mViewPager.getCurrentItem() == 1){
+			if(this.encuesta.getRecetas().size() == 0){
+				showMessage("No hay elementos para eliminar.");
+				return;
+			} else {
+				Iterator<Receta> it = this.encuesta.getRecetas().iterator();
+				while(it.hasNext()){
+					if(it.next().isChecked()){
+						break;
+					} else {
+						showMessage("No hay elementos seleccionados para eliminar.");
+						return;
+					}
+				}
+			}
+		}
+		
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		
+		alertDialogBuilder.setTitle("ELIMINAR");
+		alertDialogBuilder
+			.setMessage("Desea eliminar los elementos seleccionados?")
+			.setCancelable(false)
+			.setPositiveButton("Sí",new DialogInterface.OnClickListener(){
+				public void onClick(DialogInterface dialog,int id) {
+					if(mViewPager.getCurrentItem() == 0){
+						
+					} else if(mViewPager.getCurrentItem() == 1){
+						Iterator<Receta> it = encuesta.getRecetas().iterator();
+						while(it.hasNext()){
+							Receta rc = it.next();
+							if(rc.isChecked()) it.remove();
+						}
+						recetasFragment.notifyChanges(encuesta.getRecetas());
+					}
+				}
+			  })
+			.setNegativeButton("No",new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					dialog.cancel();
+				}
+			});
+			AlertDialog alertDialog = alertDialogBuilder.create();
+			alertDialog.show();
 	}
 	
 	@Override
@@ -162,9 +246,9 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	private void add(ICuantificable c){
 		if(c instanceof Receta){
 			Receta rc = (Receta)c;
-			rc.setId(""+(this.recetas.size()+1));
-			this.recetas.add(rc);
-			this.recetasFragment.adapter.add(rc);
+			rc.setId(""+(this.encuesta.getRecetas().size()+1));
+			this.encuesta.getRecetas().add(rc);
+			this.recetasFragment.notifyChanges(this.encuesta.getRecetas());
 		}
 	}
 	
@@ -172,10 +256,8 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		if(c instanceof Receta){
 			Receta rc = (Receta)c;
 			Integer index = Integer.parseInt(rc.getId().trim());
-			this.recetas.set((index-1), rc);
-			this.recetasFragment.adapter.clear();
-			this.recetasFragment.adapter.addAll(recetas);
-			this.recetasFragment.adapter.notifyDataSetChanged();
+			this.encuesta.getRecetas().set((index-1), rc);
+			this.recetasFragment.notifyChanges(encuesta.getRecetas());
 		}
 	}
 	
@@ -259,7 +341,12 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		
 	}
 	
-	/*private void showAlert(String text){
+	private void showMessage(String text){
+		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+	}
+	
+	@SuppressWarnings("unused")
+	private void showAlert(String text){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(text)
 		       .setCancelable(false)
@@ -270,5 +357,5 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		       });
 		alert = builder.create();
 		alert.show();
-	}*/
+	}
 }

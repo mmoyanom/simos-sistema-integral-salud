@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
-        android:id="@+id/action_next" 
+        android:id="@+id/action_save" 
         android:enabled="true" 
         android:visible="true"
         android:title="Guardar"
@@ -16,18 +16,21 @@
         android:showAsAction="ifRoom|withText">
         <menu>
             <item
+                android:id="@+id/item_select_all"
 		        android:enabled="true" 
 		        android:visible="true"
 		        android:title="Seleccionar todo"
 		        android:icon="@drawable/ic_menu_mark"
 		        android:showAsAction="ifRoom|withText"/>
             <item
+                android:id="@+id/item_clear"
 		        android:enabled="true" 
 		        android:visible="true"
 		        android:title="Limpiar seleccion"
 		        android:icon="@drawable/ic_menu_close_clear_cancel"
 		        android:showAsAction="ifRoom|withText"/>
             <item
+                android:id="@+id/item_delete"
 		        android:enabled="true" 
 		        android:visible="true"
 		        android:title="Eliminar"
