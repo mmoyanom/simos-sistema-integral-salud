@@ -60,7 +60,7 @@
         </activity>
         <activity
             android:name="gob.sis.simos.EntregaRecetasActivity"
-            android:label="Verificación de pagos"
+            android:label="Entrega de recetas"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
         </activity>
@@ -78,7 +78,7 @@
         </activity>
         <activity
             android:name="gob.sis.simos.VerificacionPagosActivity"
-            android:label="Encuesta"
+            android:label="Verificacion de pagos"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01" >
         </activity>

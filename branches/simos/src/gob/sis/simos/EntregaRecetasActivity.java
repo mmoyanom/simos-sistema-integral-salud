@@ -114,7 +114,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 			clear();
 		} else if(item.getItemId() == R.id.item_delete) {
 			delete();
-		} else if(item.getItemId() == R.id.action_save){
+		} else if(item.getItemId() == R.id.action_save) {
 			saveReceta();
 		}
 		return true;
@@ -157,6 +157,39 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	}
 
 	private void delete(){
+		
+		if(mViewPager.getCurrentItem() == 0){
+			if(this.receta.getMedicamentos().size() == 0){
+				showMessage("No hay elementos para eliminar");
+				return;
+			} else {
+				Iterator<Insumo> it = this.receta.getInsumos().iterator();
+				while(it.hasNext()){
+					if(it.next().isChecked()){
+						break;
+					} else {
+						showMessage("No hay elementos seleccionados para eliminar.");
+						return;
+					}
+				}
+			}
+		} else if(mViewPager.getCurrentItem() == 1){
+			if(this.receta.getInsumos().size() == 0){
+				showMessage("No hay elementos para eliminar");
+				return;
+			} else {
+				Iterator<Insumo> it = this.receta.getInsumos().iterator();
+				while(it.hasNext()){
+					if(it.next().isChecked()){
+						break;
+					} else {
+						showMessage("No hay elementos seleccionados para eliminar.");
+						return;
+					}
+				}
+			}
+		}
+		
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 			
 			alertDialogBuilder.setTitle("ELIMINAR");
@@ -409,6 +442,10 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				
 			}
 		}
+	}
+	
+	private void showMessage(String text){
+		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
 	}
 	
 	private void showAlert(String text){
