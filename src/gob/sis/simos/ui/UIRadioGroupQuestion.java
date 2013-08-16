@@ -91,7 +91,7 @@ public class UIRadioGroupQuestion extends LinearLayout {
 	public void update() {
 		for (Respuesta answer : _items) {
 			RadioButton b = new RadioButton(getContext());
-			b.setText(answer.getText());
+			b.setText(answer.getId());
 			this.add(b);
 		}
 	}

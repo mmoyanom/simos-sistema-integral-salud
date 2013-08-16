@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -18,6 +19,8 @@ public class VerificacionPagos01Fragment extends Fragment implements OnCheckedCh
 	protected View separatorLayoutTicket;
 	protected LinearLayout layoutNroTicket;
 	
+	protected RadioGroup rgHaveTicket;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -29,6 +32,10 @@ public class VerificacionPagos01Fragment extends Fragment implements OnCheckedCh
 		this.separatorLayoutTicket = (View)v.findViewById(R.id.separator_layout_nro_ticket);
 		
 		this.layoutNroTicket = (LinearLayout)v.findViewById(R.id.layout_nro_ticket);
+		
+		this.rgHaveTicket = (RadioGroup) v.findViewById(R.id.rg_have_ticket);
+		
+		
 		return v;
 	}
 	
@@ -48,4 +55,16 @@ public class VerificacionPagos01Fragment extends Fragment implements OnCheckedCh
 			this.layoutNroTicket.setVisibility(View.GONE);	
 		}
 	}
+	
+	public String haveTickets(){
+		int id = rgHaveTicket.getCheckedRadioButtonId();
+		RadioButton r = (RadioButton)rgHaveTicket.findViewById(id);
+		//int index = this.rgHaveTicket.indexOfChild(r);
+		/*if(index == 0){
+		} else if (index == 2){
+		}*/
+		return r.getText().toString();
+	}
+	
+	
 }

@@ -1,5 +1,6 @@
 package gob.sis.simos;
 
+import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.fragment.VerificacionPagos01Fragment;
 import gob.sis.simos.fragment.VerificacionPagos02Fragment;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ public class VerificacionPagosActivity extends FragmentActivity implements Fragm
 	private String dynamicFragment = "_dynamicFragment";
 	private Menu menu;
 	
+	private VerificacionPago verificacion;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,6 +28,8 @@ public class VerificacionPagosActivity extends FragmentActivity implements Fragm
 		
 		frgmnt1 = new VerificacionPagos01Fragment();
 		frgmnt2 = new VerificacionPagos02Fragment();
+		
+		this.verificacion = (VerificacionPago) getIntent().getSerializableExtra("verificacion");
 		
 		FragmentManager mgr = getSupportFragmentManager();
 		mgr.addOnBackStackChangedListener(this);
