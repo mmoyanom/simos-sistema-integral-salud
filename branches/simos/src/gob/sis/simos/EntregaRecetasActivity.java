@@ -121,6 +121,12 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	}
 	
 	private void saveReceta(){
+		
+		if(this.receta.getMedicamentos().size() == 0 && this.receta.getInsumos().size() == 0){
+			showMessage("No se puede guardar la receta. Por favor agrege un medicamento y/o insumo.");
+			return;
+		}
+		
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		String message = "";
 		Bundle bundle = getIntent().getExtras();
@@ -163,7 +169,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				showMessage("No hay elementos para eliminar");
 				return;
 			} else {
-				Iterator<Insumo> it = this.receta.getInsumos().iterator();
+				Iterator<Medicamento> it = this.receta.getMedicamentos().iterator();
 				while(it.hasNext()){
 					if(it.next().isChecked()){
 						break;
