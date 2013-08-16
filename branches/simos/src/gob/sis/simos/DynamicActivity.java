@@ -29,7 +29,7 @@ public class DynamicActivity extends Activity implements OnCheckedChangeListener
 		List<Respuesta> items = new ArrayList<Respuesta>();
 		for(int i = 0; i < 4 ; i++){
 			Respuesta a = new Respuesta();
-			a.setText("Texto de la respuesta "+(i+1));
+			a.setId("Texto de la respuesta "+(i+1));
 			a.setValue("Valor "+(i+1));
 			items.add(a);
 		}

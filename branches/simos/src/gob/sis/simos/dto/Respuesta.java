@@ -2,14 +2,14 @@ package gob.sis.simos.dto;
 
 public class Respuesta {
 
-	private String text;
+	private String id;
 	private String value;
 	
-	public String getText() {
-		return text;
+	public String getId() {
+		return id;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getValue() {
 		return value;
