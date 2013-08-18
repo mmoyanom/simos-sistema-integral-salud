@@ -8,3 +8,13 @@ D:\simosws\simosws\simosws\obj\Release\simosws.xml
 D:\simosws\simosws\simosws\obj\Release\simosws.pdb
 D:\simosws\simosws\simosws\obj\Release\GenerateResource.read.1.tlog
 D:\simosws\simosws\simosws\obj\Release\GenerateResource.write.1.tlog
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\bin\simosws.dll
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\bin\simosws.pdb
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\bin\simosws.xml
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Release\ResolveAssemblyReference.cache
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Release\simosws.Resources.resources
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Release\GenerateResource.read.1.tlog
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Release\GenerateResource.write.1.tlog
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Release\simosws.dll
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Release\simosws.xml
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Release\simosws.pdb

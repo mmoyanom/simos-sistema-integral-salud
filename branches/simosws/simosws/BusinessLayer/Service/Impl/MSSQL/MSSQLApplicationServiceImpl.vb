@@ -223,14 +223,14 @@ Namespace Service.Impl
                 Dim provider As Globalization.CultureInfo = Globalization.CultureInfo.InvariantCulture
                 cmd.Parameters.Add("@FECHA", SqlDbType.Date).Value = Date.ParseExact(fecha, "yyyyMMdd", provider)
 
-                Dim reader = cmd.ExecuteReader()                
+                Dim reader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     While reader.Read()
                         Dim x As New Asignacion
                         x.FechaProgramada = reader.GetDateTime(0).ToString("yyyyMMdd")
                         x.EncuestaId = reader.GetInt32(1)
                         x.EstablecimientoId = reader.GetString(2)
-                        x.establecimientoName = reader.GetString(3)
+                        x.EstablecimientoName = reader.GetString(3)
                         x.FechaProgramacion = reader.GetDateTime(4).ToString("yyyyMMdd")
                         x.TurnoId = Integer.Parse(reader.GetByte(5))
                         x.TurnoDescripcion = reader.GetString(6)
@@ -247,6 +247,39 @@ Namespace Service.Impl
                 End If
             End Try
             Return items
+        End Function
+
+        Public Function SetRespuestasEncuestas(ByVal rptasEncs As List(Of RespuestaEncuesta)) As Integer Implements BIApplicationService.SetRespuestasEncuestas
+            Dim resul As Integer
+            Dim con As SqlConnection = Nothing
+            Try
+                con = SimosDBConnection.GetConnection()
+                con.Open()
+
+                Dim cmd As New SqlCommand
+                cmd.Connection = con
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = ConfigurationManager.AppSettings("SP_INSERTARPTAS").ToString()
+
+                For Each rptaEnc As RespuestaEncuesta In rptasEncs
+                    cmd.Parameters.Add("@RPTA_I_ID_OPCIONESRESPUESTA", SqlDbType.Int).Value = rptaEnc.OprespuestaId
+                    cmd.Parameters.Add("@RPTA_I_ID_ENCUESTADO", SqlDbType.Int).Value = rptaEnc.EncuestadoId
+                    cmd.Parameters.Add("@RPTA_I_ID_RESPUESTAPADRE", SqlDbType.Int).Value = rptaEnc.RespuestaPadreId
+                    cmd.Parameters.Add("@RPTA_V_TEXTORESPUESTA", SqlDbType.VarChar).Value = rptaEnc.RespuestaTexto
+                    cmd.Parameters.Add("@RPTA_N_RESPUESTA", SqlDbType.Decimal).Value = rptaEnc.RespuestaNum
+                    cmd.Parameters.Add("@RPTA_I_V_MEDICAMENTOINSUMO", SqlDbType.VarChar).Value = rptaEnc.Medins
+                    cmd.Parameters.Add("@RPTA_I_ID_RESPUESTA", SqlDbType.Int).Direction = ParameterDirection.Output
+                    cmd.ExecuteScalar()
+                    resul = cmd.Parameters("@RPTA_I_ID_RESPUESTA").Value
+                    Return resul
+                Next
+            Catch ex As Exception
+                util.Log.Append(ex.Message)
+            Finally
+                If con IsNot Nothing Then
+                    con.Close()
+                End If
+            End Try
         End Function
     End Class
 End Namespace
