@@ -270,8 +270,8 @@ Namespace Service.Impl
                     cmd.Parameters.Add("@RPTA_I_V_MEDICAMENTOINSUMO", SqlDbType.VarChar).Value = rptaEnc.Medins
                     cmd.Parameters.Add("@RPTA_I_ID_RESPUESTA", SqlDbType.Int).Direction = ParameterDirection.Output
                     cmd.ExecuteScalar()
-                    resul = cmd.Parameters("@RPTA_I_ID_RESPUESTA").Value
-                    Return resul
+                    resul += cmd.Parameters("@RPTA_I_ID_RESPUESTA").Value
+
                 Next
             Catch ex As Exception
                 util.Log.Append(ex.Message)
@@ -280,6 +280,7 @@ Namespace Service.Impl
                     con.Close()
                 End If
             End Try
+            Return resul
         End Function
     End Class
 End Namespace
