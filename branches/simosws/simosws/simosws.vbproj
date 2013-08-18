@@ -112,6 +112,7 @@
     <Compile Include="BusinessLayer\DTO\LoginResponse.vb" />
     <Compile Include="BusinessLayer\DTO\PaymentConcept.vb" />
     <Compile Include="BusinessLayer\DTO\Respuesta.vb" />
+    <Compile Include="BusinessLayer\DTO\RespuestaEncuesta.vb" />
     <Compile Include="BusinessLayer\DTO\StaffIndicatingPayment.vb" />
     <Compile Include="BusinessLayer\Service\BILoginService.vb" />
     <Compile Include="BusinessLayer\Service\Impl\MSSQL\MSSQLApplicationServiceImpl.vb" />

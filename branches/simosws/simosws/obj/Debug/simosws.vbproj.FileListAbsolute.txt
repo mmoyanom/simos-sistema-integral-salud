@@ -8,3 +8,16 @@ D:\simosws\simosws\simosws\obj\Debug\GenerateResource-ResGen.write.1.tlog
 D:\simosws\simosws\simosws\obj\Debug\simosws.dll
 D:\simosws\simosws\simosws\obj\Debug\simosws.xml
 D:\simosws\simosws\simosws\obj\Debug\simosws.pdb
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\bin\simosws.dll
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\bin\simosws.pdb
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\bin\simosws.xml
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Debug\simosws.Resources.resources
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Debug\GenerateResource-ResGen.write.1.tlog
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Debug\GenerateResource.write.2617.tlog
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Debug\simosws.dll
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Debug\simosws.xml
+C:\Users\PCMANUEL\Documents\SIMOSWS\simosws\obj\Debug\simosws.pdb
