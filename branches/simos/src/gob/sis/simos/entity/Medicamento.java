@@ -17,6 +17,11 @@ public class Medicamento implements Serializable, ICuantificable, ICheckable {
 	
 	private boolean checked = false;
 	
+	public Medicamento() {
+		this.entregado = 0;
+		this.recetado = 0;
+	}
+	
 	public String getCategoria() {
 		return categoria;
 	}

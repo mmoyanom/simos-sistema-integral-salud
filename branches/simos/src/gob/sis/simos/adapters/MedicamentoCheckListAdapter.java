@@ -51,7 +51,11 @@ public class MedicamentoCheckListAdapter extends ArrayAdapter<Medicamento> imple
 			holder.checkBox.setChecked(m.isChecked());
 			holder.checkBox.setOnCheckedChangeListener(this);
 			holder.title.setText(m.getNombre());
-			holder.description.setText("Recetado : "+m.getRecetado()+", Entregado : "+m.getEntregado());
+			if(m.getId().equals(Medicamento.COMERCIAL)){
+				holder.description.setText("Cantidad : "+m.getRecetado());
+			} else {
+				holder.description.setText("Recetado : "+m.getRecetado()+", Entregado : "+m.getEntregado());
+			}
 		}
 		return v;
 	}

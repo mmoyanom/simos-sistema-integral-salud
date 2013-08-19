@@ -2,8 +2,11 @@ package gob.sis.simos.adapters;
 
 import gob.sis.simos.R;
 import gob.sis.simos.dto.Receta;
+import gob.sis.simos.entity.Insumo;
+import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.ui.UICheckBox;
 
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
@@ -50,8 +53,28 @@ public class RecetaCheckListAdapter extends ArrayAdapter<Receta> implements OnCh
 			holder.checkBox.setIndex(position);
 			holder.checkBox.setChecked(r.isChecked());
 			holder.checkBox.setOnCheckedChangeListener(this);
-			holder.title.setText(r.getId()+"_"+r.getTipo());
-			holder.description.setText("Medicamentos : "+r.getMedicamentos().size()+", Insumos : "+r.getInsumos().size());
+			holder.title.setText(r.getTipo());
+			Iterator<Medicamento> itmd = r.getMedicamentos().iterator();
+			int mc_cmrcl = 0;
+			int mc_grnc = 0;
+			while(itmd.hasNext()){
+				Medicamento m = itmd.next();
+				if(m.getId().equals(Medicamento.COMERCIAL))
+					mc_cmrcl = m.getRecetado();
+				else
+					mc_grnc += m.getEntregado();
+			}
+			int ic = 0;
+			Iterator<Insumo> itin = r.getInsumos().iterator();
+			while(itin.hasNext()){
+				Insumo i = itin.next();
+				ic += i.getEntregado();
+			}
+			StringBuffer sb = new StringBuffer();
+			sb.append("Entregados\n");
+			sb.append(String.format("Medicamentos : [GNR: %s, CMR: %s]",mc_grnc,mc_cmrcl).concat("\n"));
+			sb.append(String.format("Insumos : %s", ic));
+			holder.description.setText(sb.toString());
 		}
 		return v;
 	}

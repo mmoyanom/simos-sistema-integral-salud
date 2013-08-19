@@ -8,7 +8,7 @@ import gob.sis.simos.controller.RecetaController;
 import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
-import gob.sis.simos.ui.DialogCantidad;
+import gob.sis.simos.ui.DialogCantidadGenerico;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.app.ActionBar.LayoutParams;
@@ -34,7 +34,7 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 	protected ListView lstResult;
 	
 	private ICuantificable cuantificable;
-	private DialogCantidad dialog;
+	private DialogCantidadGenerico dialog;
 	
 	private int index;
 	
@@ -136,7 +136,7 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		ICuantificable c = (ICuantificable)this.lstResult.getItemAtPosition(position);
 		cuantificable = c;
-		dialog = new DialogCantidad(this);
+		dialog = new DialogCantidadGenerico(this);
 		if(c instanceof Medicamento){
 			dialog.setTitle(((Medicamento)c).getNombre());
 		} else if(c instanceof Insumo){

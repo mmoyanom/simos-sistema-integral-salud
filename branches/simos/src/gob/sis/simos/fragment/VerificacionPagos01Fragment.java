@@ -1,25 +1,35 @@
 package gob.sis.simos.fragment;
 
 import gob.sis.simos.R;
+import gob.sis.simos.controller.VerificacionPagoController;
+import gob.sis.simos.dto.Respuesta;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.inject.Inject;
+
+import roboguice.fragment.RoboFragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 
-public class VerificacionPagos01Fragment extends Fragment implements OnCheckedChangeListener {
+public class VerificacionPagos01Fragment extends RoboFragment implements OnCheckedChangeListener {
 
 	protected RadioGroup _rgPaymentLocation;
 	protected View separatorLayoutTicket;
 	protected LinearLayout layoutNroTicket;
 	
 	protected RadioGroup rgHaveTicket;
+	
+	@Inject
+	protected VerificacionPagoController controller;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,13 +40,15 @@ public class VerificacionPagos01Fragment extends Fragment implements OnCheckedCh
 		this._rgPaymentLocation.setOnCheckedChangeListener(this);
 		
 		this.separatorLayoutTicket = (View)v.findViewById(R.id.separator_layout_nro_ticket);
-		
 		this.layoutNroTicket = (LinearLayout)v.findViewById(R.id.layout_nro_ticket);
-		
 		this.rgHaveTicket = (RadioGroup) v.findViewById(R.id.rg_have_ticket);
 		
-		
 		return v;
+	}
+	
+	private void loadPreguntas(){
+		
+		List<Respuesta> rpsts = new ArrayList<Respuesta>();
 	}
 	
 	public void setVisibility(int visibility){
