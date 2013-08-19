@@ -1,6 +1,7 @@
 package gob.sis.simos.ui;
 
-import gob.sis.simos.dto.Respuesta;
+import gob.sis.simos.entity.Respuesta;
+
 import java.util.List;
 import android.content.Context;
 import android.widget.LinearLayout;
@@ -91,7 +92,7 @@ public class UIRadioGroupQuestion extends LinearLayout {
 	public void update() {
 		for (Respuesta answer : _items) {
 			RadioButton b = new RadioButton(getContext());
-			b.setText(answer.getId());
+			//b.setText(answer.getId());
 			this.add(b);
 		}
 	}

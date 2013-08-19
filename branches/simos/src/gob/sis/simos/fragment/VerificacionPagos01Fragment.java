@@ -2,7 +2,7 @@ package gob.sis.simos.fragment;
 
 import gob.sis.simos.R;
 import gob.sis.simos.controller.VerificacionPagoController;
-import gob.sis.simos.dto.Respuesta;
+import gob.sis.simos.entity.Respuesta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +46,15 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 		return v;
 	}
 	
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		loadPreguntas();
+	}
+	
 	private void loadPreguntas(){
 		
-		List<Respuesta> rpsts = new ArrayList<Respuesta>();
+		
 	}
 	
 	public void setVisibility(int visibility){
