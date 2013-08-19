@@ -2,6 +2,7 @@ package gob.sis.simos.db;
 
 import gob.sis.simos.entity.Cuenta;
 import gob.sis.simos.entity.EstablecimientoSalud;
+import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.resources.AppProperties;
 
 import java.io.File;
@@ -26,6 +27,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	private Dao<Cuenta, String> accountDao;
 	private Dao<EstablecimientoSalud, String> EESSDao;
+	private Dao<Respuesta, Integer> opcionesRespuestaDao;
 
 	public DBHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,6 +59,13 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 			accountDao = getDao(Cuenta.class);
 		}
 		return accountDao;
+	}
+	
+	public Dao<Respuesta, Integer> getOpcionesRespuestaDao() throws SQLException {
+		if (opcionesRespuestaDao == null){
+			opcionesRespuestaDao = getDao(Respuesta.class);
+		}
+		return opcionesRespuestaDao;
 	}
 	
 	public Dao<EstablecimientoSalud, String> getEESSDao() throws SQLException {

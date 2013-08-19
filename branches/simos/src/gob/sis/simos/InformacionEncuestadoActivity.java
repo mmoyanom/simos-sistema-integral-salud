@@ -1,5 +1,11 @@
 package gob.sis.simos;
 
+import gob.sis.simos.adapters.OpcionRespuestaSpinnerAdapter;
+import gob.sis.simos.controller.InfoEncuestadoController;
+import gob.sis.simos.entity.Respuesta;
+
+import java.util.List;
+
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.content.Intent;
@@ -12,12 +18,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.inject.Inject;
 
 public class InformacionEncuestadoActivity extends RoboActivity implements OnCheckedChangeListener {
 
+	@Inject
+	protected InfoEncuestadoController controller;
+	
 	@InjectView(R.id.lbl_identification) protected TextView _lblIdentification;
 	@InjectView(R.id.lbl_document_type) protected TextView _lblDni;
 	@InjectView(R.id.lbl_id_number) protected TextView _lblNroDoc;
@@ -31,6 +42,8 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 	
 	@InjectView(R.id.layout_reason) protected LinearLayout _layoutReason;
 	@InjectView(R.id.separator_reason) protected View _separator;
+	
+	@InjectView(R.id.sp_document_type) private Spinner _spDocumentType;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +69,10 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 		this._rgReference.setOnCheckedChangeListener(this);
 		
 		getActionBar().setDisplayShowHomeEnabled(false);
+		
+		List<Respuesta> items = controller.getRespuestas(1);
+		OpcionRespuestaSpinnerAdapter adapter = new OpcionRespuestaSpinnerAdapter(this, items);
+		_spDocumentType.setAdapter(adapter);
 		/*getActionBar().setDisplayShowTitleEnabled(false);
 		getActionBar().setDisplayShowHomeEnabled(false);
 		getActionBar().setTitle("Hola");*/

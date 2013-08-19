@@ -1,6 +1,6 @@
 package gob.sis.simos.ui;
 
-import gob.sis.simos.dto.Respuesta;
+import gob.sis.simos.entity.Respuesta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class UICheckBoxGroup extends LinearLayout {
 	public void update() {
 		for (Respuesta answer : _items) {
 			CheckBox cb = new CheckBox(getContext());
-			cb.setText(answer.getId());
+			//cb.setText(answer.getId());
 			this.add(cb);
 		}
 	}
