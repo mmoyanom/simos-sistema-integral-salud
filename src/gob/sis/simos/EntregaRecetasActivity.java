@@ -7,7 +7,8 @@ import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.fragment.InsumoCheckListFragment;
 import gob.sis.simos.fragment.MedicamentoCheckListFragment;
-import gob.sis.simos.ui.DialogCantidad;
+import gob.sis.simos.ui.DialogCantidadComercial;
+import gob.sis.simos.ui.DialogCantidadGenerico;
 import gob.sis.simos.ui.DialogTipoReceta;
 
 import java.util.Iterator;
@@ -46,7 +47,8 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	private Receta receta;
 	
 	DialogTipoReceta dialogTipoReceta;
-	DialogCantidad dialogQuantity;
+	DialogCantidadGenerico dialogQuantityGenerico;
+	DialogCantidadComercial dialogQuantityComercial;
 	
 	MedicamentoCheckListFragment medicineFragment;
 	InsumoCheckListFragment inputFragment;
@@ -72,10 +74,13 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 		dialogTipoReceta.btnComercial.setOnClickListener(this);
 		dialogTipoReceta.btnGenerico.setOnClickListener(this);
 		
-		dialogQuantity = new DialogCantidad(this);
-		dialogQuantity.btnOK.setOnClickListener(this);
-		dialogQuantity.btnCANCEL.setOnClickListener(this);
+		dialogQuantityGenerico = new DialogCantidadGenerico(this);
+		dialogQuantityGenerico.btnOK.setOnClickListener(this);
+		dialogQuantityGenerico.btnCANCEL.setOnClickListener(this);
 		
+		dialogQuantityComercial = new DialogCantidadComercial(this);
+		dialogQuantityComercial.btnOK.setOnClickListener(this);
+		dialogQuantityComercial.btnCANCEL.setOnClickListener(this);
 		
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
@@ -170,13 +175,15 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				return;
 			} else {
 				Iterator<Medicamento> it = this.receta.getMedicamentos().iterator();
+				int c = 0;
 				while(it.hasNext()){
 					if(it.next().isChecked()){
-						break;
-					} else {
-						showMessage("No hay elementos seleccionados para eliminar.");
-						return;
+						c++;
 					}
+				}
+				if(c == 0){
+					showMessage("No hay elementos seleccionados para eliminar.");
+					return;
 				}
 			}
 		} else if(mViewPager.getCurrentItem() == 1){
@@ -185,13 +192,15 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				return;
 			} else {
 				Iterator<Insumo> it = this.receta.getInsumos().iterator();
+				int c = 0;
 				while(it.hasNext()){
 					if(it.next().isChecked()){
-						break;
-					} else {
-						showMessage("No hay elementos seleccionados para eliminar.");
-						return;
+						c++;
 					}
+				}
+				if(c == 0){
+					showMessage("No hay elementos seleccionados para eliminar.");
+					return;
 				}
 			}
 		}
@@ -404,6 +413,11 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	@Override
 	public void onClick(View v) {
 		if(v == this.btnAdd){
+			if(mViewPager.getCurrentItem() == 0){
+				dialogTipoReceta.btnComercial.setEnabled(true);
+			} else if(mViewPager.getCurrentItem() == 1){
+				dialogTipoReceta.btnComercial.setEnabled(false);
+			}
 			dialogTipoReceta.setTitle(btnAdd.getText());
 			dialogTipoReceta.show();
 		}
@@ -416,8 +430,8 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 					showAlert("El elemento 'COMERCIAL' ya existe en el listado. Si desea modificar las cantidades, mantenga seleccionado el elemento.");					
 				} else {
 					dialogTipoReceta.dismiss();
-					dialogQuantity.setTitle("Comercial");
-					dialogQuantity.show();
+					dialogQuantityComercial.setTitle("Comercial");
+					dialogQuantityComercial.show();
 				}
 				
 			}else if(v == dialogTipoReceta.btnGenerico){
@@ -427,27 +441,38 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 				this.startActivityForResult(i,1);
 			}
 		}
-		if (dialogQuantity != null){
-			if(v == dialogQuantity.btnOK){
-				dialogQuantity.dismiss();
+		if (dialogQuantityGenerico != null){
+			if(v == dialogQuantityGenerico.btnOK){
+				dialogQuantityGenerico.dismiss();
 				if(mViewPager.getCurrentItem() == 0){
 					Medicamento c = new Medicamento();
 					c.setId(Medicamento.COMERCIAL);
 					c.setNombre(Medicamento.COMERCIAL);
-					c.setEntregado(dialogQuantity.getCantidadEntregada());
-					c.setRecetado(dialogQuantity.getCantidadRecetada());
+					c.setEntregado(dialogQuantityGenerico.getCantidadEntregada());
+					c.setRecetado(dialogQuantityGenerico.getCantidadRecetada());
 					this.add(c);
 				} else if(mViewPager.getCurrentItem() == 1){
 					Insumo in = new Insumo();
 					in.setId(Insumo.COMERCIAL);
 					in.setNombre(Insumo.COMERCIAL);
-					in.setEntregado(dialogQuantity.getCantidadEntregada());
-					in.setRecetado(dialogQuantity.getCantidadRecetada());
+					in.setEntregado(dialogQuantityGenerico.getCantidadEntregada());
+					in.setRecetado(dialogQuantityGenerico.getCantidadRecetada());
 					this.add(in);
 				}
 				
 			}
 		}
+		if(dialogQuantityComercial != null){
+			if(v == dialogQuantityComercial.btnOK){
+				dialogQuantityComercial.dismiss();
+				Medicamento c = new Medicamento();
+				c.setId(Medicamento.COMERCIAL);
+				c.setNombre(Medicamento.COMERCIAL);
+				c.setRecetado(dialogQuantityComercial.getCantidad());
+				this.add(c);
+			}
+		}
+		
 	}
 	
 	private void showMessage(String text){

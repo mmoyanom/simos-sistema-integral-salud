@@ -5,6 +5,7 @@ import gob.sis.simos.entity.Encuesta01;
 import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
+import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.fragment.InsumoCheckListFragment;
 import gob.sis.simos.fragment.RecetaCheckListFragment;
 import gob.sis.simos.ui.DialogAddServicio;
@@ -13,6 +14,7 @@ import gob.sis.simos.ui.DialogAddToReceta;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.ContentView;
@@ -174,13 +176,15 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				return;
 			} else {
 				Iterator<Receta> it = this.encuesta.getRecetas().iterator();
+				int c = 0;
 				while(it.hasNext()){
 					if(it.next().isChecked()){
-						break;
-					} else {
-						showMessage("No hay elementos seleccionados para eliminar.");
-						return;
+						c++;
 					}
+				}
+				if(c == 0){
+					showMessage("No hay elementos seleccionados para eliminar.");
+					return;
 				}
 			}
 		}
@@ -232,9 +236,10 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			if(resultCode == RESULT_OK){
 				ICuantificable c = (ICuantificable)data.getSerializableExtra("receta");
 				if(c != null){
-					String msg = "Receta '%s' actualizada satisfactoriamente"; 
+					String msg = "Receta actualizada satisfactoriamente"; 
 					this.update(c);
-					Toast.makeText(this, String.format(msg, c.getId()), Toast.LENGTH_SHORT).show();
+					//Toast.makeText(this, String.format(msg, c.getId()), Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 				}
 			} else if (resultCode == RESULT_CANCELED){
 				Toast.makeText(this, "Accion cancelada.", Toast.LENGTH_SHORT).show();
@@ -246,7 +251,6 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	private void add(ICuantificable c){
 		if(c instanceof Receta){
 			Receta rc = (Receta)c;
-			rc.setId(""+(this.encuesta.getRecetas().size()+1));
 			this.encuesta.getRecetas().add(rc);
 			this.recetasFragment.notifyChanges(this.encuesta.getRecetas());
 		}
@@ -315,16 +319,23 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				addPrescriptionDialog.show();
 				
 			}
-		} else if(v == this.addServiceDialog.btnContinuar){
+		} else if (v == this.addServiceDialog.btnContinuar){
 				this.addServiceDialog.dismiss();
-				Intent i = new Intent(this, VerificacionPagos01Activity.class);
+				
+				VerificacionPago vr = new VerificacionPago();
+				vr.setId(UUID.randomUUID().toString());
+				Intent i = new Intent(this, VerificacionPagosActivity.class);
+				i.putExtra("verificacion", vr);
+				i.putExtra("action", ADD_SERVICE);
 				this.startActivityForResult(i, ADD_SERVICE);
-		} else if(v == this.addServiceDialog.btnCancelar){
+		} else if (v == this.addServiceDialog.btnCancelar){
 				this.addServiceDialog.dismiss();
-		} else if(v == this.addPrescriptionDialog.btnContinuar){
+				
+		} else if (v == this.addPrescriptionDialog.btnContinuar){
 				this.addPrescriptionDialog.dismiss();
 				
 				Receta rc = new Receta();
+				rc.setId(UUID.randomUUID().toString());
 				List<Insumo> insumos = new ArrayList<Insumo>();
 				rc.setInsumos(insumos);
 				List<Medicamento> medicamentos = new ArrayList<Medicamento>();
@@ -335,7 +346,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				i.putExtra("receta", rc);
 				i.putExtra("action", ADD_PRESCRIPTION);
 				this.startActivityForResult(i, ADD_PRESCRIPTION);
-		} else if(v == this.addPrescriptionDialog.btnCancelar){
+		} else if (v == this.addPrescriptionDialog.btnCancelar){
 				this.addPrescriptionDialog.dismiss();
 		}
 		

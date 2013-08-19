@@ -6,16 +6,16 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
-public class DialogCantidad extends Dialog  {
+public class DialogCantidadGenerico extends Dialog  {
 
 	public Button btnOK;
 	public Button btnCANCEL;
 	public NumberPicker npRecetado;
 	public NumberPicker npEntregado;
 	
-	public DialogCantidad(Context context) {
+	public DialogCantidadGenerico(Context context) {
 		super(context);
-		this.setContentView(R.layout.dialog_cntdad);
+		this.setContentView(R.layout.dialog_cntdad_gnrco);
 		
 		this.btnOK = (Button)findViewById(R.id.btn_ok);
 		this.btnCANCEL = (Button)findViewById(R.id.btn_cancel);
@@ -31,6 +31,7 @@ public class DialogCantidad extends Dialog  {
 		this.npEntregado.setMinValue(0);
 		this.npEntregado.setWrapSelectorWheel(false);
 	}
+	
 	
 	public int getCantidadRecetada() {
 		return npRecetado.getValue();			

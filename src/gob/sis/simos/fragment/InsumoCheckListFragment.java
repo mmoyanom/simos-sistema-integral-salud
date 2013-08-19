@@ -5,7 +5,7 @@ import gob.sis.simos.adapters.InsumoCheckListAdapter;
 import gob.sis.simos.controller.RecetaController;
 import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
-import gob.sis.simos.ui.DialogCantidad;
+import gob.sis.simos.ui.DialogCantidadGenerico;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,7 +33,7 @@ public class InsumoCheckListFragment extends RoboFragment implements OnClickList
 	public ListView lstPrescription;
 	public InsumoCheckListAdapter adapter;
 
-	private DialogCantidad dialog;
+	private DialogCantidadGenerico dialog;
 	
 	private ICuantificable cuantificable;
 	
@@ -49,7 +49,7 @@ public class InsumoCheckListFragment extends RoboFragment implements OnClickList
 		lstPrescription.setAdapter(adapter);
 		lstPrescription.setOnItemLongClickListener(this);
 		
-		dialog = new DialogCantidad(getActivity());
+		dialog = new DialogCantidadGenerico(getActivity());
 		dialog.btnOK.setOnClickListener(this);
 		dialog.btnCANCEL.setOnClickListener(this);
 		return rootView;
