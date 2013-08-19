@@ -10,8 +10,9 @@ import roboguice.inject.ContextSingleton;
 import com.google.inject.Inject;
 
 @ContextSingleton
-public class VerificacionPagoController {
-	
+public class InfoEncuestadoController {
+
+
 	@Inject
 	protected OpcionesRespuestaServiceImpl service;
 	

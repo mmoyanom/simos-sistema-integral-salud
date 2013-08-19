@@ -1,6 +1,5 @@
 package gob.sis.simos.entity;
 
-import gob.sis.simos.dto.Respuesta;
 
 import java.io.Serializable;
 import java.util.ArrayList;
