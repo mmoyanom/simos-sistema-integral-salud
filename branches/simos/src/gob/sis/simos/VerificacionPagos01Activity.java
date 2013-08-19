@@ -1,5 +1,6 @@
 package gob.sis.simos;
 
+import gob.sis.simos.entity.VerificacionPago;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.content.Intent;
@@ -24,6 +25,8 @@ public class VerificacionPagos01Activity extends RoboActivity implements OnCheck
 	@InjectView(R.id.layout_nro_ticket)
 	protected LinearLayout layoutNroTicket;
 	
+	private VerificacionPago verificacion;
+	
 	public static final int ADD_SERVICE = 0;
 	
 	@Override
@@ -33,6 +36,8 @@ public class VerificacionPagos01Activity extends RoboActivity implements OnCheck
 		getActionBar().setDisplayShowHomeEnabled(false);
 		
 		this._rgPaymentLocation.setOnCheckedChangeListener(this);
+		
+		this.verificacion = (VerificacionPago) getIntent().getSerializableExtra("verificacion");
 	}
 	
 	@Override

@@ -5,7 +5,8 @@ import gob.sis.simos.adapters.MedicamentoCheckListAdapter;
 import gob.sis.simos.controller.RecetaController;
 import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Medicamento;
-import gob.sis.simos.ui.DialogCantidad;
+import gob.sis.simos.ui.DialogCantidadComercial;
+import gob.sis.simos.ui.DialogCantidadGenerico;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,7 +34,8 @@ public class MedicamentoCheckListFragment extends RoboFragment implements OnClic
 	public ListView lstPrescription;
 	public MedicamentoCheckListAdapter adapter;
 	
-	private DialogCantidad dialog;
+	private DialogCantidadGenerico dialogQuantityGeneric;
+	private DialogCantidadComercial dialogQuantityComercial;
 	private ICuantificable cuantificable;
 	
 	@Override
@@ -48,22 +50,36 @@ public class MedicamentoCheckListFragment extends RoboFragment implements OnClic
 		lstPrescription.setAdapter(adapter);
 		lstPrescription.setOnItemLongClickListener(this);
 		
-		dialog = new DialogCantidad(getActivity());
-		dialog.btnOK.setOnClickListener(this);
-		dialog.btnCANCEL.setOnClickListener(this);
+		dialogQuantityGeneric = new DialogCantidadGenerico(getActivity());
+		dialogQuantityGeneric.btnOK.setOnClickListener(this);
+		dialogQuantityGeneric.btnCANCEL.setOnClickListener(this);
+		
+		dialogQuantityComercial = new  DialogCantidadComercial(getActivity());
+		dialogQuantityComercial.btnOK.setOnClickListener(this);
+		dialogQuantityComercial.btnCANCEL.setOnClickListener(this);
 		return rootView;
 	}
 
 	@Override
 	public void onClick(View v) {
-		if(dialog != null){
-			if(v == dialog.btnOK){
+		if(dialogQuantityGeneric != null){
+			if(v == dialogQuantityGeneric.btnOK){
 				if(cuantificable != null){
 					updateItem(cuantificable);
-					dialog.dismiss();
+					dialogQuantityGeneric.dismiss();
 				}
-			} else if(v == dialog.btnCANCEL){
-				dialog.dismiss();
+			} else if(v == dialogQuantityGeneric.btnCANCEL){
+				dialogQuantityGeneric.dismiss();
+			}
+		}
+		if (dialogQuantityComercial != null){
+			if(v == dialogQuantityComercial.btnOK){
+				if(cuantificable != null){
+					updateItem(cuantificable);
+					dialogQuantityComercial.dismiss();
+				}
+			} else if(v == dialogQuantityComercial.btnCANCEL) {
+				dialogQuantityComercial.dismiss();
 			}
 		}
 	}
@@ -78,10 +94,16 @@ public class MedicamentoCheckListFragment extends RoboFragment implements OnClic
 	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		Medicamento me = adapter.getItem(position);
 		this.cuantificable = me;
-		dialog.setTitle(me.getNombre());
-		dialog.setCantidadEntregada(cuantificable.getEntregado());
-		dialog.setCantidadRecetada(cuantificable.getRecetado());
-		dialog.show();
+		if(me.getId().equals(Medicamento.COMERCIAL)){
+			dialogQuantityComercial.setTitle(me.getNombre());
+			dialogQuantityComercial.setCantidad(cuantificable.getRecetado());
+			dialogQuantityComercial.show();
+		} else {
+			dialogQuantityGeneric.setTitle(me.getNombre());
+			dialogQuantityGeneric.setCantidadEntregada(cuantificable.getEntregado());
+			dialogQuantityGeneric.setCantidadRecetada(cuantificable.getRecetado());
+			dialogQuantityGeneric.show();
+		}
 		return true;
 	}
 	
@@ -134,9 +156,16 @@ public class MedicamentoCheckListFragment extends RoboFragment implements OnClic
 	@Override
 	public void updateItem(ICuantificable c) {
 		// TODO Auto-generated method stub
-		cuantificable.setEntregado(dialog.getCantidadEntregada());
-		cuantificable.setRecetado(dialog.getCantidadRecetada());
-		adapter.notifyDataSetChanged();
+		
+			if(c.getId().equals(Medicamento.COMERCIAL)){
+				cuantificable.setRecetado(dialogQuantityComercial.getCantidad());
+				adapter.notifyDataSetChanged();
+			} else {
+				cuantificable.setEntregado(dialogQuantityGeneric.getCantidadEntregada());
+				cuantificable.setRecetado(dialogQuantityGeneric.getCantidadRecetada());
+				adapter.notifyDataSetChanged();
+			}
+		
 	}
 
 }
