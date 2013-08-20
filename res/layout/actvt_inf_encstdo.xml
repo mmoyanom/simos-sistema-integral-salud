@@ -96,13 +96,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:orientation="horizontal">
-                <RadioButton android:text="Hombre" android:layout_width="wrap_content" />
+                <RadioButton android:text="Masculino" android:layout_width="wrap_content" />
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
-                <RadioButton android:text="Mujer" android:layout_width="wrap_content" />
+                <RadioButton android:text="Femenino" android:layout_width="wrap_content" />
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
@@ -142,6 +142,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Relación con el paciente"/>
             <Spinner 
+                android:id="@+id/sp_relacion_paciente"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"/>
@@ -210,6 +211,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Razón"/>
             <Spinner 
+                android:id="@+id/sp_referencia"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.8"/>

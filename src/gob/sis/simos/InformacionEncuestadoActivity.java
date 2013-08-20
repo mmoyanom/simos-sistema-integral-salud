@@ -44,6 +44,8 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 	@InjectView(R.id.separator_reason) protected View _separator;
 	
 	@InjectView(R.id.sp_document_type) private Spinner _spDocumentType;
+	@InjectView(R.id.sp_relacion_paciente) private Spinner _spRelacionPaciente;
+	@InjectView(R.id.sp_referencia) private Spinner _spReferencia;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,19 +75,14 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 		List<Respuesta> items = controller.getRespuestas(1);
 		OpcionRespuestaSpinnerAdapter adapter = new OpcionRespuestaSpinnerAdapter(this, items);
 		_spDocumentType.setAdapter(adapter);
-		/*getActionBar().setDisplayShowTitleEnabled(false);
-		getActionBar().setDisplayShowHomeEnabled(false);
-		getActionBar().setTitle("Hola");*/
 		
-		/*LinearLayout actionBarLayout = (LinearLayout) getLayoutInflater().inflate(
-	            R.layout.actionbar_person_information,null);
+		items = controller.getRespuestas(4);
+		adapter = new OpcionRespuestaSpinnerAdapter(this, items);
+		_spRelacionPaciente.setAdapter(adapter);
 		
-		ActionBar actionBar = this.getActionBar();
-		actionBar.setDisplayShowHomeEnabled(false);
-	    actionBar.setDisplayShowTitleEnabled(false);
-	    actionBar.setDisplayShowCustomEnabled(true);
-	    actionBar.setCustomView(actionBarLayout);*/
-		
+		items = controller.getRespuestas(6);
+		adapter = new OpcionRespuestaSpinnerAdapter(this, items);
+		_spReferencia.setAdapter(adapter);
 	}
 
 	@Override
