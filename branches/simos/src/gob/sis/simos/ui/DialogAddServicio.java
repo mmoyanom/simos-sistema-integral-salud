@@ -1,17 +1,25 @@
 package gob.sis.simos.ui;
 
+import java.util.Iterator;
+import java.util.List;
+
 import gob.sis.simos.R;
+import gob.sis.simos.controller.VerificacionPagoController;
+import gob.sis.simos.entity.Respuesta;
 import android.app.Dialog;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class DialogAddServicio extends Dialog {
+public class DialogAddServicio extends Dialog implements OnCheckedChangeListener {
 
 	protected RadioGroup _rgServices;
+	protected RadioGroup _rgRealizoPago;
 	public Button btnContinuar;
 	public Button btnCancelar;
+	public VerificacionPagoController controller;
 	
 	public DialogAddServicio(Context context) {
 		super(context);
@@ -19,27 +27,50 @@ public class DialogAddServicio extends Dialog {
 		this.setContentView(R.layout.dialog_add_to_srvcs);
 		
 		this._rgServices = (RadioGroup)findViewById(R.id.rg_services);
+		this._rgServices.setOnCheckedChangeListener(this);
+		
+		this._rgRealizoPago = (RadioGroup)findViewById(R.id.rg_payment_made);
+		this._rgRealizoPago.setOnCheckedChangeListener(this);
 		
 		this.btnCancelar = (Button) findViewById(R.id.btn_cancel);
 		this.btnContinuar = (Button) findViewById(R.id.btn_continue);
-		
-		String[] items = new String[11];
-		items[0] = "Consulta";
-		items[1] = "Medicamentos";
-		items[2] = "Insumos";
-		items[3] = "Examenes auxiliares";
-		items[4] = "Procedimientos de apoyo al diagnóstico";
-		items[5] = "Traslado de emergencia";
-		items[6] = "Alimentación (En caso de traslados por emergencia)";
-		items[7] = "Tomografía";
-		items[8] = "Procedimientos especiales";
-		items[9] = "Resonancia magnética";
-		items[10] = "Otros";
-		
-		for(int i = 0; i < items.length ; i++){
+		this.btnContinuar.setEnabled(false);
+
+	}
+	
+	public boolean realizoPago(){
+		int index = this._rgRealizoPago.getCheckedRadioButtonId();
+		RadioButton rb = (RadioButton)this._rgRealizoPago.findViewById(index);
+		if(rb.getId() == R.id.rb_yes)
+			return true;
+		else
+			return false;
+	}
+	
+	public void setItems(List<Respuesta> items){
+		this._rgServices.removeAllViews();
+		Iterator<Respuesta> it = items.iterator();
+		while(it.hasNext()){
+			Respuesta r = it.next();
 			RadioButton rb = new RadioButton(getContext());
-			rb.setText(items[i]);
+			rb.setText(r.getDescripcion());
 			this._rgServices.addView(rb);
+		}
+	}
+	
+	@Override
+	public void dismiss() {
+		this._rgRealizoPago.clearCheck();
+		this._rgServices.clearCheck();
+		this.btnContinuar.setEnabled(false);
+		super.dismiss();
+	}
+
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		
+		if(this._rgServices.getCheckedRadioButtonId() != -1 && this._rgRealizoPago.getCheckedRadioButtonId() != -1){
+			this.btnContinuar.setEnabled(true);
 		}
 	}
 

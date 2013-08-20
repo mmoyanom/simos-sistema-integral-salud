@@ -2,13 +2,6 @@ package gob.sis.simos.fragment;
 
 import gob.sis.simos.R;
 import gob.sis.simos.controller.VerificacionPagoController;
-import gob.sis.simos.entity.Respuesta;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.inject.Inject;
-
 import roboguice.fragment.RoboFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+
+import com.google.inject.Inject;
 
 
 public class VerificacionPagos01Fragment extends RoboFragment implements OnCheckedChangeListener {
