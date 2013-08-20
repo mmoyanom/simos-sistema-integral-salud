@@ -1,10 +1,12 @@
 package gob.sis.simos;
 
+import gob.sis.simos.controller.VerificacionPagoController;
 import gob.sis.simos.dto.Receta;
 import gob.sis.simos.entity.Encuesta01;
 import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
+import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.fragment.InsumoCheckListFragment;
 import gob.sis.simos.fragment.RecetaCheckListFragment;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+
+import com.google.inject.Inject;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.ContentView;
@@ -42,6 +46,9 @@ import android.widget.Toast;
 public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements OnClickListener, ActionBar.TabListener {
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
+	
+	@Inject
+	protected VerificacionPagoController verificacionController;
 	
 	@InjectView(R.id.pager)
 	protected ViewPager mViewPager;
@@ -73,7 +80,11 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		actionBar.setIcon(R.drawable.ic_menu_mark);
 		
 		this.btnAdd.setOnClickListener(this);
+		
 		this.addServiceDialog = new DialogAddServicio(this);
+		List<Respuesta> items = verificacionController.getRespuestas(7); 
+		this.addServiceDialog.setItems(items);
+		
 		this.addPrescriptionDialog = new DialogAddToReceta(this);
 		
 		this.encuesta = new Encuesta01();
@@ -321,13 +332,16 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			}
 		} else if (v == this.addServiceDialog.btnContinuar){
 				this.addServiceDialog.dismiss();
-				
-				VerificacionPago vr = new VerificacionPago();
-				vr.setId(UUID.randomUUID().toString());
-				Intent i = new Intent(this, VerificacionPagosActivity.class);
-				i.putExtra("verificacion", vr);
-				i.putExtra("action", ADD_SERVICE);
-				this.startActivityForResult(i, ADD_SERVICE);
+				if(this.addServiceDialog.realizoPago()){
+					VerificacionPago vr = new VerificacionPago();
+					vr.setId(UUID.randomUUID().toString());
+					Intent i = new Intent(this, VerificacionPagosActivity.class);
+					i.putExtra("verificacion", vr);
+					i.putExtra("action", ADD_SERVICE);
+					this.startActivityForResult(i, ADD_SERVICE);
+				} else {
+					
+				}
 		} else if (v == this.addServiceDialog.btnCancelar){
 				this.addServiceDialog.dismiss();
 				

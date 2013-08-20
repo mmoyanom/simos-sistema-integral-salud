@@ -44,17 +44,18 @@
                 android:gravity="center_vertical"
                 android:text="Realizó algun pago"/>
             <RadioGroup 
+                android:id="@+id/rg_payment_made"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:orientation="horizontal">
-                <RadioButton android:text="Sí" android:layout_width="wrap_content" />
+                <RadioButton android:id="@+id/rb_yes" android:text="Sí" android:layout_width="wrap_content" />
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
-                <RadioButton android:text="No" android:layout_width="wrap_content" />
+                <RadioButton android:id="@+id/rb_no" android:text="No" android:layout_width="wrap_content" />
             </RadioGroup>
             
     </LinearLayout>
