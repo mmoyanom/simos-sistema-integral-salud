@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class VerificacionPagosActivity extends RoboFragmentActivity implements FragmentManager.OnBackStackChangedListener, OnClickListener, InputFilter {
 	
@@ -131,7 +130,7 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		    final View layout = inflater.inflate(R.layout.dialog_add_ticket, (ViewGroup) findViewById(R.id.layout_add_ticket));
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Ingrese el numero de boleta")
+			builder
 				.setTitle("Agregar Boleta")
 				.setView(layout)
 				.setCancelable(false)
