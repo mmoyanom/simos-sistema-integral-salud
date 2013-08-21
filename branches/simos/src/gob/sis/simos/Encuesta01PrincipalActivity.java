@@ -333,6 +333,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		} else if (v == this.addServiceDialog.btnContinuar){
 				this.addServiceDialog.dismiss();
 				if(this.addServiceDialog.realizoPago()){
+					this.addServiceDialog.clear();
 					VerificacionPago vr = new VerificacionPago();
 					vr.setId(UUID.randomUUID().toString());
 					Intent i = new Intent(this, VerificacionPagosActivity.class);
