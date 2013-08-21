@@ -30,6 +30,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="¿Dónde le indicaron que pagara?"/>
             <Spinner
+                android:id="@+id/spinner_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -53,6 +54,7 @@
                 android:layout_marginLeft="10dp"
                android:text="¿Quién le indicó que debía pagar?"/>
             <Spinner
+                android:id="@+id/spinner_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -109,8 +111,9 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:layout_marginLeft="10dp"
-               android:text="¿Quién contribuyó con la resolución del caso?"/>
+               android:text="¿Quién contribuyó a la solución de la devolución?"/>
             <Spinner
+                android:id="@+id/spinner_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

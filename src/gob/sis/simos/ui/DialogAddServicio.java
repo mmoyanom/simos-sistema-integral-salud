@@ -15,8 +15,8 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class DialogAddServicio extends Dialog implements OnCheckedChangeListener {
 
-	protected RadioGroup _rgServices;
-	protected RadioGroup _rgRealizoPago;
+	private RadioGroup _rgServices;
+	private RadioGroup _rgRealizoPago;
 	public Button btnContinuar;
 	public Button btnCancelar;
 	public VerificacionPagoController controller;
@@ -39,9 +39,8 @@ public class DialogAddServicio extends Dialog implements OnCheckedChangeListener
 	}
 	
 	public boolean realizoPago(){
-		int index = this._rgRealizoPago.getCheckedRadioButtonId();
-		RadioButton rb = (RadioButton)this._rgRealizoPago.findViewById(index);
-		if(rb.getId() == R.id.rb_yes)
+		int id = this._rgRealizoPago.getCheckedRadioButtonId();
+		if(id == R.id.rb_yes)
 			return true;
 		else
 			return false;
@@ -58,12 +57,10 @@ public class DialogAddServicio extends Dialog implements OnCheckedChangeListener
 		}
 	}
 	
-	@Override
-	public void dismiss() {
+	public void clear(){
 		this._rgRealizoPago.clearCheck();
 		this._rgServices.clearCheck();
 		this.btnContinuar.setEnabled(false);
-		super.dismiss();
 	}
 
 	@Override

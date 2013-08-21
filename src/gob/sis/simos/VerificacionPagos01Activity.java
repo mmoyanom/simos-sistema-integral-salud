@@ -19,10 +19,9 @@ public class VerificacionPagos01Activity extends RoboActivity implements OnCheck
 	@InjectView(R.id.rg_payment_location)
 	protected RadioGroup _rgPaymentLocation;
 	
-	@InjectView(R.id.separator_layout_nro_ticket)
+	
 	protected View separatorLayoutTicket;
 	
-	@InjectView(R.id.layout_nro_ticket)
 	protected LinearLayout layoutNroTicket;
 	
 	private VerificacionPago verificacion;
