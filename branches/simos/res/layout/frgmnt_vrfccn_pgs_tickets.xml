@@ -3,6 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="BOLETAS"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:background="#A4A4A4"
+        android:textColor="#FFFFFF"
+        android:gravity="center"/>
 	<ListView
 	    android:id="@+id/lst_tickets"
 	    android:layout_width="match_parent"
