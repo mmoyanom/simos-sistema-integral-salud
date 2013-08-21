@@ -92,7 +92,7 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 		for (int i = start; i < end; i++) { 
             if (!Character.isLetterOrDigit(source.charAt(i))) { 
                     return ""; 
-            } 
+            }
 		} 
 		return null;
 	}
