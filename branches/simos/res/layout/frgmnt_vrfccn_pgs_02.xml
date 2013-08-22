@@ -87,14 +87,14 @@
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
                 <gob.sis.simos.ui.UIRadioButton android:text="Sí" android:layout_width="wrap_content"
-                    app:preguntaId="18" app:preguntaParentId="7" app:opcionRespuestaId="107" />
+                    app:preguntaId="18" app:preguntaParentId="7" app:opcionRespuestaId="14" />
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
                 <gob.sis.simos.ui.UIRadioButton android:text="No" android:layout_width="wrap_content"
-                    app:preguntaId="18" app:preguntaParentId="7" app:opcionRespuestaId="108"/>
+                    app:preguntaId="18" app:preguntaParentId="-1" app:opcionRespuestaId="15"/>
             </RadioGroup>
         </LinearLayout>
         
