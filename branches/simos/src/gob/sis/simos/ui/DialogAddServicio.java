@@ -1,11 +1,12 @@
 package gob.sis.simos.ui;
 
+import gob.sis.simos.R;
+import gob.sis.simos.controller.VerificacionPagoController;
+import gob.sis.simos.entity.OpcionRespuesta;
+
 import java.util.Iterator;
 import java.util.List;
 
-import gob.sis.simos.R;
-import gob.sis.simos.controller.VerificacionPagoController;
-import gob.sis.simos.entity.Respuesta;
 import android.app.Dialog;
 import android.content.Context;
 import android.widget.Button;
@@ -38,6 +39,14 @@ public class DialogAddServicio extends Dialog implements OnCheckedChangeListener
 
 	}
 	
+	public String getSelectedServiceName(){
+		int id = this._rgServices.getCheckedRadioButtonId();
+		RadioButton rb = (RadioButton)this.findViewById(id);
+		if(rb != null)
+			return rb.getText().toString();
+		return null;
+	}
+	
 	public boolean realizoPago(){
 		int id = this._rgRealizoPago.getCheckedRadioButtonId();
 		if(id == R.id.rb_yes)
@@ -46,13 +55,17 @@ public class DialogAddServicio extends Dialog implements OnCheckedChangeListener
 			return false;
 	}
 	
-	public void setItems(List<Respuesta> items){
+	public void setItems(List<OpcionRespuesta> items){
 		this._rgServices.removeAllViews();
-		Iterator<Respuesta> it = items.iterator();
+		Iterator<OpcionRespuesta> it = items.iterator();
 		while(it.hasNext()){
-			Respuesta r = it.next();
-			RadioButton rb = new RadioButton(getContext());
+			OpcionRespuesta r = it.next();
+			
+			UIRadioButton rb = new UIRadioButton(getContext());
+			rb.setPreguntaId(r.getPreguntaId());
+			rb.setOpcionRespuestaId(r.getRespuestaId());
 			rb.setText(r.getDescripcion());
+			
 			this._rgServices.addView(rb);
 		}
 	}

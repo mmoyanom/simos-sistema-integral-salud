@@ -2,24 +2,33 @@ package gob.sis.simos.fragment;
 
 import gob.sis.simos.R;
 import gob.sis.simos.controller.VerificacionPagoController;
+import gob.sis.simos.entity.OpcionRespuesta;
+
+import java.util.Hashtable;
+
 import roboguice.fragment.RoboFragment;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.google.inject.Inject;
 
 
-public class VerificacionPagos01Fragment extends RoboFragment implements OnCheckedChangeListener, InputFilter, OnLongClickListener {
+public class VerificacionPagos01Fragment extends RoboFragment implements OnCheckedChangeListener, InputFilter, OnLongClickListener,TextWatcher {
 
-	protected RadioGroup _rgPaymentLocation;
+	protected RadioGroup rgPaymentLocation;
 	protected RadioGroup rgHaveTicket;
+	protected RadioGroup rgImproperPayment;
+	protected EditText etAmount;
 	static final int IN_EESS = 0;
 	static final int OUT_EESS = 2;
 	static final int BOTH_EESS = 4;
@@ -33,10 +42,17 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.frgmnt_vrfccn_pgs_01, null);
 		
-		this._rgPaymentLocation = (RadioGroup)v.findViewById(R.id.rg_payment_location);
-		this._rgPaymentLocation.setOnCheckedChangeListener(this);
-		
+		this.rgPaymentLocation = (RadioGroup)v.findViewById(R.id.rg_payment_location);
+		this.rgPaymentLocation.setOnCheckedChangeListener(this);
+
 		this.rgHaveTicket = (RadioGroup)v.findViewById(R.id.rg_have_ticket);
+		this.rgHaveTicket.setOnCheckedChangeListener(this);
+		
+		this.rgImproperPayment = (RadioGroup)v.findViewById(R.id.rg_improper_payment);
+		this.rgImproperPayment.setOnCheckedChangeListener(this);
+		
+		this.etAmount = (EditText)v.findViewById(R.id.et_ammount);
+		this.etAmount.addTextChangedListener(this);
 		
 		return v;
 	}
@@ -44,11 +60,6 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		loadPreguntas();
-	}
-	
-	private void loadPreguntas(){
-		
 	}
 	
 	public void setVisibility(int visibility){
@@ -60,10 +71,20 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 		
 	}
 	
+	public boolean isClear(){
+		if(this.rgPaymentLocation.getCheckedRadioButtonId() == -1 
+				|| this.rgHaveTicket.getCheckedRadioButtonId() == -1 
+					|| this.rgImproperPayment.getCheckedRadioButtonId() == -1
+						|| this.etAmount.getText().length() == 0){
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean enterTickets(){
-		int id = this._rgPaymentLocation.getCheckedRadioButtonId();
+		int id = this.rgPaymentLocation.getCheckedRadioButtonId();
 		RadioButton r = (RadioButton) getView().findViewById(id);
-		int index = this._rgPaymentLocation.indexOfChild(r);
+		int index = this.rgPaymentLocation.indexOfChild(r);
 		if(index == IN_EESS || index == BOTH_EESS) {
 			//this.paymentoLocation = index;
 			return true;
@@ -97,6 +118,24 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 	public boolean onLongClick(View arg0) {
 	
 		return false;
+	}
+
+	@Override
+	public void afterTextChanged(Editable text) {
+		
+	}
+
+	@Override
+	public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+			int arg3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
