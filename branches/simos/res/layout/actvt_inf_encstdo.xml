@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/gob.sis.simos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_rectangle_section"
@@ -37,6 +38,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Tipo documento"/>
+            <!-- PREGUNTA 1 -->
             <Spinner
                 android:id="@+id/sp_document_type"
                 android:layout_width="match_parent"
@@ -62,13 +64,15 @@
                 android:layout_weight="0.5"
                 android:layout_marginLeft="10dp"
                 android:text="Nro. Documento"/>
-            <EditText 
+            <!-- PREGUNTA 2 -->
+            <gob.sis.simos.ui.UIEditText 
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="right"
                 android:textAppearance="@android:style/TextAppearance.Large"
-                android:text="45281971"/>
+                android:text="45281971"
+                app:preguntaId="2" app:preguntaParentId="-1" app:opcionRespuestaId="5" />
         </LinearLayout>
         <View android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -91,18 +95,22 @@
                 android:layout_weight="0.7"
                 android:gravity="center_vertical"
                 android:text="Sexo"/>
+            
+            <!-- PREGUNTA 3 -->
             <RadioGroup 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:orientation="horizontal">
-                <RadioButton android:text="Masculino" android:layout_width="wrap_content" />
+                <gob.sis.simos.ui.UIRadioButton android:text="Masculino" android:layout_width="wrap_content"
+                    app:preguntaId="3" app:preguntaParentId="-1" app:opcionRespuestaId="6"/>
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
-                <RadioButton android:text="Femenino" android:layout_width="wrap_content" />
+                <gob.sis.simos.ui.UIRadioButton android:text="Femenino" android:layout_width="wrap_content"
+                    app:preguntaId="3" app:preguntaParentId="-1" app:opcionRespuestaId="7"/>
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
@@ -141,12 +149,14 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Relación con el paciente"/>
+            <!-- PREGUNTA 4 -->
             <Spinner 
                 android:id="@+id/sp_relacion_paciente"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"/>
         </LinearLayout>
+        
         <View android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="5dp"
@@ -174,13 +184,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:orientation="horizontal">
-                <RadioButton android:text="Sí" android:layout_width="wrap_content" />
+                <!-- PREGUNTA 5 -->
+                <gob.sis.simos.ui.UIRadioButton android:text="Sí" android:layout_width="wrap_content"
+                    app:preguntaId="5" app:preguntaParentId="-1" app:opcionRespuestaId="14"/>
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
-                <RadioButton android:text="No" android:layout_width="wrap_content" />
+                <gob.sis.simos.ui.UIRadioButton android:text="No" android:layout_width="wrap_content"
+                    app:preguntaId="5" app:preguntaParentId="-1" app:opcionRespuestaId="15"/>
             </RadioGroup>
         </LinearLayout>
         <View
@@ -200,6 +213,7 @@
             android:paddingBottom="10dp"
             android:visibility="gone"
             android:orientation="horizontal">
+            <!-- PREGUNTA 6 -->
             <TextView 
                 android:id="@+id/lbl_reason"
                 android:layout_width="0dp"
