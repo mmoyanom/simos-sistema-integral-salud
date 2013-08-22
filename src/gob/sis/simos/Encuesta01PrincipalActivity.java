@@ -6,10 +6,10 @@ import gob.sis.simos.entity.Encuesta01;
 import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
-import gob.sis.simos.entity.Respuesta;
+import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.VerificacionPago;
-import gob.sis.simos.fragment.InsumoCheckListFragment;
 import gob.sis.simos.fragment.RecetaCheckListFragment;
+import gob.sis.simos.fragment.VerificacionPagoCheckListFragment;
 import gob.sis.simos.ui.DialogAddServicio;
 import gob.sis.simos.ui.DialogAddToReceta;
 
@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-
-import com.google.inject.Inject;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.ContentView;
@@ -42,6 +40,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.inject.Inject;
+
 @ContentView(R.layout.actvt_encsta_01)
 public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements OnClickListener, ActionBar.TabListener {
 
@@ -62,11 +62,12 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	DialogAddToReceta addPrescriptionDialog;
 	
 	RecetaCheckListFragment recetasFragment;
-	InsumoCheckListFragment inputFragment;
+	VerificacionPagoCheckListFragment verificacionesFragment;
 	
 	AlertDialog alert;
 	
 	public static final int ADD_SERVICE = 0;
+	public static final int EDIT_SERVICE = 3;
 	public static final int ADD_PRESCRIPTION = 1;
 	public static final int EDIT_PRESCRIPTION = 2;
 	
@@ -82,7 +83,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		this.btnAdd.setOnClickListener(this);
 		
 		this.addServiceDialog = new DialogAddServicio(this);
-		List<Respuesta> items = verificacionController.getRespuestas(7); 
+		List<OpcionRespuesta> items = verificacionController.getRespuestas(7); 
 		this.addServiceDialog.setItems(items);
 		
 		this.addPrescriptionDialog = new DialogAddToReceta(this);
@@ -93,7 +94,6 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				getSupportFragmentManager());
 		
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-		
 		mViewPager
 		.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
@@ -183,7 +183,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			
 		} else if(mViewPager.getCurrentItem() == 1){
 			if(this.encuesta.getRecetas().size() == 0){
-				showMessage("No hay elementos para eliminar.");
+				showMessage("No hay elementos para eliminar.", Toast.LENGTH_SHORT);
 				return;
 			} else {
 				Iterator<Receta> it = this.encuesta.getRecetas().iterator();
@@ -194,7 +194,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 					}
 				}
 				if(c == 0){
-					showMessage("No hay elementos seleccionados para eliminar.");
+					showMessage("No hay elementos seleccionados para eliminar.", Toast.LENGTH_SHORT);
 					return;
 				}
 			}
@@ -264,6 +264,10 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			Receta rc = (Receta)c;
 			this.encuesta.getRecetas().add(rc);
 			this.recetasFragment.notifyChanges(this.encuesta.getRecetas());
+		} else if(c instanceof VerificacionPago){
+			VerificacionPago vr = (VerificacionPago)c;
+			this.encuesta.getVerificaciones().add(vr);
+			this.verificacionesFragment.notifyChanges(this.encuesta.getVerificaciones());
 		}
 	}
 	
@@ -286,8 +290,8 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		public Fragment getItem(int position) {
 			
 			if(position == 0){
-				inputFragment = new InsumoCheckListFragment();
-				return inputFragment;
+				verificacionesFragment = new VerificacionPagoCheckListFragment();
+				return verificacionesFragment;
 			} else if(position == 1){
 				recetasFragment = new RecetaCheckListFragment();
 				return recetasFragment;
@@ -321,6 +325,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				addServiceDialog.setTitle(this.btnAdd.getText());
 				addServiceDialog.btnContinuar.setOnClickListener(this);
 				addServiceDialog.btnCancelar.setOnClickListener(this);
+				this.addServiceDialog.clear();
 				addServiceDialog.show();
 				
 			} else if(this.mViewPager.getCurrentItem() == 1){
@@ -332,16 +337,24 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			}
 		} else if (v == this.addServiceDialog.btnContinuar){
 				this.addServiceDialog.dismiss();
-				if(this.addServiceDialog.realizoPago()){
-					this.addServiceDialog.clear();
-					VerificacionPago vr = new VerificacionPago();
-					vr.setId(UUID.randomUUID().toString());
-					Intent i = new Intent(this, VerificacionPagosActivity.class);
-					i.putExtra("verificacion", vr);
-					i.putExtra("action", ADD_SERVICE);
-					this.startActivityForResult(i, ADD_SERVICE);
+				VerificacionPago vr = new VerificacionPago();
+				vr.setId(UUID.randomUUID().toString());
+				vr.setNombre(this.addServiceDialog.getSelectedServiceName());
+				
+				
+				if (this.verificacionesFragment.findItem(vr) == null) {
+					if(this.addServiceDialog.realizoPago()){
+						Intent i = new Intent(this, VerificacionPagosActivity.class);
+						i.putExtra("verificacion", vr);
+						i.putExtra("action", ADD_SERVICE);
+						this.startActivityForResult(i, ADD_SERVICE);
+					} else {
+						this.add(vr);
+					}
 				} else {
-					
+					String str = "El servicio '%s' ya existe en el listado. Si desea modificar las cantidades, mantenga seleccionado el elemento.";
+					str = String.format(str, vr.getNombre());
+					showMessage(str,Toast.LENGTH_LONG);
 				}
 		} else if (v == this.addServiceDialog.btnCancelar){
 				this.addServiceDialog.dismiss();
@@ -367,8 +380,8 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		
 	}
 	
-	private void showMessage(String text){
-		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+	private void showMessage(String text, int length){
+		Toast.makeText(this, text, length).show();
 	}
 	
 	@SuppressWarnings("unused")

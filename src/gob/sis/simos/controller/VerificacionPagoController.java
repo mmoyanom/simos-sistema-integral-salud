@@ -1,6 +1,6 @@
 package gob.sis.simos.controller;
 
-import gob.sis.simos.entity.Respuesta;
+import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.service.impl.OpcionesRespuestaServiceImpl;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class VerificacionPagoController {
 	@Inject
 	protected OpcionesRespuestaServiceImpl service;
 	
-	public List<Respuesta> getRespuestas(int preguntaId){
+	public List<OpcionRespuesta> getRespuestas(int preguntaId){
 		return service.getRespuestas(preguntaId);
 	}
 
