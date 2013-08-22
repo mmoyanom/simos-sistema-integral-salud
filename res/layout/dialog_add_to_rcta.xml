@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xlmns:app="http://schemas.android.com/apk/res/gob.sis.simos"
+    xmlns:app="http://schemas.android.com/apk/res/gob.sis.simos"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_rectangle_section"
