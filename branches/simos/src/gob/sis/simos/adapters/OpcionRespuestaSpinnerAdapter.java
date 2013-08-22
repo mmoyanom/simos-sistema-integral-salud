@@ -1,7 +1,7 @@
 package gob.sis.simos.adapters;
 
 import gob.sis.simos.R;
-import gob.sis.simos.entity.Respuesta;
+import gob.sis.simos.entity.OpcionRespuesta;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ public class OpcionRespuestaSpinnerAdapter extends BaseAdapter {
 	
 	LayoutInflater inflater;
 	Context context;
-	List<Respuesta> items;
+	List<OpcionRespuesta> items;
 
-	public OpcionRespuestaSpinnerAdapter(Context context, List<Respuesta> items) {
+	public OpcionRespuestaSpinnerAdapter(Context context, List<OpcionRespuesta> items) {
 		super();
 		this.context = context;
 		this.items = items;
@@ -33,7 +33,7 @@ public class OpcionRespuestaSpinnerAdapter extends BaseAdapter {
 			v = vi.inflate(R.layout.adptr_rspta_simple_list, null);
 		}
 		TextView title = (TextView) v.findViewById(R.id.txt_description);
-		Respuesta rspta = this.items.get(position);
+		OpcionRespuesta rspta = this.items.get(position);
 		if (rspta != null) {
 			title.setText(rspta.getDescripcion());
 		}

@@ -10,14 +10,23 @@ public class VerificacionPago implements Serializable, ICuantificable, ICheckabl
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
+	private String nombre;
 	private List<Respuesta> respuestas;
 	
 	private boolean checked = false;
 	
 	public VerificacionPago() {
-		this.respuestas = new ArrayList<Respuesta>();
+		this.setRespuestas(new ArrayList<Respuesta>());
 	}
-
+	
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	@Override
 	public void setChecked(boolean checked) {
 		// TODO Auto-generated method stub
@@ -73,6 +82,7 @@ public class VerificacionPago implements Serializable, ICuantificable, ICheckabl
 	public void setRespuestas(List<Respuesta> respuestas) {
 		this.respuestas = respuestas;
 	}
+
 
 	
 	

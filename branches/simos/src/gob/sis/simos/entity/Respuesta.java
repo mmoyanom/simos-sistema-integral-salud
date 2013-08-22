@@ -1,39 +1,57 @@
 package gob.sis.simos.entity;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
-@DatabaseTable(tableName="answer_options")
 public class Respuesta {
 
-	@DatabaseField(columnName="id")
-	private String respuestaId;
+	private Integer opcionRespuestaId;
+	private Integer encuestadoId;
+	private Integer respuestaId;
+	private Integer respuestaParentId;
+	private String respuestaTexto;
+	private Double respuestaNumero;
+	private Integer prescripcionId;
 	
-	@DatabaseField(columnName="question_id")
-	private String preguntaId;
-	
-	@DatabaseField(columnName="description")
-	private String descripcion;
-	
-	public String getRespuestaId() {
+	public Integer getOpcionRespuestaId() {
+		return opcionRespuestaId;
+	}
+	public void setOpcionRespuestaId(Integer opcionRespuestaId) {
+		this.opcionRespuestaId = opcionRespuestaId;
+	}
+	public Integer getEncuestadoId() {
+		return encuestadoId;
+	}
+	public void setEncuestadoId(Integer encuestadoId) {
+		this.encuestadoId = encuestadoId;
+	}
+	public Integer getRespuestaId() {
 		return respuestaId;
 	}
-	public void setRespuestaId(String respuestaId) {
+	public void setRespuestaId(Integer respuestaId) {
 		this.respuestaId = respuestaId;
 	}
-	public String getPreguntaId() {
-		return preguntaId;
+	public Integer getRespuestaParentId() {
+		return respuestaParentId;
 	}
-	public void setPreguntaId(String preguntaId) {
-		this.preguntaId = preguntaId;
+	public void setRespuestaParentId(Integer respuestaParentId) {
+		this.respuestaParentId = respuestaParentId;
 	}
-	public String getDescripcion() {
-		return descripcion;
+	public String getRespuestaTexto() {
+		return respuestaTexto;
 	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setRespuestaTexto(String respuestaTexto) {
+		this.respuestaTexto = respuestaTexto;
 	}
-	
+	public Double getRespuestaNumero() {
+		return respuestaNumero;
+	}
+	public void setRespuestaNumero(Double respuestaNumero) {
+		this.respuestaNumero = respuestaNumero;
+	}
+	public Integer getPrescripcionId() {
+		return prescripcionId;
+	}
+	public void setPrescripcionId(Integer prescripcionId) {
+		this.prescripcionId = prescripcionId;
+	}
 	
 	
 }

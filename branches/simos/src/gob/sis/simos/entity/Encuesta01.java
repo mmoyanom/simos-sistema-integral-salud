@@ -9,9 +9,11 @@ public class Encuesta01 {
 
 	private Integer id;
 	private List<Receta> recetas;
+	private List<VerificacionPago> verificaciones;
 	
 	public Encuesta01() {
 		this.recetas = new ArrayList<Receta>();
+		this.verificaciones = new ArrayList<VerificacionPago>();
 	}
 	
 	public Integer getId() {
@@ -27,5 +29,12 @@ public class Encuesta01 {
 		this.recetas = recetas;
 	}
 	
+	public List<VerificacionPago> getVerificaciones() {
+		return verificaciones;
+	}
+	
+	public void setVerificaciones(List<VerificacionPago> verificaciones) {
+		this.verificaciones = verificaciones;
+	}
 	
 }

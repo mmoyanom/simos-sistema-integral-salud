@@ -1,5 +1,7 @@
 package gob.sis.simos;
 
+import java.util.Hashtable;
+
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.fragment.VerificacionPagos01Fragment;
 import gob.sis.simos.fragment.VerificacionPagos02Fragment;
@@ -24,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class VerificacionPagosActivity extends RoboFragmentActivity implements FragmentManager.OnBackStackChangedListener, OnClickListener, InputFilter {
 	
@@ -74,23 +77,29 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		if(frgmnt1.isVisible()){
-			if(frgmnt1.enterTickets()){
-				layoutBtnAdd.setVisibility(View.VISIBLE);
-				FragmentManager mgr = getSupportFragmentManager();
-				FragmentTransaction fmt = mgr.beginTransaction();
-				fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-				fmt.remove(frgmnt1).add(R.id.fragment_container, frgmntTickets);
-				fmt.addToBackStack(dynamicFragment);
-				fmt.commit();
-				item.setTitle("Siguiente");
+			if(frgmnt1.isClear()){
+				showMessage("Por favor, Aségurese de responder todas las preguntas.", Toast.LENGTH_SHORT);
 			} else {
-				FragmentManager mgr = getSupportFragmentManager();
-				FragmentTransaction fmt = mgr.beginTransaction();
-				fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-				fmt.remove(frgmnt1).add(R.id.fragment_container, frgmnt2);
-				fmt.addToBackStack(dynamicFragment);
-				fmt.commit();
-				item.setTitle("Guardar");
+				
+				
+				if(frgmnt1.enterTickets()){
+					layoutBtnAdd.setVisibility(View.VISIBLE);
+					FragmentManager mgr = getSupportFragmentManager();
+					FragmentTransaction fmt = mgr.beginTransaction();
+					fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+					fmt.remove(frgmnt1).add(R.id.fragment_container, frgmntTickets);
+					fmt.addToBackStack(dynamicFragment);
+					fmt.commit();
+					item.setTitle("Siguiente");
+				} else {
+					FragmentManager mgr = getSupportFragmentManager();
+					FragmentTransaction fmt = mgr.beginTransaction();
+					fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+					fmt.remove(frgmnt1).add(R.id.fragment_container, frgmnt2);
+					fmt.addToBackStack(dynamicFragment);
+					fmt.commit();
+					item.setTitle("Guardar");
+				}
 			}
 		}
 		return true;
@@ -177,6 +186,10 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
             }
 		}
 		return null;
+	}
+	
+	private void showMessage(String text, int length){
+		Toast.makeText(this, text, length).show();
 	}
 
 }

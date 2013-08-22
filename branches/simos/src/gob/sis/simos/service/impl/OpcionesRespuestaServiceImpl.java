@@ -1,7 +1,7 @@
 package gob.sis.simos.service.impl;
 
 import gob.sis.simos.db.DBHelper;
-import gob.sis.simos.entity.Respuesta;
+import gob.sis.simos.entity.OpcionRespuesta;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,10 +22,10 @@ public class OpcionesRespuestaServiceImpl {
 	@Inject
 	private Context context;
 	
-	public List<Respuesta> getRespuestas(int preguntaId){
+	public List<OpcionRespuesta> getRespuestas(int preguntaId){
 		try {
-			Dao<Respuesta, Integer> dao = getHelper().getOpcionesRespuestaDao();
-			List<Respuesta> items = dao.queryForEq("question_id", preguntaId);
+			Dao<OpcionRespuesta, Integer> dao = getHelper().getOpcionesRespuestaDao();
+			List<OpcionRespuesta> items = dao.queryForEq("question_id", preguntaId);
 			return items;
 		} catch (SQLException e) {
 			e.printStackTrace();

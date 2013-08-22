@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xlmns:app="http://schemas.android.com/apk/res/gob.sis.simos"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_rectangle_section"
@@ -18,13 +19,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:orientation="horizontal">
-                <RadioButton android:id="@+id/rb_estandarizada" android:text="Estandarizada" android:layout_width="wrap_content"/>
+                <gob.sis.simos.ui.UIRadioButton android:id="@+id/rb_estandarizada" android:text="Estandarizada" android:layout_width="wrap_content"
+                    app:preguntaId="22" app:preguntaParentId="21" app:opcionRespuestaId="100"/>
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
-                <RadioButton android:id="@+id/rb_no_estandarizada" android:text="No estandarizada" android:layout_width="wrap_content" />
+                <gob.sis.simos.ui.UIRadioButton android:id="@+id/rb_no_estandarizada" android:text="No estandarizada" android:layout_width="wrap_content"
+                    app:preguntaId="22" app:preguntaParentId="21" app:opcionRespuestaId="101"/>
             </RadioGroup>
     </LinearLayout>
     <LinearLayout 

@@ -3,7 +3,7 @@ package gob.sis.simos.fragment;
 import gob.sis.simos.R;
 import gob.sis.simos.adapters.OpcionRespuestaSpinnerAdapter;
 import gob.sis.simos.controller.VerificacionPagoController;
-import gob.sis.simos.entity.Respuesta;
+import gob.sis.simos.entity.OpcionRespuesta;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 
 	private void loadPreguntas() {
 		
-		List<Respuesta> items = controller.getRespuestas(16);
+		List<OpcionRespuesta> items = controller.getRespuestas(16);
 		OpcionRespuestaSpinnerAdapter adapter = new OpcionRespuestaSpinnerAdapter(getActivity(), items);
 		this.splugarIndicacionPago.setAdapter(adapter);
 		

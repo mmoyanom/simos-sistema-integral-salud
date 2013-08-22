@@ -2,7 +2,7 @@ package gob.sis.simos;
 
 import gob.sis.simos.adapters.OpcionRespuestaSpinnerAdapter;
 import gob.sis.simos.controller.InfoEncuestadoController;
-import gob.sis.simos.entity.Respuesta;
+import gob.sis.simos.entity.OpcionRespuesta;
 
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 		
 		getActionBar().setDisplayShowHomeEnabled(false);
 		
-		List<Respuesta> items = controller.getRespuestas(1);
+		List<OpcionRespuesta> items = controller.getRespuestas(1);
 		OpcionRespuestaSpinnerAdapter adapter = new OpcionRespuestaSpinnerAdapter(this, items);
 		_spDocumentType.setAdapter(adapter);
 		
