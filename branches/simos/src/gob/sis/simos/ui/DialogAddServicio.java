@@ -63,7 +63,7 @@ public class DialogAddServicio extends Dialog implements OnCheckedChangeListener
 			
 			UIRadioButton rb = new UIRadioButton(getContext());
 			rb.setPreguntaId(r.getPreguntaId());
-			rb.setOpcionRespuestaId(r.getRespuestaId());
+			rb.setOpcionRespuestaId(r.getOpcionRespuestaId());
 			rb.setText(r.getDescripcion());
 			
 			this._rgServices.addView(rb);

@@ -1,10 +1,14 @@
 package gob.sis.simos.fragment;
 
 import gob.sis.simos.R;
+import gob.sis.simos.adapters.OpcionRespuestaSpinnerAdapter;
 import gob.sis.simos.controller.VerificacionPagoController;
 import gob.sis.simos.entity.OpcionRespuesta;
+import gob.sis.simos.entity.Respuesta;
+import gob.sis.simos.entity.VerificacionPago;
+import gob.sis.simos.ui.UIRadioButton;
 
-import java.util.Hashtable;
+import java.util.List;
 
 import roboguice.fragment.RoboFragment;
 import android.os.Bundle;
@@ -16,10 +20,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.Spinner;
+
 import com.google.inject.Inject;
 
 
@@ -29,11 +36,17 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 	protected RadioGroup rgHaveTicket;
 	protected RadioGroup rgImproperPayment;
 	protected EditText etAmount;
-	static final int IN_EESS = 0;
-	static final int OUT_EESS = 2;
-	static final int BOTH_EESS = 4;
+	protected Spinner spPaymentInEESS;
+	protected Spinner spPaymentOutEESS;
+	protected LinearLayout lyPaymentOut;
+	protected LinearLayout lyPaymentIn;
+	static final int IN_EESS = 40;
+	static final int OUT_EESS = 41;
+	static final int BOTH_EESS = 42;
+	static final int HAVE_TICKETS_YES = 38;
+	static final int HAVE_TICKETS_NO = 39;
 	protected int paymentoLocation;
-	
+	private VerificacionPago verificacion;
 	@Inject
 	protected VerificacionPagoController controller;
 	
@@ -51,6 +64,13 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 		this.rgImproperPayment = (RadioGroup)v.findViewById(R.id.rg_improper_payment);
 		this.rgImproperPayment.setOnCheckedChangeListener(this);
 		
+		this.spPaymentInEESS = (Spinner)v.findViewById(R.id.sp_paymentIn);
+		
+		this.spPaymentOutEESS = (Spinner)v.findViewById(R.id.sp_paymentOut);
+		
+		this.lyPaymentOut = (LinearLayout)v.findViewById(R.id.layout_payment_out);
+		this.lyPaymentIn = (LinearLayout)v.findViewById(R.id.layout_payment_in);
+		
 		this.etAmount = (EditText)v.findViewById(R.id.et_ammount);
 		this.etAmount.addTextChangedListener(this);
 		
@@ -60,15 +80,43 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		loadPreguntas();
+		loadVerificacion();
 	}
-	
+
+	private void loadPreguntas() {
+		List<OpcionRespuesta> items = controller.getRespuestas(11);
+		OpcionRespuestaSpinnerAdapter adapter = new OpcionRespuestaSpinnerAdapter(getActivity(), items);
+		this.spPaymentOutEESS.setAdapter(adapter);
+		
+		items = controller.getRespuestas(14);
+		adapter = new OpcionRespuestaSpinnerAdapter(getActivity(), items);
+		this.spPaymentInEESS.setAdapter(adapter);
+		
+	}
+
 	public void setVisibility(int visibility){
 		getView().setVisibility(visibility);
 	}
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		
+		if(group == this.rgPaymentLocation){
+			int id = this.rgPaymentLocation.getCheckedRadioButtonId();
+			UIRadioButton rb = (UIRadioButton)getView().findViewById(id);
+			if(rb.getOpcionRespuestaId() == IN_EESS){
+				this.lyPaymentIn.setVisibility(View.VISIBLE);
+				this.lyPaymentOut.setVisibility(View.GONE);
+				
+			} else if(rb.getOpcionRespuestaId() == OUT_EESS){
+				this.lyPaymentIn.setVisibility(View.GONE);
+				this.lyPaymentOut.setVisibility(View.VISIBLE);
+				
+			} else if(rb.getOpcionRespuestaId() == BOTH_EESS){
+				this.lyPaymentIn.setVisibility(View.VISIBLE);
+				this.lyPaymentOut.setVisibility(View.VISIBLE);
+			}
+		}
 	}
 	
 	public boolean isClear(){
@@ -82,16 +130,22 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 	}
 	
 	public boolean enterTickets(){
-		int id = this.rgPaymentLocation.getCheckedRadioButtonId();
-		RadioButton r = (RadioButton) getView().findViewById(id);
-		int index = this.rgPaymentLocation.indexOfChild(r);
-		if(index == IN_EESS || index == BOTH_EESS) {
-			//this.paymentoLocation = index;
-			return true;
+		int idhaveTickets = this.rgHaveTicket.getCheckedRadioButtonId();
+		UIRadioButton rHaveTickets = (UIRadioButton)getView().findViewById(idhaveTickets);
+		
+		if(rHaveTickets.getOpcionRespuestaId() == HAVE_TICKETS_YES){
+			int idPayment= this.rgPaymentLocation.getCheckedRadioButtonId();
+			UIRadioButton r = (UIRadioButton) getView().findViewById(idPayment);
+			if(r.getOpcionRespuestaId() == IN_EESS ||
+					r.getOpcionRespuestaId() == BOTH_EESS) {				
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			//this.paymentoLocation = OUT_EESS;
 			return false;
 		}
+		
 	}
 
 	@Override
@@ -136,6 +190,89 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 	public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void setVerificacion(VerificacionPago verificacion){
+		this.verificacion = verificacion;
+	}
+	
+	public VerificacionPago getVerificacion(){
+		return this.verificacion;
+	}
+
+	public void loadVerificacion() {
+		if(getVerificacion() != null){
+			List<Respuesta> rsptas = getVerificacion().getRespuestas();
+			if(rsptas.size() > 0){
+				for(int i = 0; i < rsptas.size() ; i++){
+					Respuesta or = rsptas.get(i);
+					
+					// pregunta 9
+					if(or.getPreguntaId() == 9){
+						for(int x = 0; x < this.rgHaveTicket.getChildCount(); x++){
+							if(this.rgHaveTicket.getChildAt(x) instanceof UIRadioButton){
+								UIRadioButton rb = (UIRadioButton)this.rgHaveTicket.getChildAt(x);
+								if(or.getOpcionRespuestaId() == rb.getOpcionRespuestaId()){
+									this.rgHaveTicket.check(rb.getId());
+								}
+							}
+						}
+					}
+					
+					// pregunta 10
+					if(or.getPreguntaId() == 10){
+						for(int x = 0; x < this.rgPaymentLocation.getChildCount(); x++){
+							if(this.rgPaymentLocation.getChildAt(x) instanceof UIRadioButton){
+								UIRadioButton rb = (UIRadioButton)this.rgPaymentLocation.getChildAt(x);
+								if(or.getOpcionRespuestaId() == rb.getOpcionRespuestaId()){
+									this.rgPaymentLocation.check(rb.getId());
+								}
+							}
+						}
+					}
+					
+					// pregunta 11
+					if(or.getPreguntaId() == 11){
+						Adapter adapter = spPaymentOutEESS.getAdapter();
+						for(int x=0;x < adapter.getCount(); x++){
+							OpcionRespuesta orx = (OpcionRespuesta)adapter.getItem(x);
+							if(orx.getOpcionRespuestaId() == or.getOpcionRespuestaId()){
+								spPaymentOutEESS.setSelection(x);
+							}
+						}
+					}
+					
+					// pregunta 13
+					if(or.getPreguntaId() == 13){
+						etAmount.setText(or.getRespuestaNumero()+"");
+					}
+					
+					// pregunta 14
+					if(or.getPreguntaId() == 14){
+						Adapter adapter = spPaymentInEESS.getAdapter();
+						for(int x=0;x < adapter.getCount(); x++){
+							OpcionRespuesta orx = (OpcionRespuesta)adapter.getItem(x);
+							if(orx.getOpcionRespuestaId() == or.getOpcionRespuestaId()){
+								spPaymentInEESS.setSelection(x);
+							}
+						}
+					}
+					
+					// pregunta 15
+					if(or.getPreguntaId() == 15){
+						for(int x = 0; x < this.rgImproperPayment.getChildCount(); x++){
+							if(this.rgImproperPayment.getChildAt(x) instanceof UIRadioButton){
+								UIRadioButton rb = (UIRadioButton)this.rgImproperPayment.getChildAt(x);
+								if(or.getOpcionRespuestaId() == rb.getOpcionRespuestaId()){
+									this.rgImproperPayment.check(rb.getId());
+								}
+							}
+						}
+					}
+				}
+				
+			}
+		}
 	}
 	
 	
