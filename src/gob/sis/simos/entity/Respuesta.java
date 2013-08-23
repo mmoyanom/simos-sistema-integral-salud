@@ -2,9 +2,11 @@ package gob.sis.simos.entity;
 
 public class Respuesta {
 
+	//ID
+	private Integer respuestaId;
+	private Integer preguntaId;
 	private Integer opcionRespuestaId;
 	private Integer encuestadoId;
-	private Integer respuestaId;
 	private Integer respuestaParentId;
 	private String respuestaTexto;
 	private Double respuestaNumero;
@@ -51,6 +53,12 @@ public class Respuesta {
 	}
 	public void setPrescripcionId(Integer prescripcionId) {
 		this.prescripcionId = prescripcionId;
+	}
+	public Integer getPreguntaId() {
+		return preguntaId;
+	}
+	public void setPreguntaId(Integer preguntaId) {
+		this.preguntaId = preguntaId;
 	}
 	
 	

@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class OpcionRespuesta {
 
 	@DatabaseField(columnName="id")
-	private Integer respuestaId;
+	private Integer opcionRespuestaId;
 	
 	@DatabaseField(columnName="question_id")
 	private Integer preguntaId;
@@ -15,11 +15,11 @@ public class OpcionRespuesta {
 	@DatabaseField(columnName="description")
 	private String descripcion;
 	
-	public Integer getRespuestaId() {
-		return respuestaId;
+	public Integer getOpcionRespuestaId() {
+		return opcionRespuestaId;
 	}
-	public void setRespuestaId(Integer respuestaId) {
-		this.respuestaId = respuestaId;
+	public void setOpcionRespuestaId(Integer opcionRespuestaId) {
+		this.opcionRespuestaId = opcionRespuestaId;
 	}
 	public Integer getPreguntaId() {
 		return preguntaId;
