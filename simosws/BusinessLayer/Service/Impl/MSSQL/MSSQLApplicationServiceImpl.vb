@@ -271,8 +271,40 @@ Namespace Service.Impl
                     cmd.Parameters.Add("@RPTA_I_ID_RESPUESTA", SqlDbType.Int).Direction = ParameterDirection.Output
                     cmd.ExecuteScalar()
                     resul += cmd.Parameters("@RPTA_I_ID_RESPUESTA").Value
-
                 Next
+            Catch ex As Exception
+                util.Log.Append(ex.Message)
+            Finally
+                If con IsNot Nothing Then
+                    con.Close()
+                End If
+            End Try
+            Return resul
+        End Function
+
+        Public Function SetRespuestaEncuesta(ByVal rptaEnc As RespuestaEncuesta) As Integer Implements BIApplicationService.SetRespuestaEncuesta
+            Dim resul As Integer
+            Dim con As SqlConnection = Nothing
+            Try
+                con = SimosDBConnection.GetConnection()
+                con.Open()
+
+                Dim cmd As New SqlCommand
+                cmd.Connection = con
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = ConfigurationManager.AppSettings("SP_INSERTARPTAS").ToString()
+
+
+                cmd.Parameters.Add("@RPTA_I_ID_OPCIONESRESPUESTA", SqlDbType.Int).Value = rptaEnc.OprespuestaId
+                cmd.Parameters.Add("@RPTA_I_ID_ENCUESTADO", SqlDbType.Int).Value = rptaEnc.EncuestadoId
+                cmd.Parameters.Add("@RPTA_I_ID_RESPUESTAPADRE", SqlDbType.Int).Value = rptaEnc.RespuestaPadreId
+                cmd.Parameters.Add("@RPTA_V_TEXTORESPUESTA", SqlDbType.VarChar).Value = rptaEnc.RespuestaTexto
+                cmd.Parameters.Add("@RPTA_N_RESPUESTA", SqlDbType.Decimal).Value = rptaEnc.RespuestaNum
+                cmd.Parameters.Add("@RPTA_I_V_MEDICAMENTOINSUMO", SqlDbType.VarChar).Value = rptaEnc.Medins
+                cmd.Parameters.Add("@RPTA_I_ID_RESPUESTA", SqlDbType.Int).Direction = ParameterDirection.Output
+                cmd.ExecuteScalar()
+                resul = cmd.Parameters("@RPTA_I_ID_RESPUESTA").Value
+
             Catch ex As Exception
                 util.Log.Append(ex.Message)
             Finally
