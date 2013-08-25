@@ -11,6 +11,7 @@ Namespace Service
         Function GetDeliveryModes() As List(Of DeliveryMode)
         Function GetStaffIndicatingPayments() As List(Of StaffIndicatingPayment)
         Function SetRespuestasEncuestas(ByVal rptasEncs As List(Of RespuestaEncuesta)) As Integer
+        Function SetRespuestaEncuesta(ByVal rptaEnc As RespuestaEncuesta) As Integer
 
 
 

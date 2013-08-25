@@ -155,6 +155,23 @@ Public Class ApplicationService
 
         Return resul
     End Function
+
+    <WebMethod()> _
+    <ScriptMethod(UseHttpGet:=True)> _
+    Public Function SetRespuestaEncuesta(ByVal SrptaEnc As String)
+        Dim resul As Integer = 0
+        Dim service As New MSSQLApplicationServiceImpl
+        Dim rptaEnc As New RespuestaEncuesta
+        If SrptaEnc IsNot Nothing Then
+            Dim slz As New JavaScriptSerializer
+            rptaEnc = slz.Deserialize(Of RespuestaEncuesta)(SrptaEnc)
+            resul = service.SetRespuestaEncuesta(rptaEnc)
+        Else
+            resul = 0
+        End If
+
+        Return resul
+    End Function
 End Class
 
 
