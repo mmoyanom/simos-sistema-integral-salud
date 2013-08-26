@@ -1,6 +1,7 @@
 package gob.sis.simos.ui;
 
 import gob.sis.simos.R;
+import gob.sis.simos.entity.Respuesta;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -76,6 +77,13 @@ public class UIRadioButton extends RadioButton {
 
 	public void setOpcionRespuestaId(Integer opcionRespuestaId) {
 		this.opcionRespuestaId = opcionRespuestaId;
+	}
+	
+	public Respuesta getRespuesta(){
+		Respuesta r = new Respuesta();
+		r.setPreguntaId(getPreguntaId());
+		r.setOpcionRespuestaId(getOpcionRespuestaId());
+		return r;
 	}
 	
 	

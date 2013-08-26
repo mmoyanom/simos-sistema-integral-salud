@@ -3,6 +3,7 @@ package gob.sis.simos.ui;
 import gob.sis.simos.R;
 import gob.sis.simos.controller.VerificacionPagoController;
 import gob.sis.simos.entity.OpcionRespuesta;
+import gob.sis.simos.entity.Respuesta;
 
 import java.util.Iterator;
 import java.util.List;
@@ -37,6 +38,30 @@ public class DialogAddServicio extends Dialog implements OnCheckedChangeListener
 		this.btnContinuar = (Button) findViewById(R.id.btn_continue);
 		this.btnContinuar.setEnabled(false);
 
+	}
+	
+	public Respuesta getRespuestaService(){
+		int id = this._rgServices.getCheckedRadioButtonId();
+		if(id == -1){
+			UIRadioButton rb = (UIRadioButton)findViewById(id);
+			Respuesta rsp7 = new Respuesta();
+			rsp7.setPreguntaId(rb.getPreguntaId());
+			rsp7.setOpcionRespuestaId(rb.getOpcionRespuestaId());
+			return rsp7;
+		}
+		return null;
+	}
+	
+	public Respuesta getRespuestaRealizoPago(){
+		int id = this._rgRealizoPago.getCheckedRadioButtonId();
+		if(id == -1){
+			UIRadioButton rb = (UIRadioButton)findViewById(id);
+			Respuesta rsp7 = new Respuesta();
+			rsp7.setPreguntaId(rb.getPreguntaId());
+			rsp7.setOpcionRespuestaId(rb.getOpcionRespuestaId());
+			return rsp7;
+		}
+		return null;
 	}
 	
 	public String getSelectedServiceName(){
