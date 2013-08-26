@@ -1,6 +1,8 @@
 package gob.sis.simos.fragment;
 
 import gob.sis.simos.R;
+import gob.sis.simos.entity.Respuesta;
+import gob.sis.simos.entity.VerificacionPago;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +15,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemLongClickListener;
 
 public class VerificacionPagosTicketsFragment extends RoboFragment implements OnItemLongClickListener {
 	
 	private ListView lstTickets;
 	private AlertDialog alertDialog;
 	public ArrayAdapter<String> adapter;
+	private VerificacionPago verificacion;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +38,33 @@ public class VerificacionPagosTicketsFragment extends RoboFragment implements On
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
+		loadPreguntas();
+		loadVerificacion();
+	}
+
+	private void loadVerificacion() {
+		if(getVerificacion() != null){
+			List<Respuesta> rsptas = getVerificacion().getRespuestas();
+			if(rsptas.size() > 0){
+				for(int i = 0; i < rsptas.size() ; i++){
+					Respuesta or = rsptas.get(i);
+					
+					// pregunta 12
+					if(or.getPreguntaId() == 12){
+						if(or.getRespuestaTexto() != null){
+							String[] arrTickets = or.getRespuestaTexto().split(";");
+							adapter.clear();
+							for(int x = 0; x < arrTickets.length ; x++){
+								adapter.add(arrTickets[x]);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void loadPreguntas() {
 		List<String> items = new ArrayList<String>();
 		this.adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,items);
 		this.lstTickets.setAdapter(adapter);
@@ -77,4 +107,13 @@ public class VerificacionPagosTicketsFragment extends RoboFragment implements On
 		return false;
 	}
 
+	public VerificacionPago getVerificacion() {
+		return verificacion;
+	}
+
+	public void setVerificacion(VerificacionPago verificacion) {
+		this.verificacion = verificacion;
+	}
+
+	
 }

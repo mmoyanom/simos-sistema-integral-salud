@@ -340,7 +340,8 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				VerificacionPago vr = new VerificacionPago();
 				vr.setId(UUID.randomUUID().toString());
 				vr.setNombre(this.addServiceDialog.getSelectedServiceName());
-				
+				vr.getRespuestas().add(this.addServiceDialog.getRespuestaService());
+				vr.getRespuestas().add(this.addServiceDialog.getRespuestaRealizoPago());
 				
 				if (this.verificacionesFragment.findItem(vr) == null) {
 					if(this.addServiceDialog.realizoPago()){

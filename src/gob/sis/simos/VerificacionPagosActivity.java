@@ -85,6 +85,12 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		or11.setOpcionRespuestaId(46);
 		this.verificacion.getRespuestas().add(or11);
 		
+		Respuesta or12 = new Respuesta();
+		or12.setPreguntaId(12);
+		or12.setOpcionRespuestaId(55);
+		or12.setRespuestaTexto("123456;654321");
+		this.verificacion.getRespuestas().add(or12);
+		
 		Respuesta or13 = new Respuesta();
 		or13.setPreguntaId(13);
 		or13.setOpcionRespuestaId(56);
@@ -107,8 +113,35 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		or15.setOpcionRespuestaId(66);
 		this.verificacion.getRespuestas().add(or15);
 		
+		Respuesta or16 = new Respuesta();
+		or16.setPreguntaId(16);
+		or16.setOpcionRespuestaId(70);
+		this.verificacion.getRespuestas().add(or16);
+		
+		Respuesta or17 = new Respuesta();
+		or17.setPreguntaId(17);
+		or17.setOpcionRespuestaId(86);
+		this.verificacion.getRespuestas().add(or17);
+		
+		Respuesta or18 = new Respuesta();
+		or18.setPreguntaId(18);
+		or18.setOpcionRespuestaId(108);
+		this.verificacion.getRespuestas().add(or18);
+		
+		Respuesta or19 = new Respuesta();
+		or19.setPreguntaId(19);
+		or19.setOpcionRespuestaId(88);
+		this.verificacion.getRespuestas().add(or19);
+		
+		Respuesta or20 = new Respuesta();
+		or20.setPreguntaId(20);
+		or20.setOpcionRespuestaId(98);
+		this.verificacion.getRespuestas().add(or20);
+		
 		if(this.verificacion != null){
 			this.frgmnt1.setVerificacion(this.verificacion);
+			this.frgmntTickets.setVerificacion(this.verificacion);
+			this.frgmnt2.setVerificacion(this.verificacion);
 		}
 	}
 	

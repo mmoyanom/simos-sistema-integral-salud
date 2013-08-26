@@ -18,8 +18,9 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
+        
         <activity
-            android:name="gob.sis.simos.LoginActivity"
+            android:name="gob.sis.simos.WelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Annx02Theme" >
@@ -27,6 +28,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="gob.sis.simos.LoginActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Annx02Theme" >
         </activity>
         <activity
             android:name="gob.sis.simos.MenuPrincipalActivity"

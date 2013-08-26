@@ -7,11 +7,11 @@
     android:background="@drawable/bg_rectangle_section"
     android:orientation="vertical" >
     
+    <!-- Pregunta 16 -->
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         
+        <!-- Pregunta 17 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -60,6 +61,7 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         
+        <!-- Pregunta 18 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -81,23 +83,25 @@
                 android:layout_weight="0.8"
                 android:gravity="center_vertical"
                 android:text="¿Se realizó la devolución?"/>
-            <RadioGroup 
+            <RadioGroup
+                	android:id="@+id/rg_devolucion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
                 <gob.sis.simos.ui.UIRadioButton android:text="Sí" android:layout_width="wrap_content"
-                    app:preguntaId="18" app:preguntaParentId="7" app:opcionRespuestaId="14" />
+                    app:preguntaId="18" app:preguntaParentId="7" app:opcionRespuestaId="107" />
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
                 <gob.sis.simos.ui.UIRadioButton android:text="No" android:layout_width="wrap_content"
-                    app:preguntaId="18" app:preguntaParentId="-1" app:opcionRespuestaId="15"/>
+                    app:preguntaId="18" app:preguntaParentId="7" app:opcionRespuestaId="108"/>
             </RadioGroup>
         </LinearLayout>
         
+        <!-- Pregunta 19 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -121,6 +125,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+        
+        <!-- Pregunta 20 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -141,6 +147,7 @@
                 android:gravity="center_vertical"
                 android:text="¿Desea formalizar su reclamo?"/>
             <RadioGroup 
+                android:id="@+id/rg_formalizar_reclamo"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginLeft="0dp"
