@@ -42,7 +42,7 @@ public class DialogAddServicio extends Dialog implements OnCheckedChangeListener
 	
 	public Respuesta getRespuestaService(){
 		int id = this._rgServices.getCheckedRadioButtonId();
-		if(id == -1){
+		if(id != -1){
 			UIRadioButton rb = (UIRadioButton)findViewById(id);
 			Respuesta rsp7 = new Respuesta();
 			rsp7.setPreguntaId(rb.getPreguntaId());
@@ -54,7 +54,7 @@ public class DialogAddServicio extends Dialog implements OnCheckedChangeListener
 	
 	public Respuesta getRespuestaRealizoPago(){
 		int id = this._rgRealizoPago.getCheckedRadioButtonId();
-		if(id == -1){
+		if(id != -1){
 			UIRadioButton rb = (UIRadioButton)findViewById(id);
 			Respuesta rsp7 = new Respuesta();
 			rsp7.setPreguntaId(rb.getPreguntaId());

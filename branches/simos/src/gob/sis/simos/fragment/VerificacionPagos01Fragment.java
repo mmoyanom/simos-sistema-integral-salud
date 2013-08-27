@@ -7,10 +7,8 @@ import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.ui.UIRadioButton;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import roboguice.fragment.RoboFragment;
 import android.os.Bundle;
 import android.text.Editable;
@@ -24,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;

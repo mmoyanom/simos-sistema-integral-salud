@@ -194,6 +194,8 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 			} else {
 				showMessage("Usted cuenta con boletas. Debe ingresar, al menos un numero de boleta.", Toast.LENGTH_LONG);
 			}
+		} else if (frgmnt2.isVisible()){
+			layoutBtnAdd.setVisibility(View.GONE);
 		}
 		return true;
 	}
