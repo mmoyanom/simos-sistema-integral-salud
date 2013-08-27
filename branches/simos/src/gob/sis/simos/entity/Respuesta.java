@@ -1,7 +1,13 @@
 package gob.sis.simos.entity;
 
-public class Respuesta {
+import java.io.Serializable;
 
+public class Respuesta implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//ID
 	private Integer respuestaId;
 	private Integer preguntaId;
