@@ -2,7 +2,9 @@ package gob.sis.simos.adapters;
 
 import gob.sis.simos.R;
 import gob.sis.simos.entity.Medicamento;
+
 import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,10 +1,10 @@
 package gob.sis.simos.adapters;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gob.sis.simos.R;
 import gob.sis.simos.dto.OpcionMenu;
+
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

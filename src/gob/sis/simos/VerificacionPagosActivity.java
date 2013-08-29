@@ -1,5 +1,6 @@
 package gob.sis.simos;
 
+import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.fragment.VerificacionPagos01Fragment;
@@ -198,9 +199,13 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 				showMessage("Usted cuenta con boletas. Debe ingresar, al menos un numero de boleta.", Toast.LENGTH_LONG);
 			}
 		} else if (frgmnt2.isVisible()){
-			layoutBtnAdd.setVisibility(View.GONE);
+			saveVerificacion();
 		}
 		return true;
+	}
+
+	private void saveVerificacion() {	
+		
 	}
 
 	@Override
@@ -245,11 +250,19 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		if(requestCode == SELECT_ITEMS && resultCode == Activity.RESULT_OK){
 			Bundle b = data.getExtras();
 			if(b != null){
-				String[] array = b.getStringArray("string_array");
+				Bundle array = b.getBundle("bundle");
+				if(array.size() == 0){
+					this.frgmnt1.txtPaymentIn.setText("Ninguno seleccionado.");
+				}
+				
+				String[] keys = new String[array.size()]; 
+				array.keySet().toArray(keys);
 				StringBuffer sbf = new StringBuffer();
-				for(int i = 0 ; i < array.length ; i++){
-					sbf.append("* ").append(array[i]);
-					if(i != array.length -1){
+				
+				for(int i = 0 ; i < array.size(); i++){
+					OpcionRespuesta or = (OpcionRespuesta)array.get(keys[i]);
+					sbf.append("* ").append(or.getDescripcion());
+					if(i != array.size() -1){
 						sbf.append("\n");
 					}
 				}

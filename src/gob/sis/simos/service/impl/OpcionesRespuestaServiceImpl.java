@@ -6,13 +6,12 @@ import gob.sis.simos.entity.OpcionRespuesta;
 import java.sql.SQLException;
 import java.util.List;
 
+import roboguice.inject.ContextSingleton;
 import android.content.Context;
 
 import com.google.inject.Inject;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-
-import roboguice.inject.ContextSingleton;
 
 @ContextSingleton
 public class OpcionesRespuestaServiceImpl {

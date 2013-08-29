@@ -1,5 +1,7 @@
 package gob.sis.simos.soap;
 
+import gob.sis.simos.resources.AppProperties;
+
 import java.io.IOException;
 
 import org.ksoap2.serialization.PropertyInfo;
@@ -8,7 +10,6 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
-import gob.sis.simos.resources.AppProperties;
 import android.content.Context;
 
 public class SimosSoapServices {

@@ -1,10 +1,14 @@
 package gob.sis.simos.entity;
 
+import java.io.Serializable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName="answer_options")
-public class OpcionRespuesta implements ICheckable {
+public class OpcionRespuesta implements Serializable, ICheckable {
+
+	private static final long serialVersionUID = 1L;
 
 	@DatabaseField(columnName="id")
 	private Integer opcionRespuestaId;

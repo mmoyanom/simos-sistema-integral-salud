@@ -3,6 +3,7 @@ package gob.sis.simos.ui;
 import gob.sis.simos.entity.OpcionRespuesta;
 
 import java.util.List;
+
 import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
