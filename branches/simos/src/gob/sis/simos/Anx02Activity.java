@@ -1,6 +1,5 @@
 package gob.sis.simos;
 
-import gob.sis.simos.R;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;

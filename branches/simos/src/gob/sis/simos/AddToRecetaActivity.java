@@ -1,7 +1,5 @@
 package gob.sis.simos;
 
-import java.util.List;
-
 import gob.sis.simos.adapters.InsumoListAdapter;
 import gob.sis.simos.adapters.MedicamentoListAdapter;
 import gob.sis.simos.controller.RecetaController;
@@ -9,6 +7,9 @@ import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.ui.DialogCantidadGenerico;
+
+import java.util.List;
+
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.app.ActionBar.LayoutParams;

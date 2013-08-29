@@ -1,7 +1,5 @@
 package gob.sis.simos;
 
-import gob.sis.simos.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;

@@ -3,15 +3,17 @@ package gob.sis.simos;
 import gob.sis.simos.adapters.MenuPrincipalListAdapter;
 import gob.sis.simos.controller.ApplicationController;
 import gob.sis.simos.dto.OpcionMenu;
+
 import java.util.ArrayList;
+
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 public class MenuPrincipalActivity extends RoboActivity implements
 		OnItemClickListener {

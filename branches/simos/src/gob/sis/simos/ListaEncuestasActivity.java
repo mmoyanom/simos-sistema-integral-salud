@@ -1,17 +1,18 @@
 package gob.sis.simos;
 
+import gob.sis.simos.adapters.EncuestaListAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import gob.sis.simos.adapters.EncuestaListAdapter;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import roboguice.activity.RoboActivity;
-import roboguice.inject.InjectView;
 
 public class ListaEncuestasActivity extends RoboActivity implements OnItemClickListener {
 

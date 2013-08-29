@@ -3,6 +3,7 @@
     <declare-styleable name="UIOpcionRespuesta">
         <attr name="preguntaId" format="integer" />
         <attr name="preguntaParentId" format="integer" />
-        <attr name="opcionRespuestaId" format="integer" />            
+        <attr name="opcionRespuestaId" format="integer" />
+        <attr name="respuestaParentId" format="integer" />            
     </declare-styleable>
 </resources>
