@@ -6,10 +6,12 @@ import gob.sis.simos.fragment.VerificacionPagos01Fragment;
 import gob.sis.simos.fragment.VerificacionPagos02Fragment;
 import gob.sis.simos.fragment.VerificacionPagosTicketsFragment;
 import roboguice.activity.RoboFragmentActivity;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -42,6 +44,7 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	private EditText etTicket;
 	private AlertDialog alert;
 	private VerificacionPago verificacion;
+	private static final int SELECT_ITEMS = 5;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -212,21 +215,47 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	@Override
 	public void onBackPressed() {
 		 FragmentManager fm = getSupportFragmentManager();
-		    if (fm.getBackStackEntryCount() > 0) {
+		 int count = fm.getBackStackEntryCount();
+		    if (count > 0) {
 		        Log.i("MainActivity", "popping backstack");
 		        getSupportFragmentManager().popBackStack();
 		        if(frgmntTickets.isVisible()){
 		        	layoutBtnAdd.setVisibility(View.GONE);
 		        }
 		        if(frgmnt2.isVisible()){
-		        	MenuItem item = this.menu.getItem(0);
-		        	item.setTitle("SIGUIENTE");
-		        	layoutBtnAdd.setVisibility(View.VISIBLE);
+		        	if(count == 1){
+		        		MenuItem item = this.menu.getItem(0);
+			        	item.setTitle("SIGUIENTE");
+			        	layoutBtnAdd.setVisibility(View.GONE);
+		        	}else if(count == 2){
+		        		MenuItem item = this.menu.getItem(0);
+			        	item.setTitle("SIGUIENTE");
+			        	layoutBtnAdd.setVisibility(View.VISIBLE);
+		        	}
 		        }
 		    } else {
 		        Log.i("MainActivity", "nothing on backstack, calling super");
 		        super.onBackPressed();  
 		    }
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		if(requestCode == SELECT_ITEMS && resultCode == Activity.RESULT_OK){
+			Bundle b = data.getExtras();
+			if(b != null){
+				String[] array = b.getStringArray("string_array");
+				StringBuffer sbf = new StringBuffer();
+				for(int i = 0 ; i < array.length ; i++){
+					sbf.append("* ").append(array[i]);
+					if(i != array.length -1){
+						sbf.append("\n");
+					}
+				}
+				this.frgmnt1.txtPaymentIn.setText(sbf.toString());
+			}
+		}
 	}
 
 	@Override
