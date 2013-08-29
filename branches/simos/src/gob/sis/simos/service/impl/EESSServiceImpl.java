@@ -1,20 +1,17 @@
 package gob.sis.simos.service.impl;
 
+import gob.sis.simos.db.DBHelper;
+import gob.sis.simos.entity.EstablecimientoSalud;
+
 import java.sql.SQLException;
 import java.util.List;
 
 import roboguice.inject.ContextSingleton;
+import android.content.Context;
 
 import com.google.inject.Inject;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-
-import android.content.Context;
-
-import gob.sis.simos.ListaEstablecimientoSaludActivity;
-import gob.sis.simos.db.DBHelper;
-import gob.sis.simos.entity.EstablecimientoSalud;
-import gob.sis.simos.service.EstablecimientoSaludService;
 
 
 @ContextSingleton

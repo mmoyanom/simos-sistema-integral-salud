@@ -4,6 +4,7 @@ import gob.sis.simos.entity.OpcionRespuesta;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Context;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;

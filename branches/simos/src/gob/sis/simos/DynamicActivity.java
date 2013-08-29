@@ -1,13 +1,13 @@
 package gob.sis.simos;
 
-import gob.sis.simos.R;
-import java.util.ArrayList;
-import java.util.List;
-
 import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.ui.UICheckBoxGroup;
 import gob.sis.simos.ui.UIRadioGroupQuestion;
 import gob.sis.simos.ui.UITextQuestion;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.LinearLayout;

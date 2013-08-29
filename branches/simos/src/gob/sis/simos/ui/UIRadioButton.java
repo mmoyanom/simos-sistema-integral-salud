@@ -13,7 +13,16 @@ public class UIRadioButton extends RadioButton {
 	private Integer preguntaId;
 	private Integer preguntaParentId;
 	private Integer opcionRespuestaId;
+	private Integer respuestaParentId;
 	
+	public Integer getRespuestaParentId() {
+		return respuestaParentId;
+	}
+
+	public void setRespuestaParentId(Integer respuestaParentId) {
+		this.respuestaParentId = respuestaParentId;
+	}
+
 	public UIRadioButton(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init(attrs);
@@ -31,6 +40,7 @@ public class UIRadioButton extends RadioButton {
 	    this.preguntaId = a.getInteger(R.styleable.UIOpcionRespuesta_preguntaId, -1);
 	    this.opcionRespuestaId = a.getInteger(R.styleable.UIOpcionRespuesta_opcionRespuestaId, -1);
 	    this.preguntaParentId = a.getInteger(R.styleable.UIOpcionRespuesta_preguntaParentId, -1);
+	    this.respuestaParentId = a.getInteger(R.styleable.UIOpcionRespuesta_respuestaParentId, -1);
 	    /*Log.i("test",a.getInteger(
 	         R.styleable.UICheckBox_preguntaId,-1));
 	    Log.i("test",""+a.getColor(
@@ -82,6 +92,7 @@ public class UIRadioButton extends RadioButton {
 	public Respuesta getRespuesta(){
 		Respuesta r = new Respuesta();
 		r.setPreguntaId(getPreguntaId());
+		r.setRespuestaParentId(getRespuestaParentId());
 		r.setOpcionRespuestaId(getOpcionRespuestaId());
 		return r;
 	}

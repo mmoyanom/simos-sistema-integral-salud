@@ -3,7 +3,9 @@ package gob.sis.simos.controller;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.service.impl.PrescriptionServiceImpl;
+
 import java.util.List;
+
 import com.google.inject.Inject;
 
 
