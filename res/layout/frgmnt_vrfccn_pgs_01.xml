@@ -122,28 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-       <!-- <LinearLayout 
-            android:id="@+id/layout_nro_ticket"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/btn_add_ticket"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="@android:style/TextAppearance.Medium"
-                android:gravity="left"
-                android:background="@drawable/btn_rectable_section"
-                android:text="Nro boleta de venta \n (dentro del establecimiento)"/>
-            <ListView 
-                android:id="@+id/lst_tickets"
-                android:layout_width="match_parent"
-                android:layout_height="300dp">
-            </ListView>
-            
-        </LinearLayout>-->
+       
         <LinearLayout 
             android:id="@+id/layout_payment_in"
             android:layout_width="match_parent"
@@ -183,27 +162,40 @@
         
         <!-- Pregunta 14 -->
         <LinearLayout 
+            android:id="@+id/ly_paymentIn14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/btn_rectable_section"
+            android:clickable="true"
+            android:focusable="true">
          	<View
 	            android:layout_width="match_parent"
 	            android:layout_height="1dp"
 	            android:layout_marginLeft="5dp"
 	            android:layout_marginRight="5dp"
 	            android:background="#F2F2F2"/>
-            <TextView
+         	<ImageView
+         	    android:layout_width="match_parent"
+         	    android:layout_height="0dp"
+         	    android:duplicateParentState="true">
+         	 </ImageView>
+         	    <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:layout_marginLeft="10dp"
                 android:paddingTop="10dp"
                 android:text="¿Porque pago dentro del \n establecimiento de salud?"/>
-            <Spinner
-                android:id="@+id/sp_paymentIn"
+            <gob.sis.simos.ui.UITextView
+                android:gravity="left"
+                android:text="Ninguno seleccionado"
+                android:id="@+id/txt_paymentIn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:preguntaId="14"/>
         </LinearLayout>
         </LinearLayout>
         

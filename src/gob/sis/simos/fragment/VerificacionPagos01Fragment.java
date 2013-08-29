@@ -1,15 +1,19 @@
 package gob.sis.simos.fragment;
 
 import gob.sis.simos.R;
+import gob.sis.simos.SimpleCheckListActivity;
 import gob.sis.simos.adapters.OpcionRespuestaSpinnerAdapter;
 import gob.sis.simos.controller.VerificacionPagoController;
 import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.ui.UIRadioButton;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import roboguice.fragment.RoboFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -17,6 +21,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -25,25 +30,29 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.inject.Inject;
 
 
-public class VerificacionPagos01Fragment extends RoboFragment implements OnCheckedChangeListener, InputFilter, OnLongClickListener,TextWatcher {
+public class VerificacionPagos01Fragment extends RoboFragment implements OnClickListener, OnCheckedChangeListener, InputFilter, OnLongClickListener,TextWatcher {
 
 	protected RadioGroup rgPaymentLocation;
 	protected RadioGroup rgHaveTicket;
 	protected RadioGroup rgImproperPayment;
 	protected EditText etAmount;
-	protected Spinner spPaymentInEESS;
+	//public UIButton btnPaymentInEESS;
+	public TextView txtPaymentIn;
 	protected Spinner spPaymentOutEESS;
 	protected LinearLayout lyPaymentOut;
 	protected LinearLayout lyPaymentIn;
+	protected LinearLayout lyPaymentIn14;
 	static final int IN_EESS = 40;
 	static final int OUT_EESS = 41;
 	static final int BOTH_EESS = 42;
 	static final int HAVE_TICKETS_YES = 38;
 	static final int HAVE_TICKETS_NO = 39;
+	private static final int SELECT_ITEMS = 5;
 	
 	private List<View> views;
 	
@@ -71,14 +80,17 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 		this.rgImproperPayment.setOnCheckedChangeListener(this);
 		this.views.add(this.rgImproperPayment);
 		
-		this.spPaymentInEESS = (Spinner)v.findViewById(R.id.sp_paymentIn);
-		this.views.add(this.spPaymentInEESS);
+		this.txtPaymentIn = (TextView)v.findViewById(R.id.txt_paymentIn);
+		this.views.add(this.txtPaymentIn);
 		
 		this.spPaymentOutEESS = (Spinner)v.findViewById(R.id.sp_paymentOut);
 		this.views.add(this.spPaymentOutEESS);
 		
 		this.lyPaymentOut = (LinearLayout)v.findViewById(R.id.layout_payment_out);
 		this.lyPaymentIn = (LinearLayout)v.findViewById(R.id.layout_payment_in);
+		
+		this.lyPaymentIn14 = (LinearLayout)v.findViewById(R.id.ly_paymentIn14);
+		this.lyPaymentIn14.setOnClickListener(this);
 		
 		this.etAmount = (EditText)v.findViewById(R.id.et_ammount);
 		this.etAmount.addTextChangedListener(this);
@@ -101,7 +113,9 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 		
 		items = controller.getRespuestas(14);
 		adapter = new OpcionRespuestaSpinnerAdapter(getActivity(), items);
-		this.spPaymentInEESS.setAdapter(adapter);
+		//this.btnPaymentInEESS.setAdapter(adapter);
+		//this.btnPaymentInEESS.setOnClickListener(this);
+		this.lyPaymentIn14.setOnClickListener(this);
 		
 	}
 
@@ -278,7 +292,7 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 					}
 					
 					// pregunta 14
-					if(or.getPreguntaId() == 14){
+					/*if(or.getPreguntaId() == 14){
 						Adapter adapter = spPaymentInEESS.getAdapter();
 						for(int x=0;x < adapter.getCount(); x++){
 							OpcionRespuesta orx = (OpcionRespuesta)adapter.getItem(x);
@@ -286,7 +300,7 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 								spPaymentInEESS.setSelection(x);
 							}
 						}
-					}
+					}*/
 					
 					// pregunta 15
 					if(or.getPreguntaId() == 15){
@@ -304,6 +318,17 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnCheck
 			}
 		}
 	}
+
+	@Override
+	public void onClick(View view) {
+		if(view == this.lyPaymentIn14){
+			Intent in = new Intent(getActivity(), SimpleCheckListActivity.class);
+			in.putExtra("preguntaId", 14);
+			getActivity().startActivityForResult(in, SELECT_ITEMS);
+		}
+	}
+	
+
 	
 	
 }
