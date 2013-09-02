@@ -31,7 +31,7 @@ public class VerificacionPagoCheckListFragment extends RoboFragment implements O
 	
 	public ListView lstVerificaciones;
 	public VerificacionPagoCheckListAdapter adapter;
-	public static final int EDIT_VERIFICACION = 2;
+	public static final int EDIT_SERVICE = 3;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,8 +102,8 @@ public class VerificacionPagoCheckListFragment extends RoboFragment implements O
 		VerificacionPago vr = (VerificacionPago)lstVerificaciones.getItemAtPosition(position);
 		Intent i = new Intent(getActivity(), VerificacionPagosActivity.class);
 		i.putExtra("verificacion", vr);
-		i.putExtra("action", EDIT_VERIFICACION);
-		getActivity().startActivityForResult(i, EDIT_VERIFICACION);
+		i.putExtra("action", EDIT_SERVICE);
+		getActivity().startActivityForResult(i, EDIT_SERVICE);
 		return false;
 	}
 
