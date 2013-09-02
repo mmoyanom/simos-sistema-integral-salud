@@ -8,6 +8,7 @@ import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.ui.UIRadioButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import roboguice.fragment.RoboFragment;
@@ -50,6 +51,17 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 		super.onViewCreated(view, savedInstanceState);
 		loadPreguntas();
 		loadVerificacion();
+	}
+	
+	public String isClear(){
+		String str = "No respondio la pregunta \"%s\".";
+		if(this.rgDevolucion.getCheckedRadioButtonId() == -1)
+			return String.format(str, "ÀSe realizo la devolucion?");
+		
+		if(this.rgFormalizarReclamo.getCheckedRadioButtonId() == -1)
+			return String.format(str, "ÀDesea formalizar el reclamo?");
+		
+		return "";
 	}
 
 	private void loadVerificacion() {
@@ -120,6 +132,46 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 				}
 			}
 		}
+	}
+	
+	public List<Respuesta> getRespuestas(){
+		
+		List<Respuesta> rspts = new ArrayList<Respuesta>();
+		
+		// pregunta 16
+		OpcionRespuesta or16 = (OpcionRespuesta)splugarIndicacionPago.getSelectedItem();
+		Respuesta rp16 = new Respuesta();
+		rp16.setPreguntaId(or16.getPreguntaId());
+		rp16.setOpcionRespuestaId(or16.getOpcionRespuestaId());
+		rspts.add(rp16);
+		
+		// pregunta 17
+		OpcionRespuesta or17 = (OpcionRespuesta)spPersonaIndicaPago.getSelectedItem();
+		Respuesta rp17 = new Respuesta();
+		rp17.setPreguntaId(or17.getPreguntaId());
+		rp17.setOpcionRespuestaId(or17.getOpcionRespuestaId());
+		rspts.add(rp17);
+		
+		// pregunta 18
+		int idDevolucion = this.rgDevolucion.getCheckedRadioButtonId();
+		UIRadioButton rbDevolucion = (UIRadioButton)this.rgDevolucion.findViewById(idDevolucion);
+		Respuesta rpDevolucion = rbDevolucion.getRespuesta();
+		rspts.add(rpDevolucion);
+		
+		// pregunta 19
+		OpcionRespuesta or19 = (OpcionRespuesta)spContribuyenteDevolucion.getSelectedItem();
+		Respuesta rp19 = new Respuesta();
+		rp19.setPreguntaId(or19.getPreguntaId());
+		rp19.setOpcionRespuestaId(or19.getOpcionRespuestaId());
+		rspts.add(rp19);
+		
+		// pregunta 20
+		int idReclamo = this.rgFormalizarReclamo.getCheckedRadioButtonId();
+		UIRadioButton rbReclamo = (UIRadioButton)this.rgFormalizarReclamo.findViewById(idReclamo);
+		Respuesta rpReclamo= rbReclamo.getRespuesta();
+		rspts.add(rpReclamo);
+		
+		return rspts;
 	}
 
 	private void loadPreguntas() {

@@ -15,7 +15,7 @@
 	        android:layout_height="wrap_content"
 	        android:ems="10"
 	        android:hint="Ingrese el numero de boleta"
-	        android:inputType="textMultiLine">
+	        android:singleLine="true">
 	        <requestFocus />
 	    </EditText>
     </LinearLayout>

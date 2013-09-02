@@ -47,6 +47,18 @@ public class SimpleCheckListActivity extends RoboActivity implements OnClickList
 				lstCheckList.setAdapter(adapter);
 			}
 		}
+		int[] int_array = b.getIntArray("bundle_payment_reasons");
+		if(int_array != null){
+			for(int x = 0 ; x < int_array.length; x++){
+				for(int i =0; i < adapter.getCount(); i++){
+					OpcionRespuesta or = adapter.getItem(i);
+					if(or.getOpcionRespuestaId().intValue() == int_array[x]){
+						or.setChecked(true);
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	@Override

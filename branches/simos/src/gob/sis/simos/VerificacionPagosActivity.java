@@ -1,5 +1,7 @@
 package gob.sis.simos;
 
+import java.util.List;
+
 import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
@@ -46,6 +48,9 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	private AlertDialog alert;
 	private VerificacionPago verificacion;
 	private static final int SELECT_ITEMS = 5;
+	private static final int ADD_TICKETS = 6;
+	public static final int ADD_SERVICE = 0;
+	public static final int EDIT_SERVICE = 2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,8 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		this.btnAddTicket = (Button)findViewById(R.id.btn_add);
 		this.btnAddTicket.setOnClickListener(this);
 		
+		this.verificacion = (VerificacionPago) getIntent().getSerializableExtra("verificacion");
+		
 		FragmentManager mgr = getSupportFragmentManager();
 		mgr.addOnBackStackChangedListener(this);
 		
@@ -71,9 +78,10 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	}
 	
 	
-	
-	private void loadVerificacion(){
-		this.verificacion = (VerificacionPago) getIntent().getSerializableExtra("verificacion");
+	protected void loadVerificacion(){
+		
+		/*List<Respuesta> rspts = this.verificacion.getRespuestas();
+		
 		Respuesta or9 = new Respuesta();
 		or9.setPreguntaId(9);
 		or9.setOpcionRespuestaId(39);
@@ -106,12 +114,6 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		or14.setOpcionRespuestaId(58);
 		this.verificacion.getRespuestas().add(or14);
 		
-		// MULTIPLE!!!!!
-		/*Respuesta or15 = new Respuesta();
-		or15.setPreguntaId(14);
-		or15.setOpcionRespuestaId(57);
-		this.verificacion.getRespuestas().add(or14);*/
-		
 		Respuesta or15 = new Respuesta();
 		or15.setPreguntaId(15);
 		or15.setOpcionRespuestaId(66);
@@ -140,11 +142,11 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		Respuesta or20 = new Respuesta();
 		or20.setPreguntaId(20);
 		or20.setOpcionRespuestaId(98);
-		this.verificacion.getRespuestas().add(or20);
+		this.verificacion.getRespuestas().add(or20);*/
 		
 		if(this.verificacion != null){
 			this.frgmnt1.setVerificacion(this.verificacion);
-			this.frgmntTickets.setVerificacion(this.verificacion);
+			//this.frgmntTickets.setVerificacion(this.verificacion);
 			this.frgmnt2.setVerificacion(this.verificacion);
 		}
 	}
@@ -161,10 +163,11 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		/* Cuando el fragmento 1 es visible */
 		if(frgmnt1.isVisible()){
-			if(frgmnt1.isClear()){
-				showMessage("Por favor, Aségurese de responder todas las preguntas.", Toast.LENGTH_SHORT);
+			String response = frgmnt1.isClear();
+			if(!response.isEmpty()){
+				showMessage(response, Toast.LENGTH_SHORT);
 			} else {
-				if(frgmnt1.enterTickets()){
+				/*if(frgmnt1.enterTickets()){
 					layoutBtnAdd.setVisibility(View.VISIBLE);
 					FragmentManager mgr = getSupportFragmentManager();
 					FragmentTransaction fmt = mgr.beginTransaction();
@@ -181,12 +184,26 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 					fmt.addToBackStack(dynamicFragment);
 					fmt.commit();
 					item.setTitle("Guardar");
-				}
+				}*/
+				FragmentManager mgr = getSupportFragmentManager();
+				FragmentTransaction fmt = mgr.beginTransaction();
+				fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				fmt.remove(frgmnt1).add(R.id.fragment_container, frgmnt2);
+				fmt.addToBackStack(dynamicFragment);
+				fmt.commit();
+				item.setTitle("Guardar");
 			}
 			
 			/* Cuando se ingresan las boletas */
-		} else if (frgmntTickets.isVisible()){
-			if(frgmntTickets.getTicketsCount() > 0){
+		} else if (frgmnt2.isVisible()){
+			String response = frgmnt2.isClear();
+			if(!response.isEmpty()){
+				showMessage(response, Toast.LENGTH_SHORT);
+			} else {
+				saveVerificacion();
+			}
+			
+			/*if(frgmntTickets.getTicketsCount() > 0){
 				layoutBtnAdd.setVisibility(View.GONE);
 				FragmentManager mgr = getSupportFragmentManager();
 				FragmentTransaction fmt = mgr.beginTransaction();
@@ -197,15 +214,57 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 				item.setTitle("Guardar");
 			} else {
 				showMessage("Usted cuenta con boletas. Debe ingresar, al menos un numero de boleta.", Toast.LENGTH_LONG);
-			}
-		} else if (frgmnt2.isVisible()){
-			saveVerificacion();
+			}*/
 		}
 		return true;
 	}
 
-	private void saveVerificacion() {	
+	private void saveVerificacion() {
+		List<Respuesta> rsp01 = this.frgmnt1.getRespuestas();
+		List<Respuesta> rsp02 = this.frgmnt2.getRespuestas();
+		rsp01.addAll(rsp02);
+		/*for(int i = 0; i < rsp01.size() ; i++){
+			Respuesta r = rsp01.get(i);
+			System.out.println(String.format("pId : %s, opId : %s, nbr: %s, txt: %s",
+					r.getPreguntaId(),
+					r.getOpcionRespuestaId(),
+					r.getRespuestaNumero(),
+					r.getRespuestaTexto()));
+		}
+		for(int i = 7; i < verificacion.getRespuestas().size() ; i++){
+			verificacion.getRespuestas().remove(i);
+		}*/
+		this.verificacion.getRespuestas().addAll(rsp01);
 		
+		for(int i=0; i < verificacion.getRespuestas().size() ; i++){
+			Respuesta r = verificacion.getRespuestas().get(i);
+			System.out.println(String.format("pId : %s, opId : %s, nbr: %s, txt: %s",
+					r.getPreguntaId(),
+					r.getOpcionRespuestaId(),
+					r.getRespuestaNumero(),
+					r.getRespuestaTexto()));
+		}
+		
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setTitle("Guardar");
+		alertDialogBuilder
+		.setMessage("ÀDesea guardar la verificacion?")
+		.setCancelable(false)
+		.setPositiveButton("Si",new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog,int id) {
+					Intent in = new Intent(VerificacionPagosActivity.this, Encuesta01PrincipalActivity.class);
+					in.putExtra("verificacion", verificacion);
+					setResult(RESULT_OK, in);
+					finish();
+				}
+			  })
+		.setNegativeButton("No",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
 	}
 
 	@Override
@@ -227,7 +286,7 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		        if(frgmntTickets.isVisible()){
 		        	layoutBtnAdd.setVisibility(View.GONE);
 		        }
-		        if(frgmnt2.isVisible()){
+		        if(frgmnt2.isVisible() && count == 2){
 		        	if(count == 1){
 		        		MenuItem item = this.menu.getItem(0);
 			        	item.setTitle("SIGUIENTE");
@@ -237,6 +296,10 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 			        	item.setTitle("SIGUIENTE");
 			        	layoutBtnAdd.setVisibility(View.VISIBLE);
 		        	}
+		        } else if (frgmnt2.isVisible() && count == 1){
+		        	MenuItem item = this.menu.getItem(0);
+		        	item.setTitle("SIGUIENTE");
+		        	layoutBtnAdd.setVisibility(View.GONE);
 		        }
 		    } else {
 		        Log.i("MainActivity", "nothing on backstack, calling super");
@@ -247,21 +310,53 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		
-		if(requestCode == SELECT_ITEMS && resultCode == Activity.RESULT_OK){
+		if(requestCode == ADD_TICKETS && resultCode == Activity.RESULT_OK){
 			Bundle b = data.getExtras();
 			if(b != null){
-				Bundle array = b.getBundle("bundle");
+				Bundle array = b.getBundle("bundle_tickets");
 				if(array.size() == 0){
-					this.frgmnt1.txtPaymentIn.setText("Ninguno seleccionado.");
+					this.frgmnt1.txtTickets.setText("No se han agregado boletas.");
+					return;
 				}
 				
 				String[] keys = new String[array.size()]; 
 				array.keySet().toArray(keys);
 				StringBuffer sbf = new StringBuffer();
+				this.frgmnt1.rsptsTickets.clear();
+				for(int i = 0 ; i < array.size(); i++){
+					String r = array.getString(keys[i]);
+					sbf.append("* ").append(r);
+					this.frgmnt1.rsptsTickets.add(r);
+					if(i != array.size()-1){
+						sbf.append("\n");
+					}
+				}
+				this.frgmnt1.txtTickets.setText(sbf.toString());
+			}
+			
+		} else if(requestCode == SELECT_ITEMS && resultCode == Activity.RESULT_OK){
+			Bundle b = data.getExtras();
+			if(b != null){
+				Bundle array = b.getBundle("bundle");
+				if(array.size() == 0){
+					this.frgmnt1.txtPaymentIn.setText("Ninguno seleccionado.");
+					return;
+				}
 				
+				String[] keys = new String[array.size()]; 
+				array.keySet().toArray(keys);
+				StringBuffer sbf = new StringBuffer();
+				this.frgmnt1.rsptsPaymentIn.clear();
 				for(int i = 0 ; i < array.size(); i++){
 					OpcionRespuesta or = (OpcionRespuesta)array.get(keys[i]);
 					sbf.append("* ").append(or.getDescripcion());
+					Respuesta r = new Respuesta();
+					r.setPreguntaId(or.getPreguntaId());
+					r.setOpcionRespuestaId(or.getOpcionRespuestaId());
+					r.setRespuestaTexto(or.getDescripcion());
+					
+					// pregunta 14
+					this.frgmnt1.rsptsPaymentIn.add(r);
 					if(i != array.size() -1){
 						sbf.append("\n");
 					}
