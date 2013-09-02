@@ -180,21 +180,22 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 
 			// pregunta 13
 			Respuesta rpAmountPaymentIn = new Respuesta();
-			rpAmountPaymentIn.setRespuestaNumero(null);
+			rpAmountPaymentIn.setRespuestaNumero(0.0);
 			rpAmountPaymentIn.setPreguntaId(this.etAmount.getPreguntaId());
 			rpAmountPaymentIn.setOpcionRespuestaId(this.etAmount.getOpcionRespuestaId());
 			rspts.add(rpAmountPaymentIn);
 			
 			// pregunta 14
-			if(this.rsptsPaymentIn != null){
+			/*if(this.rsptsPaymentIn != null){
 				if(this.rsptsPaymentIn.size() > 0){
 					rspts.addAll(this.rsptsPaymentIn);
 				} else {
-					Respuesta r = new Respuesta();
-					r.setPreguntaId(14);
-					r.setOpcionRespuestaId(null);
+					
 				}
-			}
+			}*/
+			Respuesta r = new Respuesta();
+			r.setPreguntaId(14);
+			r.setOpcionRespuestaId(null);
 			
 		// Ambas
 		} else if(rpPaymentLocation.getOpcionRespuestaId() == 42){
@@ -276,6 +277,30 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		/*if(group == this.rgHaveTicket){
+			if(checkedId == R.id.rb_have_tickets_YES){
+				int idPaymentLocation = this.rgPaymentLocation.getCheckedRadioButtonId();
+				UIRadioButton rb = (UIRadioButton)this.rgPaymentLocation.findViewById(idPaymentLocation);
+				if(rb.getOpcionRespuestaId().intValue() == IN_EESS){
+					this.lyPaymentIn.setVisibility(View.VISIBLE);
+					this.lyTickets.setVisibility(View.VISIBLE);
+					this.lyPaymentOut.setVisibility(View.GONE);
+					
+				} else if(rb.getOpcionRespuestaId().intValue() == OUT_EESS){
+					this.lyPaymentIn.setVisibility(View.GONE);
+					this.lyTickets.setVisibility(View.GONE);
+					this.lyPaymentOut.setVisibility(View.VISIBLE);
+					
+				} else if(rb.getOpcionRespuestaId().intValue() == BOTH_EESS){
+					this.lyPaymentIn.setVisibility(View.VISIBLE);
+					this.lyTickets.setVisibility(View.VISIBLE);
+					this.lyPaymentOut.setVisibility(View.VISIBLE);
+				}
+				
+			} else if(checkedId == R.id.rb_have_tickets_NO){
+				
+			}
+		}*/
 		if(group == this.rgPaymentLocation){
 			int id = this.rgPaymentLocation.getCheckedRadioButtonId();
 			UIRadioButton rb = (UIRadioButton)getView().findViewById(id);
@@ -416,7 +441,6 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 		if(getVerificacion() != null){
 			this.rsptsPaymentIn.clear();
 			List<Respuesta> rsptas = getVerificacion().getRespuestas();
-			StringBuffer sbf14 = new StringBuffer();
 			if(rsptas.size() > 0){
 				for(int i = 0; i < rsptas.size() ; i++){
 					Respuesta or = rsptas.get(i);
@@ -488,7 +512,6 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 					if(or.getPreguntaId() == 14){
 						if(this.rsptsPaymentIn != null){
 							this.rsptsPaymentIn.add(or);
-							sbf14.append("* ").append(or.getRespuestaTexto()).append("\n");	
 						}
 					}
 					
@@ -506,7 +529,12 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 						}
 					}
 				}
-				if(sbf14.length() > 0){ // si hay elementos de la pregunta 14
+				if(rsptsPaymentIn.size() > 0){ // si hay elementos de la pregunta 14
+					StringBuffer sbf14 = new StringBuffer();
+					for(int i=0; i < rsptsPaymentIn.size(); i++){
+						Respuesta r = rsptsPaymentIn.get(i);
+						sbf14.append("* ").append(r.getRespuestaTexto()).append("\n");
+					}
 					this.txtPaymentIn.setText(sbf14.toString());
 				}
 			}

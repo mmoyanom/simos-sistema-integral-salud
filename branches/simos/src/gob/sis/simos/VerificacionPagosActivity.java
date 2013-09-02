@@ -1,13 +1,15 @@
 package gob.sis.simos;
 
-import java.util.List;
-
 import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
+import gob.sis.simos.fragment.VerificacionPagos00Fragment;
 import gob.sis.simos.fragment.VerificacionPagos01Fragment;
 import gob.sis.simos.fragment.VerificacionPagos02Fragment;
 import gob.sis.simos.fragment.VerificacionPagosTicketsFragment;
+
+import java.util.List;
+
 import roboguice.activity.RoboFragmentActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -37,6 +39,7 @@ import android.widget.Toast;
 
 public class VerificacionPagosActivity extends RoboFragmentActivity implements FragmentManager.OnBackStackChangedListener, OnClickListener, InputFilter, TextWatcher {
 	
+	private VerificacionPagos00Fragment frgmnt0;
 	private VerificacionPagos01Fragment frgmnt1;
 	private VerificacionPagos02Fragment frgmnt2;
 	private VerificacionPagosTicketsFragment frgmntTickets;
@@ -50,16 +53,21 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	private static final int SELECT_ITEMS = 5;
 	private static final int ADD_TICKETS = 6;
 	public static final int ADD_SERVICE = 0;
-	public static final int EDIT_SERVICE = 2;
+	public static final int EDIT_SERVICE = 3;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.actvt_vrfccn_pgs);
 		
+		//this.added_services = getIntent().getStringArrayExtra("added_services");
+		
+		this.frgmnt0 = new VerificacionPagos00Fragment();
+		this.frgmnt0.setArguments(getIntent().getExtras());
+		
 		this.frgmnt1 = new VerificacionPagos01Fragment();
 		this.frgmnt2 = new VerificacionPagos02Fragment();
-		this.frgmntTickets = new VerificacionPagosTicketsFragment();
+		this.frgmntTickets = new VerificacionPagosTicketsFragment();	
 		
 		this.layoutBtnAdd = (LinearLayout)findViewById(R.id.layout_btn_add);
 		
@@ -72,7 +80,7 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		mgr.addOnBackStackChangedListener(this);
 		
 		FragmentTransaction fmt = mgr.beginTransaction();
-		fmt.add(R.id.fragment_container, frgmnt1);
+		fmt.add(R.id.fragment_container, frgmnt0);
 		fmt.commit();
 		loadVerificacion();
 	}
@@ -145,6 +153,7 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		this.verificacion.getRespuestas().add(or20);*/
 		
 		if(this.verificacion != null){
+			this.frgmnt0.setVerificacion(this.verificacion);
 			this.frgmnt1.setVerificacion(this.verificacion);
 			//this.frgmntTickets.setVerificacion(this.verificacion);
 			this.frgmnt2.setVerificacion(this.verificacion);
@@ -162,7 +171,22 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		/* Cuando el fragmento 1 es visible */
-		if(frgmnt1.isVisible()){
+		if(frgmnt0.isVisible()){
+			this.verificacion.setNombre(frgmnt0.getSelectedServiceName());
+			
+			if(frgmnt0.goAhead()){
+				FragmentManager mgr = getSupportFragmentManager();
+				FragmentTransaction fmt = mgr.beginTransaction();
+				fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				fmt.remove(frgmnt0).add(R.id.fragment_container, frgmnt1);
+				fmt.addToBackStack(dynamicFragment);
+				fmt.commit();
+				item.setTitle("SIGUIENTE");
+			} else {
+				saveVerificacion();
+			}
+			
+		} else if(frgmnt1.isVisible()){
 			String response = frgmnt1.isClear();
 			if(!response.isEmpty()){
 				showMessage(response, Toast.LENGTH_SHORT);
@@ -220,9 +244,11 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	}
 
 	private void saveVerificacion() {
+		List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
 		List<Respuesta> rsp01 = this.frgmnt1.getRespuestas();
 		List<Respuesta> rsp02 = this.frgmnt2.getRespuestas();
-		rsp01.addAll(rsp02);
+		rsp00.addAll(rsp01);
+		rsp00.addAll(rsp02);
 		/*for(int i = 0; i < rsp01.size() ; i++){
 			Respuesta r = rsp01.get(i);
 			System.out.println(String.format("pId : %s, opId : %s, nbr: %s, txt: %s",
@@ -234,7 +260,7 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		for(int i = 7; i < verificacion.getRespuestas().size() ; i++){
 			verificacion.getRespuestas().remove(i);
 		}*/
-		this.verificacion.getRespuestas().addAll(rsp01);
+		this.verificacion.setRespuestas(rsp00);
 		
 		for(int i=0; i < verificacion.getRespuestas().size() ; i++){
 			Respuesta r = verificacion.getRespuestas().get(i);
