@@ -26,6 +26,5 @@
             android:layout_height="wrap_content"
             android:text="Agregar boleta"
             android:textColor="#FFFFFF"/>
-        
     </LinearLayout>
 </LinearLayout>

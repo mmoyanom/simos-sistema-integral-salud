@@ -110,7 +110,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction arg1) {
-
+		
 	}
 
 	@Override
@@ -232,6 +232,27 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == ADD_SERVICE){
+			if(resultCode == RESULT_OK){
+				ICuantificable c = (ICuantificable)data.getSerializableExtra("verificacion");
+				if(c != null){
+					this.add(c);
+					Toast.makeText(this, "Verificaci—n guardada satisfactoriamente.", Toast.LENGTH_SHORT).show();
+				}
+			} else if(resultCode == RESULT_CANCELED){
+				Toast.makeText(this, "Accion cancelada.", Toast.LENGTH_SHORT).show();
+			}
+			
+		} else if(requestCode == EDIT_SERVICE){
+			if(resultCode == RESULT_OK){
+				ICuantificable c = (ICuantificable)data.getSerializableExtra("verificacion");
+				if(c != null){
+					String msg = "Verificacion actualizada satisfactoriamente.";
+					this.update(c);
+					Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+				}
+			} else if(resultCode == RESULT_CANCELED){
+				Toast.makeText(this, "Accion cancelada.", Toast.LENGTH_SHORT).show();
+			}
 			
 		} else if(requestCode == ADD_PRESCRIPTION){
 			if(resultCode == RESULT_OK){
@@ -249,7 +270,6 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				if(c != null){
 					String msg = "Receta actualizada satisfactoriamente"; 
 					this.update(c);
-					//Toast.makeText(this, String.format(msg, c.getId()), Toast.LENGTH_SHORT).show();
 					Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 				}
 			} else if (resultCode == RESULT_CANCELED){
@@ -277,6 +297,15 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			Integer index = Integer.parseInt(rc.getId().trim());
 			this.encuesta.getRecetas().set((index-1), rc);
 			this.recetasFragment.notifyChanges(encuesta.getRecetas());
+		} else if (c instanceof VerificacionPago){
+			VerificacionPago vr = (VerificacionPago)c;
+			for(int x = 0; x < verificacionesFragment.adapter.getCount(); x++){
+				VerificacionPago vx = verificacionesFragment.adapter.getItem(x);
+				if(vx.getId().equals(vr.getId())){
+					this.encuesta.getVerificaciones().set(x, vr);
+				}
+			}
+			this.verificacionesFragment.notifyChanges(encuesta.getVerificaciones());
 		}
 	}
 	
