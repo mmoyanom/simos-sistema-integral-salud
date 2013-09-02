@@ -236,7 +236,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				ICuantificable c = (ICuantificable)data.getSerializableExtra("verificacion");
 				if(c != null){
 					this.add(c);
-					Toast.makeText(this, "Verificaci—n guardada satisfactoriamente.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, "Verificacion guardada satisfactoriamente.", Toast.LENGTH_SHORT).show();
 				}
 			} else if(resultCode == RESULT_CANCELED){
 				Toast.makeText(this, "Accion cancelada.", Toast.LENGTH_SHORT).show();
@@ -351,11 +351,26 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		
 		if(v == this.btnAdd){
 			if(this.mViewPager.getCurrentItem() == 0){
-				addServiceDialog.setTitle(this.btnAdd.getText());
+				
+				VerificacionPago vr = new VerificacionPago();
+				vr.setId(UUID.randomUUID().toString());
+				vr.setNombre(this.addServiceDialog.getSelectedServiceName());
+				Intent i = new Intent(this, VerificacionPagosActivity.class);
+				i.putExtra("verificacion", vr);
+				String[] added_services = new String[verificacionesFragment.adapter.getCount()];
+				for(int x = 0; x < verificacionesFragment.adapter.getCount(); x++){
+					VerificacionPago vx = verificacionesFragment.adapter.getItem(x);
+					added_services[x] = vx.getNombre();
+				}
+				i.putExtra("added_services", added_services);
+				i.putExtra("action", ADD_SERVICE);
+				this.startActivityForResult(i, ADD_SERVICE);
+				
+				/*addServiceDialog.setTitle(this.btnAdd.getText());
 				addServiceDialog.btnContinuar.setOnClickListener(this);
 				addServiceDialog.btnCancelar.setOnClickListener(this);
 				this.addServiceDialog.clear();
-				addServiceDialog.show();
+				addServiceDialog.show();*/
 				
 			} else if(this.mViewPager.getCurrentItem() == 1){
 				addPrescriptionDialog.setTitle(this.btnAdd.getText());
@@ -369,13 +384,17 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				VerificacionPago vr = new VerificacionPago();
 				vr.setId(UUID.randomUUID().toString());
 				vr.setNombre(this.addServiceDialog.getSelectedServiceName());
-				vr.getRespuestas().add(this.addServiceDialog.getRespuestaService());
-				vr.getRespuestas().add(this.addServiceDialog.getRespuestaRealizoPago());
 				
 				if (this.verificacionesFragment.findItem(vr) == null) {
 					if(this.addServiceDialog.realizoPago()){
 						Intent i = new Intent(this, VerificacionPagosActivity.class);
 						i.putExtra("verificacion", vr);
+						String[] added_services = new String[verificacionesFragment.adapter.getCount()];
+						for(int x = 0; x < verificacionesFragment.adapter.getCount(); x++){
+							VerificacionPago vx = verificacionesFragment.adapter.getItem(x);
+							added_services[x] = vx.getNombre();
+						}
+						i.putExtra("added_services", added_services);
 						i.putExtra("action", ADD_SERVICE);
 						this.startActivityForResult(i, ADD_SERVICE);
 					} else {

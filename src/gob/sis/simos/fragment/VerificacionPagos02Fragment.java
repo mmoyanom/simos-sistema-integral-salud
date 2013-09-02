@@ -77,8 +77,10 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 						Adapter adapter = splugarIndicacionPago.getAdapter();
 						for(int x=0;x < adapter.getCount(); x++){
 							OpcionRespuesta orx = (OpcionRespuesta)adapter.getItem(x);
-							if(orx.getOpcionRespuestaId() == or.getOpcionRespuestaId()){
-								splugarIndicacionPago.setSelection(x);
+							if(orx.getOpcionRespuestaId() != null){
+								if(orx.getOpcionRespuestaId().equals(or.getOpcionRespuestaId())){
+									splugarIndicacionPago.setSelection(x);
+								}
 							}
 						}
 					}
@@ -88,8 +90,10 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 						Adapter adapter = spPersonaIndicaPago.getAdapter();
 						for(int x=0;x < adapter.getCount(); x++){
 							OpcionRespuesta orx = (OpcionRespuesta)adapter.getItem(x);
-							if(orx.getOpcionRespuestaId() == or.getOpcionRespuestaId()){
-								spPersonaIndicaPago.setSelection(x);
+							if(orx.getOpcionRespuestaId() != null){
+								if(orx.getOpcionRespuestaId().equals(or.getOpcionRespuestaId())){
+									spPersonaIndicaPago.setSelection(x);
+								}
 							}
 						}
 					}
@@ -99,8 +103,10 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 						for(int x = 0; x < this.rgDevolucion.getChildCount(); x++){
 							if(this.rgDevolucion.getChildAt(x) instanceof UIRadioButton){
 								UIRadioButton rb = (UIRadioButton)this.rgDevolucion.getChildAt(x);
-								if(or.getOpcionRespuestaId() == rb.getOpcionRespuestaId()){
-									this.rgDevolucion.check(rb.getId());
+								if(or.getOpcionRespuestaId() != null){
+									if(or.getOpcionRespuestaId().equals(rb.getOpcionRespuestaId())){
+										this.rgDevolucion.check(rb.getId());
+									}
 								}
 							}
 						}
@@ -111,8 +117,10 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 						Adapter adapter = spContribuyenteDevolucion.getAdapter();
 						for(int x=0;x < adapter.getCount(); x++){
 							OpcionRespuesta orx = (OpcionRespuesta)adapter.getItem(x);
-							if(orx.getOpcionRespuestaId() == or.getOpcionRespuestaId()){
-								spContribuyenteDevolucion.setSelection(x);
+							if(or.getOpcionRespuestaId() != null){
+								if(orx.getOpcionRespuestaId().equals(or.getOpcionRespuestaId())){
+									spContribuyenteDevolucion.setSelection(x);
+								}
 							}
 						}
 					}
@@ -122,8 +130,10 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 						for(int x = 0; x < this.rgFormalizarReclamo.getChildCount(); x++){
 							if(this.rgFormalizarReclamo.getChildAt(x) instanceof UIRadioButton){
 								UIRadioButton rb = (UIRadioButton)this.rgFormalizarReclamo.getChildAt(x);
-								if(or.getOpcionRespuestaId() == rb.getOpcionRespuestaId()){
-									this.rgFormalizarReclamo.check(rb.getId());
+								if(or.getOpcionRespuestaId() != null){
+									if(or.getOpcionRespuestaId().equals(rb.getOpcionRespuestaId())){
+										this.rgFormalizarReclamo.check(rb.getId());
+									}
 								}
 							}
 						}
