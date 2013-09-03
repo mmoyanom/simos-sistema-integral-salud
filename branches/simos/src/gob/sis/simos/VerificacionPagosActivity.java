@@ -8,6 +8,7 @@ import gob.sis.simos.fragment.VerificacionPagos01Fragment;
 import gob.sis.simos.fragment.VerificacionPagos02Fragment;
 import gob.sis.simos.fragment.VerificacionPagosTicketsFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import roboguice.activity.RoboFragmentActivity;
@@ -244,23 +245,21 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	}
 
 	private void saveVerificacion() {
-		List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
-		List<Respuesta> rsp01 = this.frgmnt1.getRespuestas();
-		List<Respuesta> rsp02 = this.frgmnt2.getRespuestas();
-		rsp00.addAll(rsp01);
-		rsp00.addAll(rsp02);
-		/*for(int i = 0; i < rsp01.size() ; i++){
-			Respuesta r = rsp01.get(i);
-			System.out.println(String.format("pId : %s, opId : %s, nbr: %s, txt: %s",
-					r.getPreguntaId(),
-					r.getOpcionRespuestaId(),
-					r.getRespuestaNumero(),
-					r.getRespuestaTexto()));
+		
+		List<Respuesta> respuestas = new ArrayList<Respuesta>();
+		if(this.frgmnt0.isVisible()){
+			List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
+			respuestas.addAll(rsp00);
+		} else if(this.frgmnt2.isVisible()){
+			List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
+			List<Respuesta> rsp01 = this.frgmnt1.getRespuestas();
+			List<Respuesta> rsp02 = this.frgmnt2.getRespuestas();
+			respuestas.addAll(rsp00);
+			respuestas.addAll(rsp01);
+			respuestas.addAll(rsp02);
 		}
-		for(int i = 7; i < verificacion.getRespuestas().size() ; i++){
-			verificacion.getRespuestas().remove(i);
-		}*/
-		this.verificacion.setRespuestas(rsp00);
+		
+		this.verificacion.setRespuestas(respuestas);
 		
 		for(int i=0; i < verificacion.getRespuestas().size() ; i++){
 			Respuesta r = verificacion.getRespuestas().get(i);
