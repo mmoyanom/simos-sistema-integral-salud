@@ -8,6 +8,7 @@ import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.ui.DialogCantidadGenerico;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import roboguice.activity.RoboActivity;
@@ -36,11 +37,9 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 	
 	private ICuantificable cuantificable;
 	private DialogCantidadGenerico dialog;
-	
+	private MedicamentoListAdapter medAdapter;
+	private InsumoListAdapter insAdapter;
 	private int index;
-	
-	//private MedicamentoListAdapter medicamentoAdapter;
-	//private InsumoListAdapter insumoAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +52,13 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 		
 		index = getIntent().getExtras().getInt("index");
 		if(index == 0){
-			MedicamentoListAdapter adapter = new MedicamentoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.findMedicamento("ACECLOFENACO"));
-			this.lstResult.setAdapter(adapter);
+			List<Medicamento> items = new ArrayList<Medicamento>();
+			medAdapter = new MedicamentoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, items);
+			this.lstResult.setAdapter(medAdapter);
 		} else if(index == 1){
-			InsumoListAdapter adapter = new InsumoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.getInsumos());
-			this.lstResult.setAdapter(adapter);
+			List<Insumo> items = new ArrayList<Insumo>();
+			insAdapter = new InsumoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, items);
+			this.lstResult.setAdapter(insAdapter);
 		}
 		
 		this.lstResult.setOnItemClickListener(this);
@@ -116,19 +117,19 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 	@Override
 	public boolean onQueryTextSubmit(String query) {
 		
-		if(query.length() > 5) {
+		if(query.trim().length() > 0) {
 			if(index == 0){
 				List<Medicamento> items = controller.findMedicamento(query);
-				MedicamentoListAdapter adapter = (MedicamentoListAdapter)lstResult.getAdapter();
-				adapter.clear();
-				adapter.addAll(items);
-				adapter.notifyDataSetChanged();
+				medAdapter = (MedicamentoListAdapter)lstResult.getAdapter();
+				medAdapter.clear();
+				medAdapter.addAll(items);
+				medAdapter.notifyDataSetChanged();
 			} else if (index == 1) {
 				List<Insumo> items = controller.findInsumos(query);
-				InsumoListAdapter adapter = (InsumoListAdapter)lstResult.getAdapter();
-				adapter.clear();
-				adapter.addAll(items);
-				adapter.notifyDataSetChanged();
+				insAdapter = (InsumoListAdapter)lstResult.getAdapter();
+				insAdapter.clear();
+				insAdapter.addAll(items);
+				insAdapter.notifyDataSetChanged();
 			}
 		}
 		
