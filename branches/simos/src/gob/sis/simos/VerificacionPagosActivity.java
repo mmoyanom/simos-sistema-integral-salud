@@ -173,18 +173,24 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		/* Cuando el fragmento 1 es visible */
 		if(frgmnt0.isVisible()){
-			this.verificacion.setNombre(frgmnt0.getSelectedServiceName());
-			
-			if(frgmnt0.goAhead()){
-				FragmentManager mgr = getSupportFragmentManager();
-				FragmentTransaction fmt = mgr.beginTransaction();
-				fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-				fmt.remove(frgmnt0).add(R.id.fragment_container, frgmnt1);
-				fmt.addToBackStack(dynamicFragment);
-				fmt.commit();
-				item.setTitle("SIGUIENTE");
+			String response = frgmnt0.isClear();
+			if(!response.isEmpty()){
+				showMessage(response, Toast.LENGTH_SHORT);
 			} else {
-				saveVerificacion();
+				this.verificacion.setNombre(frgmnt0.getSelectedServiceName());
+				this.verificacion.setPaid(this.frgmnt0.goAhead()?"Si":"No");
+				
+				if(frgmnt0.goAhead()){
+					FragmentManager mgr = getSupportFragmentManager();
+					FragmentTransaction fmt = mgr.beginTransaction();
+					fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+					fmt.remove(frgmnt0).add(R.id.fragment_container, frgmnt1);
+					fmt.addToBackStack(dynamicFragment);
+					fmt.commit();
+					item.setTitle("SIGUIENTE");
+				} else {
+					saveVerificacion();
+				}
 			}
 			
 		} else if(frgmnt1.isVisible()){
@@ -192,24 +198,6 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 			if(!response.isEmpty()){
 				showMessage(response, Toast.LENGTH_SHORT);
 			} else {
-				/*if(frgmnt1.enterTickets()){
-					layoutBtnAdd.setVisibility(View.VISIBLE);
-					FragmentManager mgr = getSupportFragmentManager();
-					FragmentTransaction fmt = mgr.beginTransaction();
-					fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-					fmt.remove(frgmnt1).add(R.id.fragment_container, frgmntTickets);
-					fmt.addToBackStack(dynamicFragment);
-					fmt.commit();
-					item.setTitle("Siguiente");
-				} else {
-					FragmentManager mgr = getSupportFragmentManager();
-					FragmentTransaction fmt = mgr.beginTransaction();
-					fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-					fmt.remove(frgmnt1).add(R.id.fragment_container, frgmnt2);
-					fmt.addToBackStack(dynamicFragment);
-					fmt.commit();
-					item.setTitle("Guardar");
-				}*/
 				FragmentManager mgr = getSupportFragmentManager();
 				FragmentTransaction fmt = mgr.beginTransaction();
 				fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -228,18 +216,6 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 				saveVerificacion();
 			}
 			
-			/*if(frgmntTickets.getTicketsCount() > 0){
-				layoutBtnAdd.setVisibility(View.GONE);
-				FragmentManager mgr = getSupportFragmentManager();
-				FragmentTransaction fmt = mgr.beginTransaction();
-				fmt.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-				fmt.remove(frgmntTickets).add(R.id.fragment_container, frgmnt2);
-				fmt.addToBackStack(dynamicFragment);
-				fmt.commit();
-				item.setTitle("Guardar");
-			} else {
-				showMessage("Usted cuenta con boletas. Debe ingresar, al menos un numero de boleta.", Toast.LENGTH_LONG);
-			}*/
 		}
 		return true;
 	}
@@ -263,11 +239,15 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		
 		for(int i=0; i < verificacion.getRespuestas().size() ; i++){
 			Respuesta r = verificacion.getRespuestas().get(i);
-			System.out.println(String.format("pId : %s, opId : %s, nbr: %s, txt: %s",
-					r.getPreguntaId(),
-					r.getOpcionRespuestaId(),
-					r.getRespuestaNumero(),
-					r.getRespuestaTexto()));
+			if( r == null){
+				System.out.println(i+" "+r);
+			}else{
+				System.out.println(String.format("pId : %s, opId : %s, nbr: %s, txt: %s",
+						r.getPreguntaId(),
+						r.getOpcionRespuestaId(),
+						r.getRespuestaNumero(),
+						r.getRespuestaTexto()));
+			}
 		}
 		
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

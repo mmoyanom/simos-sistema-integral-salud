@@ -53,7 +53,7 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 		
 		index = getIntent().getExtras().getInt("index");
 		if(index == 0){
-			MedicamentoListAdapter adapter = new MedicamentoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.findMedicamento(""));
+			MedicamentoListAdapter adapter = new MedicamentoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.findMedicamento("ACECLOFENACO"));
 			this.lstResult.setAdapter(adapter);
 		} else if(index == 1){
 			InsumoListAdapter adapter = new InsumoListAdapter(this, R.layout.adptr_insms_medcmnto_simple_list, controller.getInsumos());
@@ -120,12 +120,14 @@ public class AddToRecetaActivity extends RoboActivity implements OnClickListener
 			if(index == 0){
 				List<Medicamento> items = controller.findMedicamento(query);
 				MedicamentoListAdapter adapter = (MedicamentoListAdapter)lstResult.getAdapter();
-				adapter.setItems(items);
+				adapter.clear();
+				adapter.addAll(items);
 				adapter.notifyDataSetChanged();
 			} else if (index == 1) {
 				List<Insumo> items = controller.findInsumos(query);
 				InsumoListAdapter adapter = (InsumoListAdapter)lstResult.getAdapter();
-				adapter.setItems(items);
+				adapter.clear();
+				adapter.addAll(items);
 				adapter.notifyDataSetChanged();
 			}
 		}

@@ -2,14 +2,18 @@ package gob.sis.simos.entity;
 
 import java.io.Serializable;
 
+import com.j256.ormlite.field.DatabaseField;
+
 public class Medicamento implements Serializable, ICuantificable, ICheckable {
 
 	private static final long serialVersionUID = 1L;
 	
 	public static final String COMERCIAL = "COMERCIAL"; 
 	
+	@DatabaseField(columnName="med_id")
 	private String id;
 	private String categoria;
+	@DatabaseField(columnName="med_name")
 	private String nombre;
 	private String descripcion;
 	private Integer entregado;
