@@ -2,16 +2,17 @@ package gob.sis.simos.entity;
 
 import java.io.Serializable;
 
+import com.j256.ormlite.field.DatabaseField;
+
 public class Insumo implements Serializable, ICuantificable, ICheckable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	public static final String COMERCIAL = "COMERCIAL";
 	
+	@DatabaseField(columnName="sup_id")
 	private String id;	
+	@DatabaseField(columnName="sup_name")
 	private String nombre;
 	private String categoria;
 	private String descripcion;

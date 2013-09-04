@@ -88,7 +88,8 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		
 		this.addPrescriptionDialog = new DialogAddToReceta(this);
 		
-		this.encuesta = new Encuesta01();
+		//this.encuesta = new Encuesta01();
+		this.encuesta = (Encuesta01)getIntent().getSerializableExtra("encuesta");
 		
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
@@ -146,13 +147,43 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		} else if (item.getItemId() == R.id.item_delete) {
 			delete();
 		} else if (item.getItemId() == R.id.action_save) {
-			
+			save();
 		}
 		return true;
 	}
 	
+	private void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Esta seguro de salir?")
+	           .setCancelable(false)
+	           .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    Encuesta01PrincipalActivity.this.finish();
+	               }
+	           })
+	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+	    AlertDialog alert = builder.create();
+	    alert.show();
+	}
+	
 	private void checkAll(){
 		if(mViewPager.getCurrentItem() == 0){
+			Iterator<VerificacionPago> it = this.encuesta.getVerificaciones().iterator();
+			while(it.hasNext()){
+				VerificacionPago vf = it.next();
+				vf.setChecked(true);
+			}
+			verificacionesFragment.notifyChanges(this.encuesta.getVerificaciones());
 			
 		} else if (mViewPager.getCurrentItem() == 1){
 			Iterator<Receta> it = this.encuesta.getRecetas().iterator();
@@ -166,6 +197,12 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	
 	private void clear(){
 		if(mViewPager.getCurrentItem() == 0){
+			Iterator<VerificacionPago> it = this.encuesta.getVerificaciones().iterator();
+			while(it.hasNext()){
+				VerificacionPago vf = it.next();
+				vf.setChecked(false);
+			}
+			verificacionesFragment.notifyChanges(this.encuesta.getVerificaciones());
 			
 		} else if (mViewPager.getCurrentItem() == 1){
 			Iterator<Receta> it = this.encuesta.getRecetas().iterator();
@@ -180,6 +217,22 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	private void delete(){
 		
 		if(mViewPager.getCurrentItem() == 0){
+			if(this.encuesta.getVerificaciones().size() == 0){
+				showMessage("No hay elementos para eliminar.", Toast.LENGTH_SHORT);
+				return;
+			} else {
+				Iterator<VerificacionPago> it = this.encuesta.getVerificaciones().iterator();
+				int c = 0;
+				while(it.hasNext()){
+					if(it.next().isChecked()){
+						c++;
+					}
+				}
+				if(c == 0){
+					showMessage("No hay elementos seleccionados para eliminar.", Toast.LENGTH_SHORT);
+					return;
+				}
+			}
 			
 		} else if(mViewPager.getCurrentItem() == 1){
 			if(this.encuesta.getRecetas().size() == 0){
@@ -209,6 +262,12 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			.setPositiveButton("Sí",new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog,int id) {
 					if(mViewPager.getCurrentItem() == 0){
+						Iterator<VerificacionPago> it = encuesta.getVerificaciones().iterator();
+						while(it.hasNext()){
+							VerificacionPago vf = it.next();
+							if(vf.isChecked()) it.remove();
+						}
+						verificacionesFragment.notifyChanges(encuesta.getVerificaciones());
 						
 					} else if(mViewPager.getCurrentItem() == 1){
 						Iterator<Receta> it = encuesta.getRecetas().iterator();

@@ -66,6 +66,7 @@
                 android:text="Nro. Documento"/>
             <!-- PREGUNTA 2 -->
             <gob.sis.simos.ui.UIEditText 
+                android:id="@+id/number_id"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -98,6 +99,7 @@
             
             <!-- PREGUNTA 3 -->
             <RadioGroup 
+                	android:id="@+id/rg_genere"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"

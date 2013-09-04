@@ -2,16 +2,20 @@ package gob.sis.simos.entity;
 
 import gob.sis.simos.dto.Receta;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Encuesta01 {
+public class Encuesta01 implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer id;
+	private List<Respuesta> datosEncuestado;
 	private List<Receta> recetas;
 	private List<VerificacionPago> verificaciones;
 	
 	public Encuesta01() {
+		this.datosEncuestado = new ArrayList<Respuesta>();
 		this.recetas = new ArrayList<Receta>();
 		this.verificaciones = new ArrayList<VerificacionPago>();
 	}
@@ -35,6 +39,14 @@ public class Encuesta01 {
 	
 	public void setVerificaciones(List<VerificacionPago> verificaciones) {
 		this.verificaciones = verificaciones;
+	}
+
+	public List<Respuesta> getDatosEncuestado() {
+		return datosEncuestado;
+	}
+
+	public void setDatosEncuestado(List<Respuesta> datosEncuestado) {
+		this.datosEncuestado = datosEncuestado;
 	}
 	
 }
