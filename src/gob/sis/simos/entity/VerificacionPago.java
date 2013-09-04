@@ -11,6 +11,7 @@ public class VerificacionPago implements Serializable, ICuantificable, ICheckabl
 	
 	private String id;
 	private String nombre;
+	private String paid; 
 	private List<Respuesta> respuestas;
 	
 	private boolean checked = false;
@@ -83,7 +84,15 @@ public class VerificacionPago implements Serializable, ICuantificable, ICheckabl
 		this.respuestas = respuestas;
 	}
 
+	public String getPaid() {
+		return paid;
+	}
 
+	public void setPaid(String paid) {
+		this.paid = paid;
+	}
+
+	
 	
 	
 }

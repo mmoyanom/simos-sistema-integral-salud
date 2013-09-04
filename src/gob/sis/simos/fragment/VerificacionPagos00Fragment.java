@@ -163,6 +163,18 @@ public class VerificacionPagos00Fragment extends RoboFragment implements OnCheck
 		return goAhead;
 	}
 	
+	public String isClear(){
+		String str = "No respondi— la pregunta \"%s\".";
+		
+		if(this.rgRealizoPago.getCheckedRadioButtonId() == -1){
+			return String.format(str, "Realizo algun pago");
+		}
+		if(this.rgServices.getCheckedRadioButtonId() == -1){
+			return String.format(str, "Seleccione un servicio");
+		}
+		return "";
+	}
+	
 	public Respuesta getRespuestaService(){
 		int id = this.rgServices.getCheckedRadioButtonId();
 		if(id != -1){

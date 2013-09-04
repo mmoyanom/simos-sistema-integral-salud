@@ -40,7 +40,7 @@ public class VerificacionPagoCheckListAdapter extends ArrayAdapter<VerificacionP
 			holder = new ViewHolder();
 			holder.checkBox = (UICheckBox) v.findViewById(R.id.checkBox);
 			holder.title = (TextView) v.findViewById(R.id.topTitle);
-			//holder.description = (TextView) v.findViewById(R.id.bottomDescription);
+			holder.description = (TextView) v.findViewById(R.id.bottomDescription);
 			v.setTag(holder);
 		} else {
 			holder = (ViewHolder) v.getTag();
@@ -51,6 +51,7 @@ public class VerificacionPagoCheckListAdapter extends ArrayAdapter<VerificacionP
 			holder.checkBox.setChecked(r.isChecked());
 			holder.checkBox.setOnCheckedChangeListener(this);
 			holder.title.setText(r.getNombre());
+			holder.description.setText(String.format("Realizo pago : %s",r.getPaid()));
 		}
 		return v;
 	}
@@ -58,7 +59,7 @@ public class VerificacionPagoCheckListAdapter extends ArrayAdapter<VerificacionP
 	public static class ViewHolder {
 		public UICheckBox checkBox;
 		public TextView title;
-		//public TextView description;
+		public TextView description;
 	}
 
 	@Override
