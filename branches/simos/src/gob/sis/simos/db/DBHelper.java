@@ -2,9 +2,7 @@ package gob.sis.simos.db;
 
 import gob.sis.simos.entity.Cuenta;
 import gob.sis.simos.entity.EstablecimientoSalud;
-import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.entity.OpcionRespuesta;
-import gob.sis.simos.entity.medicine.Medicamento_ABCD;
 import gob.sis.simos.resources.AppProperties;
 
 import java.io.File;
@@ -31,6 +29,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	private Dao<EstablecimientoSalud, String> EESSDao;
 	private Dao<OpcionRespuesta, Integer> opcionesRespuestaDao;
 	private Dao<Class<?>, String> medicineDao;
+	private Dao<Class<?>, String> supplyDao;
 
 	public DBHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -56,10 +55,25 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 			int arg2, int arg3) {
 		onCreate(db, connectionSource);
 	}
+	
+	public Dao<?, String> getInsumoDao(Class<?> InsumoClass) throws Exception {
+		if(supplyDao == null){
+			supplyDao = getDao(InsumoClass);
+		} else {
+			if(!supplyDao.getDataClass().equals(InsumoClass)){
+				supplyDao = getDao(InsumoClass);
+			}
+		}
+		return supplyDao;
+	}
 
 	public Dao<?, String> getMedicamentoDao(Class<?> MedicamentoClass) throws Exception {
 		if(medicineDao == null){
 			medicineDao = getDao(MedicamentoClass);
+		} else {
+			if(!medicineDao.getDataClass().equals(MedicamentoClass)){
+				medicineDao = getDao(MedicamentoClass);
+			}
 		}
 		return medicineDao;
 	}

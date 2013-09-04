@@ -164,7 +164,7 @@ public class VerificacionPagos00Fragment extends RoboFragment implements OnCheck
 	}
 	
 	public String isClear(){
-		String str = "No respondi— la pregunta \"%s\".";
+		String str = "No respondio la pregunta \"%s\".";
 		
 		if(this.rgRealizoPago.getCheckedRadioButtonId() == -1){
 			return String.format(str, "Realizo algun pago");
