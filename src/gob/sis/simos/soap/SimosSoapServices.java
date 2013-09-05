@@ -1,5 +1,6 @@
 package gob.sis.simos.soap;
 
+import gob.sis.simos.entity.Encuesta01;
 import gob.sis.simos.resources.AppProperties;
 
 import java.io.IOException;
@@ -53,6 +54,11 @@ public class SimosSoapServices {
 		Object response = envelope.getResponse();
 			if(response != null) return response.toString();
 		return null;
+	}
+
+	public String sendEncuesta(Encuesta01 encuesta) {
+		
+		return "failed";
 	}
 
 }

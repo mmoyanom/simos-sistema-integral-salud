@@ -2,8 +2,9 @@ package gob.sis.simos.entity;
 
 import gob.sis.simos.dto.Receta;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Encuesta01 implements Serializable {
@@ -13,6 +14,8 @@ public class Encuesta01 implements Serializable {
 	private List<Respuesta> datosEncuestado;
 	private List<Receta> recetas;
 	private List<VerificacionPago> verificaciones;
+	private Date created;
+	private Integer sent;
 	
 	public Encuesta01() {
 		this.datosEncuestado = new ArrayList<Respuesta>();
@@ -47,6 +50,22 @@ public class Encuesta01 implements Serializable {
 
 	public void setDatosEncuestado(List<Respuesta> datosEncuestado) {
 		this.datosEncuestado = datosEncuestado;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Integer getSent() {
+		return sent;
+	}
+
+	public void setSent(Integer sent) {
+		this.sent = sent;
 	}
 	
 }

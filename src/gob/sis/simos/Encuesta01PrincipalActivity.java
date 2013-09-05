@@ -48,6 +48,9 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	
 	@Inject
+	protected EncuestaController encuestaController;
+	
+	@Inject
 	protected VerificacionPagoController verificacionController;
 	
 	@InjectView(R.id.pager)
@@ -65,6 +68,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	VerificacionPagoCheckListFragment verificacionesFragment;
 	
 	AlertDialog alert;
+	AlertDialog alertConfirmSave;
 	
 	public static final int ADD_SERVICE = 0;
 	public static final int EDIT_SERVICE = 3;
@@ -154,7 +158,26 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	
 	private void save() {
 		// TODO Auto-generated method stub
-		
+		this.alertConfirmSave = new AlertDialog.Builder(this).create();
+		this.alertConfirmSave.setTitle("Guardar Encuesta");
+		this.alertConfirmSave.setMessage("A continuacion se guardara esta encuesta.");
+		this.alertConfirmSave.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				alertConfirmSave.cancel();
+			}
+		});
+		this.alertConfirmSave.setButton(DialogInterface.BUTTON_POSITIVE,"Confirmar", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		this.alertConfirmSave.show();
 	}
 
 	@Override
