@@ -144,10 +144,10 @@ Public Class ApplicationService
     Public Function SetRespuestasEncuestas(ByVal SrptasEncs As String)
         Dim resul As Integer = 0
         Dim service As New MSSQLApplicationServiceImpl
-        Dim listrptasEncs As New List(Of RespuestaEncuesta)
+        Dim listrptasEncs As New List(Of Respuesta)
         If SrptasEncs IsNot Nothing Then
             Dim slz As New JavaScriptSerializer
-            listrptasEncs = slz.Deserialize(Of List(Of RespuestaEncuesta))(SrptasEncs)
+            listrptasEncs = slz.Deserialize(Of List(Of Respuesta))(SrptasEncs)
             resul = service.SetRespuestasEncuestas(listrptasEncs)
         Else
             resul = 0
@@ -159,18 +159,26 @@ Public Class ApplicationService
     <WebMethod()> _
     <ScriptMethod(UseHttpGet:=True)> _
     Public Function SetRespuestaEncuesta(ByVal SrptaEnc As String)
-        Dim resul As Integer = 0
+        Dim result As Integer = 0
         Dim service As New MSSQLApplicationServiceImpl
-        Dim rptaEnc As New RespuestaEncuesta
+        Dim rptaEnc As New EncuestaSenderObject
         If SrptaEnc IsNot Nothing Then
             Dim slz As New JavaScriptSerializer
-            rptaEnc = slz.Deserialize(Of RespuestaEncuesta)(SrptaEnc)
-            resul = service.SetRespuestaEncuesta(rptaEnc)
+            rptaEnc = slz.Deserialize(Of EncuestaSenderObject)(SrptaEnc)
+            result = service.SaveEncuesta(rptaEnc.encuesta)
+
+            For Each r As Respuesta In rptaEnc.respuestas
+                r.encuestadoId = result
+                service.SetRespuestaEncuesta(r)
+
+
+
+            Next
         Else
-            resul = 0
+            result = 0
         End If
 
-        Return resul
+        Return result
     End Function
 End Class
 
