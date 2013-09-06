@@ -39,6 +39,7 @@ public class Respuesta implements Serializable {
 	private Double respuestaNumero;
 	
 	@DatabaseField(columnName="rsp_prd_id")
+	@Expose
 	private String prescripcionId;
 	
 	public Integer getOpcionRespuestaId() {
