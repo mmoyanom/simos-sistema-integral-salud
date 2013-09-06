@@ -1,0 +1,66 @@
+﻿Public Class RespuestaEncuesta
+
+    Private _oprespuestaId As Integer
+    Public Property OprespuestaId() As Integer
+        Get
+            Return _oprespuestaId
+        End Get
+        Set(ByVal value As Integer)
+            _oprespuestaId = value
+        End Set
+    End Property
+    Private _encuestadoId As Integer
+    Public Property EncuestadoId() As Integer
+        Get
+            Return _encuestadoId
+        End Get
+        Set(ByVal value As Integer)
+            _encuestadoId = value
+        End Set
+    End Property
+    Private _respuestaId As Integer
+    Public Property RespuestaId() As Integer
+        Get
+            Return _respuestaId
+        End Get
+        Set(ByVal value As Integer)
+            _respuestaId = value
+        End Set
+    End Property
+    Private _respuestaPadreId As Integer
+    Public Property RespuestaPadreId() As Integer
+        Get
+            Return _respuestaPadreId
+        End Get
+        Set(ByVal value As Integer)
+            _respuestaPadreId = value
+        End Set
+    End Property
+    Private _respuestaTexto As String
+    Public Property RespuestaTexto() As String
+        Get
+            Return _respuestaTexto
+        End Get
+        Set(ByVal value As String)
+            _respuestaTexto = value
+        End Set
+    End Property
+    Private _respuestaNum As Double
+    Public Property RespuestaNum() As Double
+        Get
+            Return _respuestaNum
+        End Get
+        Set(ByVal value As Double)
+            _respuestaNum = value
+        End Set
+    End Property
+    Private _medins As String
+    Public Property Medins() As Integer
+        Get
+            Return _medins
+        End Get
+        Set(ByVal value As Integer)
+            _medins = value
+        End Set
+    End Property
+End Class
