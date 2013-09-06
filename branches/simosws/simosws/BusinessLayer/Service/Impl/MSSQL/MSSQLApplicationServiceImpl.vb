@@ -173,8 +173,8 @@ Namespace Service.Impl
             Return items
         End Function
 
-        Public Function GetRespuestas() As System.Collections.Generic.List(Of Respuesta) Implements BIApplicationService.GetRespuestas
-            Dim items As New List(Of Respuesta)
+        Public Function GetRespuestas() As System.Collections.Generic.List(Of OpcionRespuesta) Implements BIApplicationService.GetRespuestas
+            Dim items As New List(Of OpcionRespuesta)
             Dim con As SqlConnection = Nothing
             Try
                 con = SimosDBConnection.GetConnection()
@@ -188,7 +188,7 @@ Namespace Service.Impl
                 Dim reader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     While reader.Read()
-                        Dim x As New Respuesta
+                        Dim x As New OpcionRespuesta
                         x.Descripcion = reader.GetString(0)
                         x.RespuestaId = reader.GetInt32(1)
                         x.PreguntaId = reader.GetInt32(2)
@@ -249,7 +249,7 @@ Namespace Service.Impl
             Return items
         End Function
 
-        Public Function SetRespuestasEncuestas(ByVal rptasEncs As List(Of RespuestaEncuesta)) As Integer Implements BIApplicationService.SetRespuestasEncuestas
+        Public Function SetRespuestasEncuestas(ByVal rptasEncs As List(Of Respuesta)) As Integer Implements BIApplicationService.SetRespuestasEncuestas
             Dim resul As Integer
             Dim con As SqlConnection = Nothing
             Try
@@ -261,13 +261,13 @@ Namespace Service.Impl
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = ConfigurationManager.AppSettings("SP_INSERTARPTAS").ToString()
 
-                For Each rptaEnc As RespuestaEncuesta In rptasEncs
-                    cmd.Parameters.Add("@RPTA_I_ID_OPCIONESRESPUESTA", SqlDbType.Int).Value = rptaEnc.OprespuestaId
-                    cmd.Parameters.Add("@RPTA_I_ID_ENCUESTADO", SqlDbType.Int).Value = rptaEnc.EncuestadoId
-                    cmd.Parameters.Add("@RPTA_I_ID_RESPUESTAPADRE", SqlDbType.Int).Value = rptaEnc.RespuestaPadreId
-                    cmd.Parameters.Add("@RPTA_V_TEXTORESPUESTA", SqlDbType.VarChar).Value = rptaEnc.RespuestaTexto
-                    cmd.Parameters.Add("@RPTA_N_RESPUESTA", SqlDbType.Decimal).Value = rptaEnc.RespuestaNum
-                    cmd.Parameters.Add("@RPTA_I_V_MEDICAMENTOINSUMO", SqlDbType.VarChar).Value = rptaEnc.Medins
+                For Each rptaEnc As Respuesta In rptasEncs
+                    cmd.Parameters.Add("@RPTA_I_ID_OPCIONESRESPUESTA", SqlDbType.Int).Value = rptaEnc.opcionRespuestaId
+                    cmd.Parameters.Add("@RPTA_I_ID_ENCUESTADO", SqlDbType.Int).Value = rptaEnc.encuestadoId
+                    cmd.Parameters.Add("@RPTA_I_ID_RESPUESTAPADRE", SqlDbType.Int).Value = rptaEnc.respuestaParentId
+                    cmd.Parameters.Add("@RPTA_V_TEXTORESPUESTA", SqlDbType.VarChar).Value = rptaEnc.respuestaTexto
+                    cmd.Parameters.Add("@RPTA_N_RESPUESTA", SqlDbType.Decimal).Value = rptaEnc.respuestaNumero
+                    cmd.Parameters.Add("@RPTA_I_V_MEDICAMENTOINSUMO", SqlDbType.VarChar).Value = rptaEnc.prescripcionId
                     cmd.Parameters.Add("@RPTA_I_ID_RESPUESTA", SqlDbType.Int).Direction = ParameterDirection.Output
                     cmd.ExecuteScalar()
                     resul += cmd.Parameters("@RPTA_I_ID_RESPUESTA").Value
@@ -282,7 +282,9 @@ Namespace Service.Impl
             Return resul
         End Function
 
-        Public Function SetRespuestaEncuesta(ByVal rptaEnc As RespuestaEncuesta) As Integer Implements BIApplicationService.SetRespuestaEncuesta
+
+
+        Public Function SetRespuestaEncuesta(ByVal rptaEnc As Respuesta) As Integer Implements BIApplicationService.SetRespuestaEncuesta
             Dim resul As Integer
             Dim con As SqlConnection = Nothing
             Try
@@ -295,12 +297,22 @@ Namespace Service.Impl
                 cmd.CommandText = ConfigurationManager.AppSettings("SP_INSERTARPTAS").ToString()
 
 
-                cmd.Parameters.Add("@RPTA_I_ID_OPCIONESRESPUESTA", SqlDbType.Int).Value = rptaEnc.OprespuestaId
-                cmd.Parameters.Add("@RPTA_I_ID_ENCUESTADO", SqlDbType.Int).Value = rptaEnc.EncuestadoId
-                cmd.Parameters.Add("@RPTA_I_ID_RESPUESTAPADRE", SqlDbType.Int).Value = rptaEnc.RespuestaPadreId
-                cmd.Parameters.Add("@RPTA_V_TEXTORESPUESTA", SqlDbType.VarChar).Value = rptaEnc.RespuestaTexto
-                cmd.Parameters.Add("@RPTA_N_RESPUESTA", SqlDbType.Decimal).Value = rptaEnc.RespuestaNum
-                cmd.Parameters.Add("@RPTA_I_V_MEDICAMENTOINSUMO", SqlDbType.VarChar).Value = rptaEnc.Medins
+                cmd.Parameters.Add("@RPTA_I_ID_OPCIONESRESPUESTA", SqlDbType.Int).Value = rptaEnc.opcionRespuestaId
+                cmd.Parameters.Add("@RPTA_I_ID_ENCUESTADO", SqlDbType.Int).Value = rptaEnc.encuestadoId
+                cmd.Parameters.Add("@RPTA_I_ID_RESPUESTAPADRE", SqlDbType.Int).Value = rptaEnc.respuestaParentId
+
+                Dim respuestaTexto = rptaEnc.respuestaTexto
+                If respuestaTexto Is Nothing Then
+                    respuestaTexto = String.Empty
+                End If
+                cmd.Parameters.Add("@RPTA_V_TEXTORESPUESTA", SqlDbType.VarChar).Value = respuestaTexto
+                cmd.Parameters.Add("@RPTA_N_RESPUESTA", SqlDbType.Decimal).Value = rptaEnc.respuestaNumero
+
+                Dim prescripcionId = rptaEnc.prescripcionId
+                If prescripcionId Is Nothing Then
+                    prescripcionId = String.Empty
+                End If
+                cmd.Parameters.Add("@RPTA_I_V_MEDICAMENTOINSUMO", SqlDbType.VarChar).Value = prescripcionId
                 cmd.Parameters.Add("@RPTA_I_ID_RESPUESTA", SqlDbType.Int).Direction = ParameterDirection.Output
                 cmd.ExecuteScalar()
                 resul = cmd.Parameters("@RPTA_I_ID_RESPUESTA").Value
@@ -313,6 +325,35 @@ Namespace Service.Impl
                 End If
             End Try
             Return resul
+        End Function
+
+        Public Function SaveEncuesta(ByVal encuestado As Encuestado) As Integer Implements BIApplicationService.SaveEncuesta
+            Dim result As Integer
+            Dim con As SqlConnection = Nothing
+            Try
+                con = SimosDBConnection.GetConnection
+                con.Open()
+
+                Dim cmd As New SqlCommand
+                cmd.Connection = con
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = ConfigurationManager.AppSettings("SP_INSERTAENCTADO").ToString
+
+                cmd.Parameters.Add("@ECDO_I_ID_ENCUESTAGRUPO", SqlDbType.Int).Value = encuestado.encuestaGrupo
+                cmd.Parameters.Add("@ECDO_V_NROCUESTIONARIO", SqlDbType.Char).Value = encuestado.nroCuestionario
+                cmd.Parameters.Add("@ECDO_D_HORAENCUESTA", SqlDbType.Date).Value = encuestado.created
+                cmd.Parameters.Add("@ECDO_I_ID_ENCUESTADO", SqlDbType.Int).Direction = ParameterDirection.Output
+                cmd.ExecuteScalar()
+                result = cmd.Parameters("@ECDO_I_ID_ENCUESTADO").Value
+
+            Catch ex As Exception
+                util.Log.Append(ex.Message)
+            Finally
+                If con IsNot Nothing Then
+                    con.Close()
+                End If
+            End Try
+            Return result
         End Function
     End Class
 End Namespace
