@@ -9,7 +9,7 @@ import gob.sis.simos.fragment.InsumoCheckListFragment;
 import gob.sis.simos.fragment.MedicamentoCheckListFragment;
 import gob.sis.simos.ui.DialogCantidadComercial;
 import gob.sis.simos.ui.DialogCantidadGenerico;
-import gob.sis.simos.ui.DialogTipoReceta;
+import gob.sis.simos.ui.DialogAddToReceta;
 
 import java.util.Iterator;
 import java.util.Locale;
@@ -46,7 +46,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 	
 	private Receta receta;
 	
-	DialogTipoReceta dialogTipoReceta;
+	DialogAddToReceta dialogTipoReceta;
 	DialogCantidadGenerico dialogQuantityGenerico;
 	DialogCantidadComercial dialogQuantityComercial;
 	
@@ -70,7 +70,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 		actionBar.setDisplayUseLogoEnabled(false);
 		actionBar.setIcon(R.drawable.ic_menu_mark);
 		
-		dialogTipoReceta = new DialogTipoReceta(this);
+		dialogTipoReceta = new DialogAddToReceta(this);
 		dialogTipoReceta.btnComercial.setOnClickListener(this);
 		dialogTipoReceta.btnGenerico.setOnClickListener(this);
 		

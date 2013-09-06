@@ -2,21 +2,44 @@ package gob.sis.simos.entity;
 
 import java.io.Serializable;
 
+import com.google.gson.annotations.Expose;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName="encta_rsptas")
 public class Respuesta implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	//ID
+	@DatabaseField(columnName="id")
+	@Expose
 	private Integer respuestaId;
+	
+	@DatabaseField(columnName="preg_id")
+	@Expose
 	private Integer preguntaId;
+	
+	@DatabaseField(columnName="op_rsp_id")
+	@Expose
 	private Integer opcionRespuestaId;
+	
+	@DatabaseField(columnName="encstdo_id")
 	private Integer encuestadoId;
+	
+	@DatabaseField(columnName="preg_prnt_id")
+	@Expose
 	private Integer respuestaParentId;
+	
+	@DatabaseField(columnName="rsp_text")
+	@Expose
 	private String respuestaTexto;
+	
+	@DatabaseField(columnName="rsp_number")
+	@Expose
 	private Double respuestaNumero;
-	private Integer prescripcionId;
+	
+	@DatabaseField(columnName="rsp_prd_id")
+	private String prescripcionId;
 	
 	public Integer getOpcionRespuestaId() {
 		return opcionRespuestaId;
@@ -54,10 +77,10 @@ public class Respuesta implements Serializable {
 	public void setRespuestaNumero(Double respuestaNumero) {
 		this.respuestaNumero = respuestaNumero;
 	}
-	public Integer getPrescripcionId() {
+	public String getPrescripcionId() {
 		return prescripcionId;
 	}
-	public void setPrescripcionId(Integer prescripcionId) {
+	public void setPrescripcionId(String prescripcionId) {
 		this.prescripcionId = prescripcionId;
 	}
 	public Integer getPreguntaId() {
