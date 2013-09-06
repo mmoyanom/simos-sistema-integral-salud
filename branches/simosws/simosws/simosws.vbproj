@@ -107,12 +107,14 @@
     <Compile Include="BusinessLayer\DTO\Asignacion.vb" />
     <Compile Include="BusinessLayer\DTO\DeliveryMode.vb" />
     <Compile Include="BusinessLayer\DTO\DocumentType.vb" />
+    <Compile Include="BusinessLayer\DTO\Encuesta.vb" />
+    <Compile Include="BusinessLayer\DTO\EncuestaSenderObject.vb" />
     <Compile Include="BusinessLayer\DTO\JsonObjectResponse.vb" />
     <Compile Include="BusinessLayer\DTO\Location.vb" />
     <Compile Include="BusinessLayer\DTO\LoginResponse.vb" />
     <Compile Include="BusinessLayer\DTO\PaymentConcept.vb" />
+    <Compile Include="BusinessLayer\DTO\OpcionRespuesta.vb" />
     <Compile Include="BusinessLayer\DTO\Respuesta.vb" />
-    <Compile Include="BusinessLayer\DTO\RespuestaEncuesta.vb" />
     <Compile Include="BusinessLayer\DTO\StaffIndicatingPayment.vb" />
     <Compile Include="BusinessLayer\Service\BILoginService.vb" />
     <Compile Include="BusinessLayer\Service\Impl\MSSQL\MSSQLApplicationServiceImpl.vb" />
