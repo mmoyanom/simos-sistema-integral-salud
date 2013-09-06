@@ -1,5 +1,6 @@
 package gob.sis.simos;
 
+import gob.sis.simos.controller.EncuestaController;
 import gob.sis.simos.controller.VerificacionPagoController;
 import gob.sis.simos.dto.Receta;
 import gob.sis.simos.entity.Encuesta01;
@@ -11,7 +12,7 @@ import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.fragment.RecetaCheckListFragment;
 import gob.sis.simos.fragment.VerificacionPagoCheckListFragment;
 import gob.sis.simos.ui.DialogAddServicio;
-import gob.sis.simos.ui.DialogAddToReceta;
+import gob.sis.simos.ui.DialogPickTypeReceta;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -62,7 +63,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	private Encuesta01 encuesta;
 	
 	DialogAddServicio addServiceDialog;
-	DialogAddToReceta addPrescriptionDialog;
+	DialogPickTypeReceta addPrescriptionDialog;
 	
 	RecetaCheckListFragment recetasFragment;
 	VerificacionPagoCheckListFragment verificacionesFragment;
@@ -90,7 +91,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		List<OpcionRespuesta> items = verificacionController.getRespuestas(7); 
 		this.addServiceDialog.setItems(items);
 		
-		this.addPrescriptionDialog = new DialogAddToReceta(this);
+		this.addPrescriptionDialog = new DialogPickTypeReceta(this);
 		
 		//this.encuesta = new Encuesta01();
 		this.encuesta = (Encuesta01)getIntent().getSerializableExtra("encuesta");
@@ -174,7 +175,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
 				// TODO Auto-generated method stub
-				
+				encuestaController.save(encuesta);
 			}
 		});
 		this.alertConfirmSave.show();
@@ -500,6 +501,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 				List<Medicamento> medicamentos = new ArrayList<Medicamento>();
 				rc.setMedicamentos(medicamentos);
 				rc.setTipo(addPrescriptionDialog.getTipoReceta());
+				rc.setTipoRecetaId(addPrescriptionDialog.getRespuestaTipoReceta().getOpcionRespuestaId());
 				
 				Intent i = new Intent(this, EntregaRecetasActivity.class);
 				i.putExtra("receta", rc);
