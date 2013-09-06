@@ -1,7 +1,27 @@
 ﻿Public Class Respuesta
 
+    Private _oprespuestaId As Integer
+    Public Property opcionRespuestaId() As Integer
+        Get
+            Return _oprespuestaId
+        End Get
+        Set(ByVal value As Integer)
+            _oprespuestaId = value
+        End Set
+    End Property
+
+    Private _encuestadoId As Integer
+    Public Property encuestadoId() As Integer
+        Get
+            Return _encuestadoId
+        End Get
+        Set(ByVal value As Integer)
+            _encuestadoId = value
+        End Set
+    End Property
+
     Private _respuestaId As Integer
-    Public Property RespuestaId() As Integer
+    Public Property respuestaId() As Integer
         Get
             Return _respuestaId
         End Get
@@ -10,28 +30,43 @@
         End Set
     End Property
 
-
-    Private _preguntaId As Integer
-    Public Property PreguntaId() As Integer
+    Private _respuestaPadreId As Integer
+    Public Property respuestaParentId() As Integer
         Get
-            Return _preguntaId
+            Return _respuestaPadreId
         End Get
         Set(ByVal value As Integer)
-            _preguntaId = value
+            _respuestaPadreId = value
         End Set
     End Property
 
-
-    Private _descripcion As String
-    Public Property Descripcion() As String
+    Private _respuestaTexto As String
+    Public Property respuestaTexto() As String
         Get
-            Return _descripcion
+            Return _respuestaTexto
         End Get
         Set(ByVal value As String)
-            _descripcion = value
+            _respuestaTexto = value
         End Set
     End Property
 
+    Private _respuestaNum As Double
+    Public Property respuestaNumero() As Double
+        Get
+            Return _respuestaNum
+        End Get
+        Set(ByVal value As Double)
+            _respuestaNum = value
+        End Set
+    End Property
 
-
+    Private _medins As String
+    Public Property prescripcionId() As String
+        Get
+            Return _medins
+        End Get
+        Set(ByVal value As String)
+            _medins = value
+        End Set
+    End Property
 End Class
