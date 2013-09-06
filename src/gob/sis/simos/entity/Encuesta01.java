@@ -26,7 +26,7 @@ public class Encuesta01 implements Serializable {
 	
 	@DatabaseField(columnName="nro_encsta")
 	@Expose
-	private String nroCuestinario;
+	private String nroCuestionario;
 	
 	@DatabaseField(columnName="created")
 	@Expose
@@ -54,13 +54,9 @@ public class Encuesta01 implements Serializable {
 		return formularioId;
 	}
 
-
-
 	public void setFormularioId(String formularioId) {
 		this.formularioId = formularioId;
 	}
-
-
 
 	public Integer getEncuestaGrupo() {
 		return encuestaGrupo;
@@ -70,12 +66,12 @@ public class Encuesta01 implements Serializable {
 		this.encuestaGrupo = encuestaGrupo;
 	}
 	
-	public String getNroCuestinario() {
-		return nroCuestinario;
+	public String getNroCuestionario() {
+		return nroCuestionario;
 	}
 
-	public void setNroCuestinario(String nroCuestinario) {
-		this.nroCuestinario = nroCuestinario;
+	public void setNroCuestionario(String nroCuestinario) {
+		this.nroCuestionario = nroCuestinario;
 	}
 
 	public Integer getId() {
