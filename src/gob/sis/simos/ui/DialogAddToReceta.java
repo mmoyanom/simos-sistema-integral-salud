@@ -1,39 +1,53 @@
 package gob.sis.simos.ui;
 
 import gob.sis.simos.R;
-import gob.sis.simos.dto.Receta;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
 import android.widget.Button;
-import android.widget.RadioGroup;
 
-public class DialogAddToReceta extends Dialog {
+public class DialogAddToReceta extends Dialog implements android.view.View.OnClickListener{
 
-	public Button btnContinuar;
-	public Button btnCancelar;
-	private RadioGroup rgTipoReceta;
+	public Button btnGenerico;
+	public Button btnComercial;
 	
+	public DialogAddToReceta(Context context, int theme) {
+		super(context, theme);
+		this.setContentView(R.layout.dialog_tipo_rcta);
+		this.btnGenerico = (Button) findViewById(R.id.btn_generico);
+		this.btnGenerico.setOnClickListener(this);
+		
+		this.btnComercial = (Button) findViewById(R.id.btn_comercial);
+		this.btnComercial.setOnClickListener(this);
+	}
+
+	protected DialogAddToReceta(Context context, boolean cancelable,
+			OnCancelListener cancelListener) {
+		super(context, cancelable, cancelListener);
+		this.setContentView(R.layout.dialog_tipo_rcta);
+		this.btnGenerico = (Button) findViewById(R.id.btn_generico);
+		this.btnGenerico.setOnClickListener(this);
+		
+		this.btnComercial = (Button) findViewById(R.id.btn_comercial);
+		this.btnComercial.setOnClickListener(this);
+	}
+
 	public DialogAddToReceta(Context context) {
 		super(context);
+		this.setContentView(R.layout.dialog_tipo_rcta);
+		this.btnGenerico = (Button) findViewById(R.id.btn_generico);
+		this.btnGenerico.setOnClickListener(this);
 		
-		this.setContentView(R.layout.dialog_add_to_rcta);	
-		
-		this.rgTipoReceta = (RadioGroup) findViewById(R.id.rg_tipo_receta);
-		
-		this.btnCancelar = (Button) findViewById(R.id.btn_cancel);
-		this.btnContinuar = (Button) findViewById(R.id.btn_continue);
+		this.btnComercial = (Button) findViewById(R.id.btn_comercial);
+		this.btnComercial.setOnClickListener(this);
+	}
+	
+
+	@Override
+	public void onClick(View v) {
 		
 	}
 	
-	public String getTipoReceta(){
-		int id = rgTipoReceta.getCheckedRadioButtonId();
-		if(id == R.id.rb_estandarizada)
-			return Receta.TIPO_ESTANDAR;
-		else if (id == R.id.rb_no_estandarizada)
-			return Receta.TIPO_NO_ESTANDAR;
-		
-		return null;
-	}
-
+	
 
 }

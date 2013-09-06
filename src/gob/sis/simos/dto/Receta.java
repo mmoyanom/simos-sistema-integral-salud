@@ -20,7 +20,14 @@ public class Receta implements Serializable, ICheckable, ICuantificable {
 	private List<Insumo> insumos;
 	private List<Medicamento> medicamentos;
 	private boolean checked = false;
+	private Integer tipoRecetaId;
 	
+	public Integer getTipoRecetaId() {
+		return tipoRecetaId;
+	}
+	public void setTipoRecetaId(Integer tipoRecetaId) {
+		this.tipoRecetaId = tipoRecetaId;
+	}
 	public String getId() {
 		return id;
 	}
