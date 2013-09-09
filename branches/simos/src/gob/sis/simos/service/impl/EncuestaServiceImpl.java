@@ -47,7 +47,7 @@ public class EncuestaServiceImpl {
 			String yyDDMM = new SimpleDateFormat("yyMMdd").format(Calendar.getInstance().getTime());
 			
 			String format_id = String.format("G%s%s%s%03d", encuesta.getFormularioId(), account.getUserId(), yyDDMM, count_id);
-			encuesta.setNroCuestinario(format_id);
+			encuesta.setNroCuestionario(format_id);
 			
 			encuestaDao.create(encuesta);
 			
@@ -71,6 +71,7 @@ public class EncuestaServiceImpl {
 					
 					Respuesta rpTipoReceta = new Respuesta();
 					rpTipoReceta.setPreguntaId(22);
+					rpTipoReceta.setPreguntaParentId(21);
 					rpTipoReceta.setOpcionRespuestaId(rc.getTipoRecetaId());
 					rspts.add(rpTipoReceta);
 					
@@ -80,6 +81,7 @@ public class EncuestaServiceImpl {
 						if(me.getNombre().equals(Medicamento.COMERCIAL)){
 							Respuesta rpMedName = new Respuesta();
 							rpMedName.setPreguntaId(23);
+							rpMedName.setPreguntaParentId(21);
 							rpMedName.setOpcionRespuestaId(102);
 							rpMedName.setRespuestaTexto(me.getNombre());
 							rpMedName.setPrescripcionId("9999999");
@@ -87,11 +89,13 @@ public class EncuestaServiceImpl {
 							
 							Respuesta rpMedProductType = new Respuesta();
 							rpMedProductType.setPreguntaId(24);
+							rpMedProductType.setPreguntaParentId(23);
 							rpMedProductType.setOpcionRespuestaId(109);
 							rspts.add(rpMedProductType);
 							
 							Respuesta rpPrescribed = new Respuesta();
 							rpPrescribed.setPreguntaId(25);
+							rpPrescribed.setPreguntaParentId(23);
 							rpPrescribed.setOpcionRespuestaId(105);
 							rpPrescribed.setRespuestaNumero(me.getRecetado()*1.0);
 							rspts.add(rpPrescribed);
@@ -100,6 +104,7 @@ public class EncuestaServiceImpl {
 						} else {
 							Respuesta rpMedName = new Respuesta();
 							rpMedName.setPreguntaId(23);
+							rpMedName.setPreguntaParentId(21);
 							rpMedName.setOpcionRespuestaId(102);
 							rpMedName.setRespuestaTexto(me.getNombre());
 							rpMedName.setPrescripcionId(me.getId());
@@ -107,17 +112,20 @@ public class EncuestaServiceImpl {
 							
 							Respuesta rpMedProductType = new Respuesta();
 							rpMedProductType.setPreguntaId(24);
+							rpMedProductType.setPreguntaParentId(23);
 							rpMedProductType.setOpcionRespuestaId(103);
 							rspts.add(rpMedProductType);
 							
 							Respuesta rpPrescribed = new Respuesta();
 							rpPrescribed.setPreguntaId(25);
+							rpPrescribed.setPreguntaParentId(23);
 							rpPrescribed.setOpcionRespuestaId(105);
 							rpPrescribed.setRespuestaNumero(me.getRecetado()*1.0);
 							rspts.add(rpPrescribed);
 							
 							Respuesta rpRecieved = new Respuesta();
 							rpRecieved.setPreguntaId(26);
+							rpRecieved.setPreguntaParentId(23);
 							rpRecieved.setOpcionRespuestaId(106);
 							rpRecieved.setRespuestaNumero(me.getEntregado()*1.0);
 							rspts.add(rpRecieved);
@@ -129,6 +137,7 @@ public class EncuestaServiceImpl {
 						
 						Respuesta rpSuppyName = new Respuesta();
 						rpSuppyName.setPreguntaId(23);
+						rpSuppyName.setPreguntaParentId(21);
 						rpSuppyName.setOpcionRespuestaId(102);
 						rpSuppyName.setRespuestaTexto(ins.getNombre());
 						rpSuppyName.setPrescripcionId(ins.getId());
@@ -136,14 +145,23 @@ public class EncuestaServiceImpl {
 							
 						Respuesta rpSupplyProductType = new Respuesta();
 						rpSupplyProductType.setPreguntaId(24);
+						rpSupplyProductType.setPreguntaParentId(23);
 						rpSupplyProductType.setOpcionRespuestaId(104);
 						rspts.add(rpSupplyProductType);
 							
 						Respuesta rpPrescribed = new Respuesta();
 						rpPrescribed.setPreguntaId(25);
+						rpPrescribed.setPreguntaParentId(23);
 						rpPrescribed.setOpcionRespuestaId(105);
 						rpPrescribed.setRespuestaNumero(ins.getRecetado()*1.0);
 						rspts.add(rpPrescribed);
+						
+						Respuesta rpRecieved = new Respuesta();
+						rpRecieved.setPreguntaId(26);
+						rpRecieved.setPreguntaParentId(23);
+						rpRecieved.setOpcionRespuestaId(106);
+						rpRecieved.setRespuestaNumero(ins.getEntregado()*1.0);
+						rspts.add(rpRecieved);
 					}
 				}
 			}

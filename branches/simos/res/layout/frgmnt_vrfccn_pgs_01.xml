@@ -7,7 +7,7 @@
     android:background="@drawable/bg_rectangle_section"
     android:orientation="vertical" >
     
-    <!-- pregunta 9 -->
+    <!-- Pregunta 9 -->
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,35 +15,48 @@
         <LinearLayout 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/lbl_genere" 
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="0.7"
+                android:layout_weight="0.5"
                 android:gravity="center_vertical"
-                android:text="¿Cuenta con boletas?"/>
-            <RadioGroup 
+                android:text="@string/question_9"/>
+            <gob.sis.simos.ui.UIRadioGroup 
                 android:id="@+id/rg_have_ticket"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:orientation="horizontal">
-                <gob.sis.simos.ui.UIRadioButton android:id="@+id/rb_have_tickets_YES" android:text="Si" android:layout_width="wrap_content" 
-                    app:preguntaId="9" app:preguntaParentId="7" app:opcionRespuestaId="38"/>
+                    android:layout_weight="0.5"
+                    android:gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal"
+                    app:preguntaId="9"
+                    app:preguntaParentId="7">
+                <gob.sis.simos.ui.UIRadioButton 
+                    android:id="@+id/rb_have_tickets_YES" 
+                    android:text="@string/answer_yes"
+                    android:layout_width="wrap_content" 
+                    app:preguntaId="9" 
+                    app:preguntaParentId="7"
+                    app:opcionRespuestaId="38"/>
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
-                <gob.sis.simos.ui.UIRadioButton android:id="@+id/rb_have_tickets_NO" android:text="No" android:layout_width="wrap_content"
-                    app:preguntaId="9" app:preguntaParentId="7" app:opcionRespuestaId="39"/>
-            </RadioGroup>
+                <gob.sis.simos.ui.UIRadioButton 
+                    android:id="@+id/rb_have_tickets_NO" 
+                    android:text="@string/answer_no"
+                    android:layout_width="wrap_content"
+                    app:preguntaId="9"
+                    app:preguntaParentId="7"
+                    app:opcionRespuestaId="39"/>
+            </gob.sis.simos.ui.UIRadioGroup>
         </LinearLayout>
         
         <!-- pregunta 10 -->
@@ -59,44 +72,54 @@
             android:paddingBottom="5dp"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/lbl_genere" 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
-                android:text="¿Donde realizo los pagos?"/>
-            <RadioGroup 
+                android:text="@string/question_10"/>
+            <gob.sis.simos.ui.UIRadioGroup 
                 	android:id="@+id/rg_payment_location"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginLeft="0dp"
-                    android:orientation="horizontal">
-                <gob.sis.simos.ui.UIRadioButton android:text="Dentro del EESS" 
+                    android:orientation="horizontal"
+                    app:preguntaId="10"
+                    app:preguntaParentId="7">
+                <gob.sis.simos.ui.UIRadioButton
+                    android:text="@string/answer_in_eess" 
                     android:textAppearance="@android:style/TextAppearance.Small" 
                     android:layout_width="0dp"
                     android:layout_weight="0.3"
                     android:layout_height="wrap_content"
-                    app:preguntaId="10" app:preguntaParentId="7" app:opcionRespuestaId="40"/>
+                    app:preguntaId="10"
+                    app:preguntaParentId="7"
+                    app:opcionRespuestaId="40"/>
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:background="#F2F2F2"/>
-                <gob.sis.simos.ui.UIRadioButton android:text="Fuera del EESS"  
+                <gob.sis.simos.ui.UIRadioButton
+                    android:text="@string/answer_out_eess"  
                     android:textAppearance="@android:style/TextAppearance.Small"  
                     android:layout_width="0dp"
                     android:layout_weight="0.3" 
                     android:layout_height="wrap_content"
-                    app:preguntaId="10" app:preguntaParentId="7" app:opcionRespuestaId="41"/>
+                    app:preguntaId="10"
+                    app:preguntaParentId="7"
+                    app:opcionRespuestaId="41"/>
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:background="#F2F2F2"/>
-                <gob.sis.simos.ui.UIRadioButton android:text="Ambos" 
-                     android:textAppearance="@android:style/TextAppearance.Small"  
-                     android:layout_width="0dp"
-                     android:layout_weight="0.3"
-                     android:layout_height="wrap_content"
-                     app:preguntaId="10" app:preguntaParentId="7" app:opcionRespuestaId="42"/>
-            </RadioGroup>
+                <gob.sis.simos.ui.UIRadioButton
+                    android:text="@string/answer_both_eess" 
+                    android:textAppearance="@android:style/TextAppearance.Small"  
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:layout_height="wrap_content"
+                    app:preguntaId="10"
+                    app:preguntaParentId="7"
+                    app:opcionRespuestaId="42"/>
+            </gob.sis.simos.ui.UIRadioGroup>
         </LinearLayout>
         
         <!-- pregunta 11 -->
@@ -118,11 +141,13 @@
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:layout_marginLeft="10dp"
                 android:paddingTop="10dp"
-                android:text="¿Porque pago fuera del \n establecimiento de salud?"/>
-            <Spinner
+                android:text="@string/question_11"/>
+            <gob.sis.simos.ui.UISpinner
                 android:id="@+id/sp_paymentOut"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:preguntaId="11"
+                app:preguntaParentId="7"/>
         </LinearLayout>
         
         <!-- Pregunta 12 -->
@@ -144,26 +169,28 @@
          	<ImageView
          	    android:layout_width="match_parent"
          	    android:layout_height="0dp"
+         	    android:contentDescription="@null"
          	    android:duplicateParentState="true">
          	 </ImageView>
          	    <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Medium"
-                android:layout_marginLeft="10dp"
-                android:paddingTop="10dp"
-                android:text="Boletas entregadas dentro del EESS"/>
-            <gob.sis.simos.ui.UITextView
-                android:id="@+id/txt_tickets"
-                android:gravity="left"
-                android:text="No se han ingresado boletas."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                app:preguntaId="12"/>
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:textAppearance="@android:style/TextAppearance.Medium"
+	                android:layout_marginLeft="10dp"
+	                android:paddingTop="10dp"
+	                android:text="@string/question_12"/>
+	            <gob.sis.simos.ui.UITextView
+	                android:id="@+id/txt_tickets"
+	                android:gravity="left"
+	                android:text="@string/answer_enter_tickets"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:padding="10dp"
+	                app:preguntaId="12"
+	                app:preguntaParentId="7"/>
         </LinearLayout>
        
-        <!-- pregunta 13 -->
+        <!-- Pregunta 13 -->
         <LinearLayout 
             android:id="@+id/layout_payment_in"
             android:layout_width="match_parent"
@@ -175,9 +202,9 @@
 	            android:layout_marginLeft="5dp"
 	            android:layout_marginRight="5dp"
 	            android:background="#F2F2F2"/>
-            <LinearLayout 
+            <LinearLayout
 	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
+	            android:layout_height="0dp"
 	            android:paddingBottom="10dp"
 	            android:layout_weight="1"
 	            android:focusableInTouchMode="true"
@@ -189,16 +216,18 @@
                 android:layout_marginLeft="10dp"
                 android:paddingTop="10dp"
                 android:gravity="center_vertical"
-                android:text="Monto pagado dentro del EESS (S/.)"/>
+                android:text="@string/question_13"/>
             <gob.sis.simos.ui.UIEditText
                 android:id="@+id/et_ammount"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="40.00"
                 android:inputType="numberDecimal"
-                app:preguntaId="13" app:preguntaParentId="7" app:opcionRespuestaId="56"/>
+                android:text="@string/answer_amount"
+                app:preguntaId="13"
+                app:preguntaParentId="7"
+                app:opcionRespuestaId="56"/>
         </LinearLayout>
         
         <!-- Pregunta 14 -->
@@ -220,23 +249,25 @@
          	<ImageView
          	    android:layout_width="match_parent"
          	    android:layout_height="0dp"
-         	    android:duplicateParentState="true">
-         	 </ImageView>
-         	    <TextView
+         	    android:duplicateParentState="true"
+         	    android:contentDescription="@null">
+         	</ImageView>
+         	<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:layout_marginLeft="10dp"
                 android:paddingTop="10dp"
-                android:text="¿Porque pago dentro del \n establecimiento de salud?"/>
+                android:text="@string/question_14"/>
             <gob.sis.simos.ui.UITextView
                 android:gravity="left"
-                android:text="Ninguno seleccionado"
+                android:text="@string/answer_no_selection"
                 android:id="@+id/txt_paymentIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                app:preguntaId="14"/>
+                app:preguntaId="14"
+                app:preguntaParentId="7"/>
         </LinearLayout>
         </LinearLayout>
         
@@ -250,34 +281,42 @@
         <LinearLayout 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="0.7"
-                android:gravity="center_vertical"
-                android:text="¿Es cobro indebido?"/>
-            <RadioGroup 
+                android:layout_weight="0.5"
+                android:text="@string/question_15"/>
+            <gob.sis.simos.ui.UIRadioGroup 
                 android:id="@+id/rg_improper_payment"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:orientation="horizontal">
+                <gob.sis.simos.ui.UIRadioButton
+                    android:text="@string/answer_yes"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:orientation="horizontal">
-                <gob.sis.simos.ui.UIRadioButton android:text="Si" android:layout_width="wrap_content"
-                  app:preguntaId="15" app:preguntaParentId="7" app:opcionRespuestaId="65"  />
+                  	app:preguntaId="15"
+                  	app:preguntaParentId="7"
+                  	app:opcionRespuestaId="65"  />
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
-                <gob.sis.simos.ui.UIRadioButton android:text="No" android:layout_width="wrap_content"
-                    app:preguntaId="15" app:preguntaParentId="7" app:opcionRespuestaId="66"/>
-            </RadioGroup>
+                <gob.sis.simos.ui.UIRadioButton
+                    android:text="@string/answer_no"
+                    android:layout_width="wrap_content"
+                    app:preguntaId="15"
+                    app:preguntaParentId="7"
+                    app:opcionRespuestaId="66"/>
+            </gob.sis.simos.ui.UIRadioGroup>
         </LinearLayout>
        
  

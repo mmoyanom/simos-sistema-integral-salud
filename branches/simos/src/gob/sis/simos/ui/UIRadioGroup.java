@@ -5,9 +5,9 @@ import gob.sis.simos.entity.Respuesta;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
-public class UIRadioButton extends RadioButton {
+public class UIRadioGroup extends RadioGroup {
 
 	public String value;
 	private Integer preguntaId;
@@ -15,24 +15,16 @@ public class UIRadioButton extends RadioButton {
 	private Integer opcionRespuestaId;
 	private Integer respuestaParentId;
 	
-	public Integer getRespuestaParentId() {
-		return respuestaParentId;
-	}
-
-	public void setRespuestaParentId(Integer respuestaParentId) {
-		this.respuestaParentId = respuestaParentId;
-	}
-
-	public UIRadioButton(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		init(attrs);
-	}
-
-	public UIRadioButton(Context context, AttributeSet attrs) {
+	public UIRadioGroup(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		init(attrs);
+		this.init(attrs);
 	}
-	
+
+	public UIRadioGroup(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+
 	private void init(AttributeSet attrs) { 
 	    TypedArray a=getContext().obtainStyledAttributes(
 	         attrs,
@@ -41,34 +33,13 @@ public class UIRadioButton extends RadioButton {
 	    this.opcionRespuestaId = a.getInteger(R.styleable.UIOpcionRespuesta_opcionRespuestaId, -1);
 	    this.preguntaParentId = a.getInteger(R.styleable.UIOpcionRespuesta_preguntaParentId, -1);
 	    this.respuestaParentId = a.getInteger(R.styleable.UIOpcionRespuesta_respuestaParentId, -1);
-	    /*Log.i("test",a.getInteger(
-	         R.styleable.UICheckBox_preguntaId,-1));
-	    Log.i("test",""+a.getColor(
-	         R.styleable.MyCustomView_android_textColor, Color.BLACK));
-	    Log.i("test",a.getString(
-	         R.styleable.MyCustomView_extraInformation));*/
-
-	    //Don't forget this
 	    a.recycle();
 	}
 
-	public UIRadioButton(Context context) {
-		super(context);
-		// TODO Auto-generated constructor stub
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
 	public Integer getPreguntaId() {
 		return preguntaId;
 	}
-	
+
 	public void setPreguntaId(Integer preguntaId) {
 		this.preguntaId = preguntaId;
 	}
@@ -88,15 +59,20 @@ public class UIRadioButton extends RadioButton {
 	public void setOpcionRespuestaId(Integer opcionRespuestaId) {
 		this.opcionRespuestaId = opcionRespuestaId;
 	}
-	
-	public Respuesta getRespuesta(){
-		Respuesta r = new Respuesta();
-		r.setPreguntaId(getPreguntaId());
-		r.setPreguntaParentId(getPreguntaParentId());
-		r.setRespuestaParentId(getRespuestaParentId());
-		r.setOpcionRespuestaId(getOpcionRespuestaId());
-		return r;
+
+	public Integer getRespuestaParentId() {
+		return respuestaParentId;
+	}
+
+	public void setRespuestaParentId(Integer respuestaParentId) {
+		this.respuestaParentId = respuestaParentId;
 	}
 	
+	public Respuesta getRespuesta(){
+		int id = getCheckedRadioButtonId();
+		UIRadioButton rb = (UIRadioButton)findViewById(id);
+		return rb.getRespuesta();
+	}
 	
+
 }
