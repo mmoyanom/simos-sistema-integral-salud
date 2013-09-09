@@ -169,9 +169,30 @@ Public Class ApplicationService
 
             For Each r As Respuesta In rptaEnc.respuestas
                 r.encuestadoId = result
-                service.SetRespuestaEncuesta(r)
-
-
+                If r.preguntaId = 7 Then
+                    Dim id = service.SetRespuestaEncuesta(r)
+                    Dim child = r.child
+                    For Each rx As Respuesta In child
+                        rx.respuestaParentId = id
+                        service.SetRespuestaEncuesta(rx)
+                    Next
+                ElseIf r.preguntaId = 21 Then
+                    Dim id = service.SetRespuestaEncuesta(r)
+                    Dim child = r.child
+                    For Each rx As Respuesta In child
+                        If rx.preguntaId = 23 Then
+                            rx.respuestaParentId = id
+                            Dim idrx = service.SetRespuestaEncuesta(rx)
+                            Dim childrx = rx.child
+                            For Each rxy As Respuesta In child
+                                rxy.preguntaId = idrx
+                                service.SetRespuestaEncuesta(rxy)
+                            Next
+                        End If
+                    Next
+                Else
+                    service.SetRespuestaEncuesta(r)
+                End If
 
             Next
         Else
