@@ -7,9 +7,9 @@ import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.fragment.InsumoCheckListFragment;
 import gob.sis.simos.fragment.MedicamentoCheckListFragment;
+import gob.sis.simos.ui.DialogAddToReceta;
 import gob.sis.simos.ui.DialogCantidadComercial;
 import gob.sis.simos.ui.DialogCantidadGenerico;
-import gob.sis.simos.ui.DialogAddToReceta;
 
 import java.util.Iterator;
 import java.util.Locale;
@@ -491,4 +491,7 @@ public class EntregaRecetasActivity extends RoboFragmentActivity
 		alert = builder.create();
 		alert.show();
 	}
+	
+	
+	
 }

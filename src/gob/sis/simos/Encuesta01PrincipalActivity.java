@@ -26,8 +26,10 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -80,6 +82,8 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		dialog = new ProgressDialog(this);
+		 
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayUseLogoEnabled(false);
@@ -175,7 +179,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
 				// TODO Auto-generated method stub
-				encuestaController.save(encuesta);
+				new SendEncuestaTask().execute(encuesta);
 			}
 		});
 		this.alertConfirmSave.show();
@@ -530,4 +534,29 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		alert = builder.create();
 		alert.show();
 	}
+	
+	private ProgressDialog dialog;
+	
+	class SendEncuestaTask extends AsyncTask<Encuesta01, Void, Integer> {
+
+		@Override
+		protected void onPreExecute() {
+			dialog.setTitle(R.string.title_send_encta);
+			dialog.setMessage(getResources().getString(R.string.please_wait));
+			dialog.show();
+		}
+		
+		@Override
+		protected Integer doInBackground(Encuesta01... params) {
+			encuestaController.save(encuesta);
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Integer result) {
+			dialog.dismiss();
+		}
+		
+	}
+	
 }
