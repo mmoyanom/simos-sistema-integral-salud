@@ -60,6 +60,18 @@
         End Set
     End Property
 
+
+    Private _preguntaId As String
+    Public Property preguntaId() As String
+        Get
+            Return _preguntaId
+        End Get
+        Set(ByVal value As String)
+            _preguntaId = value
+        End Set
+    End Property
+
+
     Private _medins As String
     Public Property prescripcionId() As String
         Get
@@ -69,4 +81,16 @@
             _medins = value
         End Set
     End Property
+
+
+    Private _child As List(Of Respuesta)
+    Public Property child() As List(Of Respuesta)
+        Get
+            Return _child
+        End Get
+        Set(ByVal value As List(Of Respuesta))
+            _child = value
+        End Set
+    End Property
+
 End Class
