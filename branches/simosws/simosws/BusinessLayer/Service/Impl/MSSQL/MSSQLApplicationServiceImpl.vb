@@ -296,24 +296,46 @@ Namespace Service.Impl
                 cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = ConfigurationManager.AppSettings("SP_INSERTARPTAS").ToString()
 
+                Dim opcionRespuestaId = rptaEnc.opcionRespuestaId
+                If opcionRespuestaId = 0 Then
+                    cmd.Parameters.AddWithValue("@RPTA_I_ID_OPCIONESRESPUESTA", DBNull.Value)
+                Else
+                    cmd.Parameters.AddWithValue("@RPTA_I_ID_OPCIONESRESPUESTA", rptaEnc.opcionRespuestaId)
+                End If
 
-                cmd.Parameters.Add("@RPTA_I_ID_OPCIONESRESPUESTA", SqlDbType.Int).Value = rptaEnc.opcionRespuestaId
-                cmd.Parameters.Add("@RPTA_I_ID_ENCUESTADO", SqlDbType.Int).Value = rptaEnc.encuestadoId
-                cmd.Parameters.Add("@RPTA_I_ID_RESPUESTAPADRE", SqlDbType.Int).Value = rptaEnc.respuestaParentId
+                Dim encuestadoId = rptaEnc.encuestadoId
+                If encuestadoId = 0 Then
+                    cmd.Parameters.AddWithValue("@RPTA_I_ID_ENCUESTADO", DBNull.Value)
+                Else
+                    cmd.Parameters.AddWithValue("@RPTA_I_ID_ENCUESTADO", rptaEnc.encuestadoId)
+                End If
+
+
+                Dim respuestaParentId = rptaEnc.respuestaParentId
+                If respuestaParentId = 0 Then
+                    cmd.Parameters.AddWithValue("@RPTA_I_ID_RESPUESTAPADRE", DBNull.Value)
+                Else
+                    cmd.Parameters.AddWithValue("@RPTA_I_ID_RESPUESTAPADRE", respuestaParentId)
+                End If
+
 
                 Dim respuestaTexto = rptaEnc.respuestaTexto
                 If respuestaTexto Is Nothing Then
-                    respuestaTexto = String.Empty
+                    cmd.Parameters.AddWithValue("@RPTA_V_TEXTORESPUESTA", SqlDbType.VarChar).Value = DBNull.Value
+                Else
+                    cmd.Parameters.AddWithValue("@RPTA_V_TEXTORESPUESTA", SqlDbType.VarChar).Value = respuestaTexto
                 End If
-                cmd.Parameters.Add("@RPTA_V_TEXTORESPUESTA", SqlDbType.VarChar).Value = respuestaTexto
-                cmd.Parameters.Add("@RPTA_N_RESPUESTA", SqlDbType.Decimal).Value = rptaEnc.respuestaNumero
+
+                cmd.Parameters.AddWithValue("@RPTA_N_RESPUESTA", SqlDbType.Decimal).Value = rptaEnc.respuestaNumero
 
                 Dim prescripcionId = rptaEnc.prescripcionId
                 If prescripcionId Is Nothing Then
-                    prescripcionId = String.Empty
+                    cmd.Parameters.AddWithValue("@RPTA_I_V_MEDICAMENTOINSUMO", SqlDbType.VarChar).Value = DBNull.Value
+                Else
+                    cmd.Parameters.AddWithValue("@RPTA_I_V_MEDICAMENTOINSUMO", SqlDbType.VarChar).Value = prescripcionId
                 End If
-                cmd.Parameters.Add("@RPTA_I_V_MEDICAMENTOINSUMO", SqlDbType.VarChar).Value = prescripcionId
-                cmd.Parameters.Add("@RPTA_I_ID_RESPUESTA", SqlDbType.Int).Direction = ParameterDirection.Output
+
+                cmd.Parameters.AddWithValue("@RPTA_I_ID_RESPUESTA", SqlDbType.Int).Direction = ParameterDirection.Output
                 cmd.ExecuteScalar()
                 resul = cmd.Parameters("@RPTA_I_ID_RESPUESTA").Value
 
