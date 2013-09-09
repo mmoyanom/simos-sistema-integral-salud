@@ -200,24 +200,28 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 		UIRadioButton rbGenere = (UIRadioButton)this.rgGenere.findViewById(idGenere);
 		Respuesta rpGenere = rbGenere.getRespuesta();
 		rpGenere.setPreguntaParentId(null);
+		rpGenere.setRespuestaParentId(null);
 		rspts.add(rpGenere);
 		
 		OpcionRespuesta orPatientRelation = (OpcionRespuesta)this._spRelacionPaciente.getSelectedItem();
 		Respuesta rpPatientRelation = new Respuesta();
 		rpPatientRelation.setOpcionRespuestaId(orPatientRelation.getOpcionRespuestaId());
 		rpPatientRelation.setPreguntaId(orPatientRelation.getPreguntaId());
+		rpPatientRelation.setRespuestaParentId(null);
 		rspts.add(rpPatientRelation);
 		
 		int idReference = this._rgReference.getCheckedRadioButtonId();
 		UIRadioButton rbReference = (UIRadioButton)this._rgReference.findViewById(idReference);
 		Respuesta rpReference = rbReference.getRespuesta();
 		rpReference.setPreguntaParentId(null);
+		rpReference.setRespuestaParentId(null);
 		rspts.add(rpReference);
 		
 		OpcionRespuesta orNoReferenceSheet = (OpcionRespuesta)this._spReferencia.getSelectedItem();
 		Respuesta rpNoReferenceSheet = new Respuesta();
 		rpNoReferenceSheet.setOpcionRespuestaId(orNoReferenceSheet.getOpcionRespuestaId());
 		rpNoReferenceSheet.setPreguntaId(orNoReferenceSheet.getPreguntaId());
+		rpNoReferenceSheet.setRespuestaParentId(null);
 		rspts.add(rpNoReferenceSheet);
 		
 		return rspts;

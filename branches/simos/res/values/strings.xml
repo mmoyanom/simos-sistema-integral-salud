@@ -45,6 +45,11 @@
     <string name="question_20">¿Desea formalizar su reclamo?</string>
     <!---->
     
+    <!-- dialogs -->
+    <string name="title_send_encta">Enviando Encuesta</string>
+    <string name="please_wait">Espere un poco, por favor.</string>
+    <!---->
+    
     <!-- Main Menu Options titles -->
     <string-array name="main_menu_titles">
         <item>Iniciar jornada</item>
