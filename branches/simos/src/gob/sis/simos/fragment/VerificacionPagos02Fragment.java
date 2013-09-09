@@ -149,41 +149,23 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 		List<Respuesta> rspts = new ArrayList<Respuesta>();
 		
 		// pregunta 16
-		/*OpcionRespuesta or16 = (OpcionRespuesta)splugarIndicacionPago.getSelectedItem();
-		Respuesta rp16 = new Respuesta();
-		rp16.setPreguntaId(or16.getPreguntaId());
-		rp16.setOpcionRespuestaId(or16.getOpcionRespuestaId());
-		rspts.add(rp16);*/
+		splugarIndicacionPago.getRespuesta().setRespuestaParentId(null);
 		rspts.add(splugarIndicacionPago.getRespuesta());
 		
 		// pregunta 17
-		/*OpcionRespuesta or17 = (OpcionRespuesta)spPersonaIndicaPago.getSelectedItem();
-		Respuesta rp17 = new Respuesta();
-		rp17.setPreguntaId(or17.getPreguntaId());
-		rp17.setOpcionRespuestaId(or17.getOpcionRespuestaId());
-		rspts.add(rp17);*/
+		spPersonaIndicaPago.getRespuesta().setRespuestaParentId(null);
 		rspts.add(spPersonaIndicaPago.getRespuesta());
 		
 		// pregunta 18
-		/*int idDevolucion = this.rgDevolucion.getCheckedRadioButtonId();
-		UIRadioButton rbDevolucion = (UIRadioButton)this.rgDevolucion.findViewById(idDevolucion);
-		Respuesta rpDevolucion = rbDevolucion.getRespuesta();
-		rspts.add(rpDevolucion);*/
+		rgDevolucion.getRespuesta().setRespuestaParentId(null);
 		rspts.add(rgDevolucion.getRespuesta());
 		
 		// pregunta 19
-		/*OpcionRespuesta or19 = (OpcionRespuesta)spContribuyenteDevolucion.getSelectedItem();
-		Respuesta rp19 = new Respuesta();
-		rp19.setPreguntaId(or19.getPreguntaId());
-		rp19.setOpcionRespuestaId(or19.getOpcionRespuestaId());
-		rspts.add(rp19);*/
+		spContribuyenteDevolucion.getRespuesta().setRespuestaParentId(null);
 		rspts.add(spContribuyenteDevolucion.getRespuesta());
 		
 		// pregunta 20
-		/*int idReclamo = this.rgFormalizarReclamo.getCheckedRadioButtonId();
-		UIRadioButton rbReclamo = (UIRadioButton)this.rgFormalizarReclamo.findViewById(idReclamo);
-		Respuesta rpReclamo = rbReclamo.getRespuesta();
-		rspts.add(rpReclamo);*/
+		rgFormalizarReclamo.getRespuesta().setRespuestaParentId(null);
 		rspts.add(rgFormalizarReclamo.getRespuesta());
 		
 		return rspts;

@@ -145,6 +145,9 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 			// pregunta 14
 			if(this.rsptsPaymentIn != null){
 				if(this.rsptsPaymentIn.size() > 0){
+					for(int x = 0; x < this.rsptsPaymentIn.size() ; x++){
+						this.rsptsPaymentIn.get(x).setPreguntaParentId(7);
+					}
 					rspts.addAll(this.rsptsPaymentIn);
 				} else {
 					Respuesta r = new Respuesta();
@@ -212,6 +215,9 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 			// pregunta 14
 			if(this.rsptsPaymentIn != null){
 				if(this.rsptsPaymentIn.size() > 0){
+					for(int x = 0; x < this.rsptsPaymentIn.size() ; x++){
+						this.rsptsPaymentIn.get(x).setPreguntaParentId(7);
+					}
 					rspts.addAll(this.rsptsPaymentIn);
 				} else {
 					Respuesta r = new Respuesta();

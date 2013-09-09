@@ -104,15 +104,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:orientation="horizontal">
-                <gob.sis.simos.ui.UIRadioButton android:text="Masculino" android:layout_width="wrap_content"
-                    app:preguntaId="3" app:opcionRespuestaId="6"/>
+                <gob.sis.simos.ui.UIRadioButton 
+                    android:text="Masculino" 
+                    android:layout_width="wrap_content"
+                    app:preguntaId="3" 
+                    app:opcionRespuestaId="6"/>
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
-                <gob.sis.simos.ui.UIRadioButton android:text="Femenino" android:layout_width="wrap_content"
-                    app:preguntaId="3" app:opcionRespuestaId="7"/>
+                <gob.sis.simos.ui.UIRadioButton 
+                    android:text="Femenino" 
+                    android:layout_width="wrap_content"
+                    app:preguntaId="3"
+                    app:opcionRespuestaId="7"/>
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
