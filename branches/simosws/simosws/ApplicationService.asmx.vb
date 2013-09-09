@@ -174,6 +174,7 @@ Public Class ApplicationService
                     Dim child = r.child
                     For Each rx As Respuesta In child
                         rx.respuestaParentId = id
+                        rx.encuestadoId = result
                         service.SetRespuestaEncuesta(rx)
                     Next
                 ElseIf r.preguntaId = 21 Then
@@ -182,10 +183,12 @@ Public Class ApplicationService
                     For Each rx As Respuesta In child
                         If rx.preguntaId = 23 Then
                             rx.respuestaParentId = id
+                            rx.encuestadoId = result
                             Dim idrx = service.SetRespuestaEncuesta(rx)
                             Dim childrx = rx.child
-                            For Each rxy As Respuesta In child
+                            For Each rxy As Respuesta In childrx
                                 rxy.preguntaId = idrx
+                                rxy.encuestadoId = result
                                 service.SetRespuestaEncuesta(rxy)
                             Next
                         End If
