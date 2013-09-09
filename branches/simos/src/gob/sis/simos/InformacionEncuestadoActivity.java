@@ -199,6 +199,7 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 		int idGenere = this.rgGenere.getCheckedRadioButtonId();
 		UIRadioButton rbGenere = (UIRadioButton)this.rgGenere.findViewById(idGenere);
 		Respuesta rpGenere = rbGenere.getRespuesta();
+		rpGenere.setPreguntaParentId(null);
 		rspts.add(rpGenere);
 		
 		OpcionRespuesta orPatientRelation = (OpcionRespuesta)this._spRelacionPaciente.getSelectedItem();
@@ -210,6 +211,7 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 		int idReference = this._rgReference.getCheckedRadioButtonId();
 		UIRadioButton rbReference = (UIRadioButton)this._rgReference.findViewById(idReference);
 		Respuesta rpReference = rbReference.getRespuesta();
+		rpReference.setPreguntaParentId(null);
 		rspts.add(rpReference);
 		
 		OpcionRespuesta orNoReferenceSheet = (OpcionRespuesta)this._spReferencia.getSelectedItem();

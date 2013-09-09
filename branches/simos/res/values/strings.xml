@@ -17,6 +17,34 @@
     <string name="msg_login_succeeded">Ingreso correcto.</string>
     <!---->
     
+    <!-- Options -->
+    <string name="answer_yes">Si</string>
+    <string name="answer_no">No</string>
+    <string name="answer_in_eess">Dentro del EESS</string>
+    <string name="answer_out_eess">Fuera del EESS</string>
+    <string name="answer_both_eess">Ambos</string>
+    <string name="answer_enter_tickets">No se han ingresado boletas.</string>
+    <string name="answer_no_selection">Ninguno seleccionado.</string>
+    <string name="answer_amount">0.0</string>
+    <!---->
+    
+    <!-- Questions -->
+    <string name="question_7">Servicio requerido</string>
+    <string name="question_8">¿Realizo algun pago?</string>
+    <string name="question_9">¿Cuenta con boletas?</string>
+    <string name="question_10">¿Donde realizo los pagos?</string>
+    <string name="question_11">¿Porque pago fuera del EESS?</string>
+    <string name="question_12">Boletas entregadas en EESS</string>
+    <string name="question_13">Monto pagado en EESS (S/.)</string>
+    <string name="question_14">¿Porque pago dentro del EESS?</string>
+    <string name="question_15">¿Es cobro indebido?</string>
+    <string name="question_16">¿Donde le indicaron que pagara?</string>
+    <string name="question_17">¿Quien le indicó que debía pagar?</string>
+    <string name="question_18">¿Se realizó la devolución?</string>
+    <string name="question_19">¿Quién contribuyó a la solución del caso?</string>
+    <string name="question_20">¿Desea formalizar su reclamo?</string>
+    <!---->
+    
     <!-- Main Menu Options titles -->
     <string-array name="main_menu_titles">
         <item>Iniciar jornada</item>

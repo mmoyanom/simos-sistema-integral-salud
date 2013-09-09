@@ -7,6 +7,8 @@ import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.ui.UIRadioButton;
+import gob.sis.simos.ui.UIRadioGroup;
+import gob.sis.simos.ui.UISpinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,18 +19,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 
 import com.google.inject.Inject;
 
 public class VerificacionPagos02Fragment extends RoboFragment {
 
-	private Spinner splugarIndicacionPago;
-	private Spinner spPersonaIndicaPago;
-	private RadioGroup rgDevolucion;
-	private RadioGroup rgFormalizarReclamo;
-	private Spinner spContribuyenteDevolucion;
+	private UISpinner splugarIndicacionPago;
+	private UISpinner spPersonaIndicaPago;
+	private UIRadioGroup rgDevolucion;
+	private UIRadioGroup rgFormalizarReclamo;
+	private UISpinner spContribuyenteDevolucion;
 	@Inject
 	private VerificacionPagoController controller;
 	private VerificacionPago verificacion;
@@ -38,11 +38,11 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.frgmnt_vrfccn_pgs_02, null);
 		
-		this.splugarIndicacionPago = (Spinner)v.findViewById(R.id.spinner_1);
-		this.spPersonaIndicaPago = (Spinner)v.findViewById(R.id.spinner_2);
-		this.spContribuyenteDevolucion = (Spinner)v.findViewById(R.id.spinner_3);
-		this.rgDevolucion = (RadioGroup)v.findViewById(R.id.rg_devolucion);
-		this.rgFormalizarReclamo = (RadioGroup)v.findViewById(R.id.rg_formalizar_reclamo);
+		this.splugarIndicacionPago = (UISpinner)v.findViewById(R.id.spinner_1);
+		this.spPersonaIndicaPago = (UISpinner)v.findViewById(R.id.spinner_2);
+		this.spContribuyenteDevolucion = (UISpinner)v.findViewById(R.id.spinner_3);
+		this.rgDevolucion = (UIRadioGroup)v.findViewById(R.id.rg_devolucion);
+		this.rgFormalizarReclamo = (UIRadioGroup)v.findViewById(R.id.rg_formalizar_reclamo);
 		return v;
 	}
 
@@ -149,37 +149,42 @@ public class VerificacionPagos02Fragment extends RoboFragment {
 		List<Respuesta> rspts = new ArrayList<Respuesta>();
 		
 		// pregunta 16
-		OpcionRespuesta or16 = (OpcionRespuesta)splugarIndicacionPago.getSelectedItem();
+		/*OpcionRespuesta or16 = (OpcionRespuesta)splugarIndicacionPago.getSelectedItem();
 		Respuesta rp16 = new Respuesta();
 		rp16.setPreguntaId(or16.getPreguntaId());
 		rp16.setOpcionRespuestaId(or16.getOpcionRespuestaId());
-		rspts.add(rp16);
+		rspts.add(rp16);*/
+		rspts.add(splugarIndicacionPago.getRespuesta());
 		
 		// pregunta 17
-		OpcionRespuesta or17 = (OpcionRespuesta)spPersonaIndicaPago.getSelectedItem();
+		/*OpcionRespuesta or17 = (OpcionRespuesta)spPersonaIndicaPago.getSelectedItem();
 		Respuesta rp17 = new Respuesta();
 		rp17.setPreguntaId(or17.getPreguntaId());
 		rp17.setOpcionRespuestaId(or17.getOpcionRespuestaId());
-		rspts.add(rp17);
+		rspts.add(rp17);*/
+		rspts.add(spPersonaIndicaPago.getRespuesta());
 		
 		// pregunta 18
-		int idDevolucion = this.rgDevolucion.getCheckedRadioButtonId();
+		/*int idDevolucion = this.rgDevolucion.getCheckedRadioButtonId();
 		UIRadioButton rbDevolucion = (UIRadioButton)this.rgDevolucion.findViewById(idDevolucion);
 		Respuesta rpDevolucion = rbDevolucion.getRespuesta();
-		rspts.add(rpDevolucion);
+		rspts.add(rpDevolucion);*/
+		rspts.add(rgDevolucion.getRespuesta());
 		
 		// pregunta 19
-		OpcionRespuesta or19 = (OpcionRespuesta)spContribuyenteDevolucion.getSelectedItem();
+		/*OpcionRespuesta or19 = (OpcionRespuesta)spContribuyenteDevolucion.getSelectedItem();
 		Respuesta rp19 = new Respuesta();
 		rp19.setPreguntaId(or19.getPreguntaId());
 		rp19.setOpcionRespuestaId(or19.getOpcionRespuestaId());
-		rspts.add(rp19);
+		rspts.add(rp19);*/
+		rspts.add(spContribuyenteDevolucion.getRespuesta());
 		
 		// pregunta 20
-		int idReclamo = this.rgFormalizarReclamo.getCheckedRadioButtonId();
+		/*int idReclamo = this.rgFormalizarReclamo.getCheckedRadioButtonId();
 		UIRadioButton rbReclamo = (UIRadioButton)this.rgFormalizarReclamo.findViewById(idReclamo);
-		Respuesta rpReclamo= rbReclamo.getRespuesta();
-		rspts.add(rpReclamo);
+		Respuesta rpReclamo = rbReclamo.getRespuesta();
+		rspts.add(rpReclamo);*/
+		rspts.add(rgFormalizarReclamo.getRespuesta());
 		
 		return rspts;
 	}

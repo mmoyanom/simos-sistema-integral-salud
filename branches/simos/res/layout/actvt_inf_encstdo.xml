@@ -105,14 +105,14 @@
                     android:layout_weight="0.3"
                     android:orientation="horizontal">
                 <gob.sis.simos.ui.UIRadioButton android:text="Masculino" android:layout_width="wrap_content"
-                    app:preguntaId="3" app:preguntaParentId="-1" app:opcionRespuestaId="6"/>
+                    app:preguntaId="3" app:opcionRespuestaId="6"/>
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
                 <gob.sis.simos.ui.UIRadioButton android:text="Femenino" android:layout_width="wrap_content"
-                    app:preguntaId="3" app:preguntaParentId="-1" app:opcionRespuestaId="7"/>
+                    app:preguntaId="3" app:opcionRespuestaId="7"/>
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
@@ -188,14 +188,14 @@
                     android:orientation="horizontal">
                 <!-- PREGUNTA 5 -->
                 <gob.sis.simos.ui.UIRadioButton android:text="Sí" android:layout_width="wrap_content"
-                    app:preguntaId="5" app:preguntaParentId="-1" app:opcionRespuestaId="14"/>
+                    app:preguntaId="5" app:opcionRespuestaId="14"/>
                 <View android:layout_width="1dp"
 			            android:layout_height="match_parent"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="2dp"
 			            android:background="#F2F2F2"/>
                 <gob.sis.simos.ui.UIRadioButton android:text="No" android:layout_width="wrap_content"
-                    app:preguntaId="5" app:preguntaParentId="-1" app:opcionRespuestaId="15"/>
+                    app:preguntaId="5" app:opcionRespuestaId="15"/>
             </RadioGroup>
         </LinearLayout>
         <View

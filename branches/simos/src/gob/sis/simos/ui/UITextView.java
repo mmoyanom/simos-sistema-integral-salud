@@ -1,8 +1,10 @@
 package gob.sis.simos.ui;
 
 import gob.sis.simos.R;
+import gob.sis.simos.entity.Respuesta;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -61,6 +63,20 @@ public class UITextView extends TextView {
 	    this.opcionRespuestaId = a.getInteger(R.styleable.UIOpcionRespuesta_opcionRespuestaId, -1);
 	    this.preguntaParentId = a.getInteger(R.styleable.UIOpcionRespuesta_preguntaParentId, -1);
 	    a.recycle();
+	}
+	
+	public Respuesta getRespuesta(){
+		Respuesta r = new Respuesta();
+		r.setPreguntaId(getPreguntaId());
+		r.setOpcionRespuestaId(getOpcionRespuestaId());
+		if(getInputType() == (InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL)){
+			double value = Double.parseDouble(getText().toString());
+			r.setRespuestaNumero(value);
+		} else {
+			r.setRespuestaTexto(getText().toString());
+		}
+		
+		return r;
 	}
 
 

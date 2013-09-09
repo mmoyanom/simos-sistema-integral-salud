@@ -6,6 +6,7 @@ import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.ui.UIRadioButton;
+import gob.sis.simos.ui.UIRadioGroup;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,8 +28,8 @@ import com.google.inject.Inject;
 
 public class VerificacionPagos00Fragment extends RoboFragment implements OnCheckedChangeListener {
 	
-	private RadioGroup rgServices;
-	private RadioGroup rgRealizoPago;
+	private UIRadioGroup rgServices;
+	private UIRadioGroup rgRealizoPago;
 	private String[] added_services;
 	private VerificacionPago verificacion;
 	@Inject private VerificacionPagoController controller;
@@ -49,10 +50,10 @@ public class VerificacionPagos00Fragment extends RoboFragment implements OnCheck
 		
 		View view = inflater.inflate(R.layout.frgmnt_vrfccn_pgs_00, null);
 		
-		this.rgServices = (RadioGroup)view.findViewById(R.id.rg_services);
+		this.rgServices = (UIRadioGroup)view.findViewById(R.id.rg_services);
 		this.rgServices.setOnCheckedChangeListener(this);
 		
-		this.rgRealizoPago = (RadioGroup)view.findViewById(R.id.rg_payment_made);
+		this.rgRealizoPago = (UIRadioGroup)view.findViewById(R.id.rg_payment_made);
 		this.rgRealizoPago.setOnCheckedChangeListener(this);
 		return view;
 	}
@@ -176,7 +177,7 @@ public class VerificacionPagos00Fragment extends RoboFragment implements OnCheck
 	}
 	
 	public Respuesta getRespuestaService(){
-		int id = this.rgServices.getCheckedRadioButtonId();
+		/*int id = this.rgServices.getCheckedRadioButtonId();
 		if(id != -1){
 			UIRadioButton rb = (UIRadioButton)this.rgServices.findViewById(id);
 			Respuesta rsp7 = new Respuesta();
@@ -184,11 +185,12 @@ public class VerificacionPagos00Fragment extends RoboFragment implements OnCheck
 			rsp7.setOpcionRespuestaId(rb.getOpcionRespuestaId());
 			return rsp7;
 		}
-		return null;
+		return null*/
+		return this.rgServices.getRespuesta();
 	}
 	
 	public Respuesta getRespuestaRealizoPago(){
-		int id = this.rgRealizoPago.getCheckedRadioButtonId();
+		/*int id = this.rgRealizoPago.getCheckedRadioButtonId();
 		if(id != -1){
 			UIRadioButton rb = (UIRadioButton)this.rgRealizoPago.findViewById(id);
 			Respuesta rsp7 = new Respuesta();
@@ -196,7 +198,8 @@ public class VerificacionPagos00Fragment extends RoboFragment implements OnCheck
 			rsp7.setOpcionRespuestaId(rb.getOpcionRespuestaId());
 			return rsp7;
 		}
-		return null;
+		return null;*/
+		return this.rgRealizoPago.getRespuesta();
 	}
 	
 	public String getSelectedServiceName(){

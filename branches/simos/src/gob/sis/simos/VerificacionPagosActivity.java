@@ -61,8 +61,6 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.actvt_vrfccn_pgs);
 		
-		//this.added_services = getIntent().getStringArrayExtra("added_services");
-		
 		this.frgmnt0 = new VerificacionPagos00Fragment();
 		this.frgmnt0.setArguments(getIntent().getExtras());
 		
@@ -230,6 +228,7 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 			List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
 			List<Respuesta> rsp01 = this.frgmnt1.getRespuestas();
 			List<Respuesta> rsp02 = this.frgmnt2.getRespuestas();
+			
 			respuestas.addAll(rsp00);
 			respuestas.addAll(rsp01);
 			respuestas.addAll(rsp02);

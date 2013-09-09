@@ -1,6 +1,7 @@
 package gob.sis.simos.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
@@ -42,6 +43,25 @@ public class Respuesta implements Serializable {
 	@Expose
 	private String prescripcionId;
 	
+	@Expose
+	private Integer preguntaParentId;
+	
+	@Expose
+	private List<Respuesta> child;
+	
+	
+	public Integer getPreguntaParentId() {
+		return preguntaParentId;
+	}
+	public void setPreguntaParentId(Integer preguntaParentId) {
+		this.preguntaParentId = preguntaParentId;
+	}
+	public List<Respuesta> getChild() {
+		return child;
+	}
+	public void setChild(List<Respuesta> child) {
+		this.child = child;
+	}
 	public Integer getOpcionRespuestaId() {
 		return opcionRespuestaId;
 	}
