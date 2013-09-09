@@ -187,7 +187,7 @@ Public Class ApplicationService
                             Dim idrx = service.SetRespuestaEncuesta(rx)
                             Dim childrx = rx.child
                             For Each rxy As Respuesta In childrx
-                                rxy.preguntaId = idrx
+                                rxy.respuestaParentId = idrx
                                 rxy.encuestadoId = result
                                 service.SetRespuestaEncuesta(rxy)
                             Next
