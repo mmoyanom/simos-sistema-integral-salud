@@ -101,7 +101,7 @@ public class SimosSoapServices {
 		envelope.dotNet = true;
 		envelope.setOutputSoapObject(request);
 		
-		HttpTransportSE httpTransport = new HttpTransportSE("http://192.168.2.36:8953/ApplicationService.asmx");
+		HttpTransportSE httpTransport = new HttpTransportSE("http://192.168.2.23:8953/ApplicationService.asmx");
 		httpTransport.call(soap_action, envelope);
 		Object response = envelope.getResponse();
 		if(response != null) return response.toString();

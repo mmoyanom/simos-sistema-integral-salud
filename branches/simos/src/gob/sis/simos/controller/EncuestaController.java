@@ -12,8 +12,8 @@ public class EncuestaController {
 	@Inject
 	private EncuestaServiceImpl encuestaService;
 	
-	public void save(Encuesta01 encuesta) {
-		encuestaService.saveEncuesta(encuesta);
+	public Result save(Encuesta01 encuesta) {
+		return encuestaService.saveEncuesta(encuesta);
 	}
 
 	

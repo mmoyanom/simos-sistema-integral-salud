@@ -143,18 +143,7 @@ public class PrescriptionServiceImpl { // implements PrescriptionService {
 	}
 
 	public List<Insumo> findInsumos(String text) {
-		/*List<Insumo> items = new ArrayList<Insumo>();
-		for(int i=0;i < 5; i++){
-			Insumo in = new Insumo();
-			in.setId(""+(i+1));
-			in.setNombre("Insumo "+(i+1));
-			in.setDescripcion("Medida");
-			in.setRecetado(3);
-			in.setEntregado(2);
-			in.setCategoria("Categoria");
-			items.add(in);
-		}
-		return items;*/
+		
 		List items = new ArrayList<Insumo>();
 		try {
 			String str = text.toLowerCase();

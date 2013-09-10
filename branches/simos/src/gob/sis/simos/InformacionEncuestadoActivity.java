@@ -2,6 +2,7 @@ package gob.sis.simos;
 
 import gob.sis.simos.adapters.OpcionRespuestaSpinnerAdapter;
 import gob.sis.simos.controller.InfoEncuestadoController;
+import gob.sis.simos.controller.Result;
 import gob.sis.simos.entity.Encuesta01;
 import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
@@ -138,13 +139,23 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 		
 		if(requestCode == CALL_ENCUESTA){
 			if(resultCode == RESULT_OK){
-				
+				clear();
+				Result rslt = (Result)data.getSerializableExtra("send_result");
+				showMessage(rslt.getMessage(), Toast.LENGTH_LONG);
 			} else if(resultCode == RESULT_CANCELED){
 				
 			}
 		}
 	}
-	
+	/**
+	 * Este metodo limpia los campos
+	 * */
+	private void clear() {
+		
+		this._spDocumentType.setSelection(0);
+		
+	}
+
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		String str = isClear();
@@ -157,8 +168,7 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 			
 			Intent i = new Intent(this, Encuesta01PrincipalActivity.class);
 			i.putExtra("encuesta", this.encuesta);
-			//this.startActivityForResult(i, CALL_ENCUESTA);
-			this.startActivity(i);
+			this.startActivityForResult(i, CALL_ENCUESTA);
 			return true;
 		}
 		
