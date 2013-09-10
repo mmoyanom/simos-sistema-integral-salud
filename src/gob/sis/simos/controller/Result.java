@@ -1,16 +1,20 @@
 package gob.sis.simos.controller;
 
-public class Result {
+import java.io.Serializable;
 
+public class Result implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	public ResultType resultType;
 	private String message;
 	
-	public ResultType getResultType() {
+	/*public ResultType getResultType() {
 		return resultType;
 	}
 	public void setResultType(ResultType resultType) {
 		this.resultType = resultType;
-	}
+	}*/
 	public String getMessage() {
 		return message;
 	}

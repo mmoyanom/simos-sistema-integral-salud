@@ -1,5 +1,8 @@
 package gob.sis.simos.service.impl;
 
+import gob.sis.simos.R;
+import gob.sis.simos.controller.Result;
+import gob.sis.simos.controller.ResultType;
 import gob.sis.simos.db.DBHelper;
 import gob.sis.simos.dto.Receta;
 import gob.sis.simos.entity.Cuenta;
@@ -17,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import roboguice.inject.ContextSingleton;
+
 import android.content.Context;
 
 import com.google.inject.Inject;
@@ -35,7 +39,7 @@ public class EncuestaServiceImpl {
 	@Inject
 	private LoginServiceImpl loginService;
 	
-	public String saveEncuesta(Encuesta01 encuesta){
+	public Result saveEncuesta(Encuesta01 encuesta){
 		try {
 			encuesta.setCreated(new Date());
 			encuesta.setFormularioId("F1");
@@ -185,15 +189,25 @@ public class EncuestaServiceImpl {
 			if(response.equals("success")){
 				foundEncuesta.setSent(1);
 				encuestaDao.update(foundEncuesta);
-				return response;
+				Result res = new Result();
+				res.setMessage(context.getResources().getString(R.string.msg_send_encuesta_succeeded));
+				res.resultType = ResultType.SUCCEED;
+				return res;
 			} else if(response.equals("failed")){
 				foundEncuesta.setSent(0);
 				encuestaDao.update(foundEncuesta);
-				return response;
+				Result res = new Result();
+				res.setMessage(context.getResources().getString(R.string.msg_send_encuesta_failed));
+				res.resultType = ResultType.FAILED;
+				return res;
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			Result res = new Result();
+			res.setMessage(context.getResources().getString(R.string.msg_send_encuesta_failed));
+			res.resultType = ResultType.FAILED;
+			return res;
 		}
 		return null;
 	}

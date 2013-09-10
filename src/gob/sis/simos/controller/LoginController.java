@@ -42,11 +42,11 @@ public class LoginController {
 				result = new Result();
 				if(account.getUsername().equals(username) && account.getPassword().equals(password)){
 					result.setMessage(this._context.getResources().getString(R.string.msg_login_succeeded));
-					result.setResultType(ResultType.LOGIN_SUCCEEDED);
+					result.resultType = ResultType.LOGIN_SUCCEEDED;
 					return result;
 				} else {
 					result.setMessage(this._context.getResources().getString(R.string.msg_login_user_password_invalid));
-					result.setResultType(ResultType.LOGIN_INVALID);
+					result.resultType = ResultType.LOGIN_INVALID;
 					return result;
 				}
 				
@@ -61,7 +61,7 @@ public class LoginController {
 				if(response.getResult().equals(LoginResponse.INVALID))
 				{
 					result.setMessage(this._context.getResources().getString(R.string.msg_login_user_password_invalid));
-					result.setResultType(ResultType.LOGIN_INVALID);
+					result.resultType = ResultType.LOGIN_INVALID;
 					return result;
 				}
 				else if(response.getResult().equals(LoginResponse.SUCCESS))
@@ -76,7 +76,7 @@ public class LoginController {
 					AppSession.put(AppSession.ACCOUNT, account);
 					
 					result.setMessage(this._context.getResources().getString(R.string.msg_login_succeeded));
-					result.setResultType(ResultType.LOGIN_SUCCEEDED);
+					result.resultType =ResultType.LOGIN_SUCCEEDED ;
 					return result;
 				}
 			}
@@ -84,11 +84,11 @@ public class LoginController {
 		} catch (IOException e) {
 			e.printStackTrace();
 			result = new Result();
-			result.setResultType(ResultType.FAILED);
+			result.resultType = ResultType.FAILED;
 		} catch (XmlPullParserException e) {		
 			e.printStackTrace();
 			result = new Result();
-			result.setResultType(ResultType.FAILED);
+			result.resultType = ResultType.FAILED;
 		}
 		return result;
 	}
