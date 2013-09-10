@@ -15,6 +15,8 @@
     <string name="msg_login_user_password_invalid">El usuario y contraseña no son válidos.</string>
     <string name="msg_login_failed">No se puede ingresar al sistema, intente más tarde.</string>
     <string name="msg_login_succeeded">Ingreso correcto.</string>
+    <string name="msg_send_encuesta_succeeded">La encuesta ha enviada exitosamente.</string>
+    <string name="msg_send_encuesta_failed">Hubo un error al enviar la encuesta. Se ha almacenado en la base de datos del dispositivo.</string>
     <!---->
     
     <!-- Options -->
