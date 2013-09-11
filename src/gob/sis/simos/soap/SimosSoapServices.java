@@ -1,5 +1,6 @@
 package gob.sis.simos.soap;
 
+import gob.sis.simos.controller.Result;
 import gob.sis.simos.dto.EncuestaSenderObject;
 import gob.sis.simos.dto.Receta;
 import gob.sis.simos.entity.Encuesta01;
@@ -10,12 +11,14 @@ import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.resources.AppProperties;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
@@ -24,6 +27,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 public class SimosSoapServices {
 	
@@ -73,7 +77,7 @@ public class SimosSoapServices {
 		return null;
 	}
 
-	public String sendEncuesta(Encuesta01 encuesta) throws IOException, XmlPullParserException {
+	public Result sendEncuesta(Encuesta01 encuesta) throws IOException, XmlPullParserException {
 		
 		EncuestaSenderObject obj = new EncuestaSenderObject();
 		obj.setEncuesta(encuesta);
@@ -101,11 +105,16 @@ public class SimosSoapServices {
 		envelope.dotNet = true;
 		envelope.setOutputSoapObject(request);
 		
-		HttpTransportSE httpTransport = new HttpTransportSE("http://192.168.2.23:8953/ApplicationService.asmx");
+		HttpTransportSE httpTransport = new HttpTransportSE("http://192.168.1.12/simosws/ApplicationService.asmx");
 		httpTransport.call(soap_action, envelope);
-		Object response = envelope.getResponse();
-		if(response != null) return response.toString();
-			return null;
+		SoapObject response = (SoapObject)envelope.getResponse();
+		String strResponse = response.getPropertyAsString(0);
+		if(strResponse != null){
+			Type type = new TypeToken<Result>(){}.getType();
+			Result result = gson.fromJson(strResponse, type);
+			return result;
+		}
+		return null;
 	}
 	
 	public List<Respuesta> getRespuestas(Encuesta01 encuesta){
