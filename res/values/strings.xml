@@ -11,7 +11,7 @@
     <!-- Messages -->
     <string name="msg_no_internet_connection">No es posible ingresar al sistema. Por favor, verifique su conexión a internet o intente más tarde.</string>
     <string name="msg_please_wait">Por favor, espere &#8230;</string>
-    <string name="msg_cancelled_by_user">El proceso ha sido cancelado por el usuario.</string>
+    <string name="msg_canceled_by_user">El proceso ha sido cancelado por el usuario.</string>
     <string name="msg_login_user_password_invalid">El usuario y contraseña no son válidos.</string>
     <string name="msg_login_failed">No se puede ingresar al sistema, intente más tarde.</string>
     <string name="msg_login_succeeded">Ingreso correcto.</string>
@@ -81,6 +81,10 @@
     
     <string name="title_section1">Medicamentos</string>
     <string name="title_section2">Insumos</string>
+    
+    <string name="inquests_all">TODO</string>
+    <string name="inquests_sent">ENVIADOS</string>
+    <string name="inquests_unsent">NO ENVIADOS</string>
     <!--  -->
     
     
