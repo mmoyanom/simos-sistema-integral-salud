@@ -1,6 +1,6 @@
 package gob.sis.simos.soap;
 
-import gob.sis.simos.controller.Result;
+import gob.sis.simos.R;
 import gob.sis.simos.dto.EncuestaSenderObject;
 import gob.sis.simos.dto.Receta;
 import gob.sis.simos.entity.Encuesta01;
@@ -77,7 +77,7 @@ public class SimosSoapServices {
 		return null;
 	}
 
-	public Result sendEncuesta(Encuesta01 encuesta) throws IOException, XmlPullParserException {
+	public SendEncuestaResult sendEncuesta(Encuesta01 encuesta) {
 		
 		EncuestaSenderObject obj = new EncuestaSenderObject();
 		obj.setEncuesta(encuesta);
@@ -105,16 +105,31 @@ public class SimosSoapServices {
 		envelope.dotNet = true;
 		envelope.setOutputSoapObject(request);
 		
-		HttpTransportSE httpTransport = new HttpTransportSE("http://192.168.1.12/simosws/ApplicationService.asmx");
-		httpTransport.call(soap_action, envelope);
-		SoapObject response = (SoapObject)envelope.getResponse();
-		String strResponse = response.getPropertyAsString(0);
-		if(strResponse != null){
-			Type type = new TypeToken<Result>(){}.getType();
-			Result result = gson.fromJson(strResponse, type);
-			return result;
+		HttpTransportSE httpTransport = new HttpTransportSE("http://192.168.2.36/simosws/ApplicationService.asmx");
+		try {
+			httpTransport.call(soap_action, envelope);
+			SoapObject soapObject = (SoapObject)envelope.getResponse();
+			if(soapObject != null){
+				String str_result = soapObject.getPropertyAsString(0);
+				Type type = new TypeToken<SendEncuestaResult>(){}.getType();
+				SendEncuestaResult rslt = gson.fromJson(str_result, type);
+				return rslt;
+			}
+		} catch (IOException e) {		
+			SendEncuestaResult rslt = new SendEncuestaResult();
+			rslt.setErrorMessage(e.getMessage());
+			rslt.setSuccess(false);
+			return rslt;
+		} catch (XmlPullParserException e) {
+			SendEncuestaResult rslt = new SendEncuestaResult();
+			rslt.setErrorMessage(e.getMessage());
+			rslt.setSuccess(false);
+			return rslt;
 		}
-		return null;
+		SendEncuestaResult rslt = new SendEncuestaResult();
+		rslt.setErrorMessage(_context.getResources().getString(R.string.msg_send_encuesta_failed));
+		rslt.setSuccess(false);
+		return rslt;
 	}
 	
 	public List<Respuesta> getRespuestas(Encuesta01 encuesta){

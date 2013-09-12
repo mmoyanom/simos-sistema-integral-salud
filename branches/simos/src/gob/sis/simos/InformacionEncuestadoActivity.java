@@ -2,10 +2,10 @@ package gob.sis.simos;
 
 import gob.sis.simos.adapters.OpcionRespuestaSpinnerAdapter;
 import gob.sis.simos.controller.InfoEncuestadoController;
-import gob.sis.simos.controller.Result;
 import gob.sis.simos.entity.Encuesta01;
 import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
+import gob.sis.simos.soap.SendEncuestaResult;
 import gob.sis.simos.ui.UIEditText;
 import gob.sis.simos.ui.UIRadioButton;
 
@@ -24,10 +24,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.inject.Inject;
 
@@ -115,20 +115,6 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		
-		//super.onCreateOptionsMenu(menu);
-		
-		/*MenuItem menuItemCreateCart = menu.findItem(R.id.action_next);
-	    if (menuItemCreateCart  == null) {
-	        menuItemCreateCart  = menu.add(0, R.id.action_next, 0, "Siguiente");
-	    }
-	    
-		TextView tv = new TextView(this);
-	    tv.setText("Hola");
-	    tv.setTextColor(getResources().getColor(R.color.actionButton_color));
-	    tv.setBackgroundColor(getResources().getColor(R.color.item_color));
-	    
-	    menuItemCreateCart.setActionView(tv);*/
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.person_information_menu, menu);
 		return super.onCreateOptionsMenu(menu);
@@ -140,10 +126,16 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 		if(requestCode == CALL_ENCUESTA){
 			if(resultCode == RESULT_OK){
 				clear();
-				Result rslt = (Result)data.getSerializableExtra("send_result");
-				showMessage(rslt.getMessage(), Toast.LENGTH_LONG);
+				SendEncuestaResult rslt = (SendEncuestaResult)data.getSerializableExtra("sendEncuestaResult");
+				if(rslt.isSuccess()){
+					showMessage(getResources().getString(R.string.msg_send_encuesta_succeeded), Toast.LENGTH_LONG);
+				} else {
+					showMessage(rslt.getErrorMessage(), Toast.LENGTH_LONG);
+				}
+				return;
 			} else if(resultCode == RESULT_CANCELED){
-				
+				showMessage(getResources().getString(R.string.msg_canceled_by_user), Toast.LENGTH_LONG);
+				return;
 			}
 		}
 	}
@@ -153,7 +145,11 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 	private void clear() {
 		
 		this._spDocumentType.setSelection(0);
-		
+		this.etNumberId.setText("");
+		this.rgGenere.clearCheck();
+		this._spRelacionPaciente.setSelection(0);
+		this._rgReference.clearCheck();
+		this._spReferencia.setSelection(0);
 	}
 
 	@Override
