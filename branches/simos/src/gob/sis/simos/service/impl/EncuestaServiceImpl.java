@@ -1,8 +1,6 @@
 package gob.sis.simos.service.impl;
 
 import gob.sis.simos.R;
-import gob.sis.simos.controller.Result;
-import gob.sis.simos.controller.ResultType;
 import gob.sis.simos.db.DBHelper;
 import gob.sis.simos.dto.Receta;
 import gob.sis.simos.entity.Cuenta;
@@ -11,8 +9,10 @@ import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
+import gob.sis.simos.soap.SendEncuestaResult;
 import gob.sis.simos.soap.SimosSoapServices;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.List;
 
 import roboguice.inject.ContextSingleton;
-
 import android.content.Context;
 
 import com.google.inject.Inject;
@@ -39,11 +38,11 @@ public class EncuestaServiceImpl {
 	@Inject
 	private LoginServiceImpl loginService;
 	
-	public Result saveEncuesta(Encuesta01 encuesta){
+	public SendEncuestaResult saveEncuesta(Encuesta01 encuesta){
 		try {
 			encuesta.setCreated(new Date());
 			encuesta.setFormularioId("F1");
-			encuesta.setEncuestaGrupo(1);
+			encuesta.setEncuestaGrupo(3);
 			Dao<Encuesta01, Integer> encuestaDao = getHelper().getEncuestaDao();
 			
 			long count_id = encuestaDao.countOf()+1;
@@ -185,31 +184,34 @@ public class EncuestaServiceImpl {
 			}
 			
 			SimosSoapServices services = new SimosSoapServices(context);
-			String response = services.sendEncuesta(encuesta);
-			if(response.equals("success")){
+			SendEncuestaResult result = services.sendEncuesta(encuesta);
+			if(result.isSuccess()){
 				foundEncuesta.setSent(1);
 				encuestaDao.update(foundEncuesta);
-				Result res = new Result();
-				res.setMessage(context.getResources().getString(R.string.msg_send_encuesta_succeeded));
-				res.resultType = ResultType.SUCCEED;
-				return res;
-			} else if(response.equals("failed")){
+				return result;
+			} else {
 				foundEncuesta.setSent(0);
 				encuestaDao.update(foundEncuesta);
-				Result res = new Result();
-				res.setMessage(context.getResources().getString(R.string.msg_send_encuesta_failed));
-				res.resultType = ResultType.FAILED;
-				return res;
+				result.setErrorMessage("Error : La encuesta no ha sido enviada. ".concat(result.getErrorMessage()));
+				return result;
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-			Result res = new Result();
-			res.setMessage(context.getResources().getString(R.string.msg_send_encuesta_failed));
-			res.resultType = ResultType.FAILED;
-			return res;
+			SendEncuestaResult rslt = new SendEncuestaResult();
+			rslt.setErrorMessage(context.getResources().getString(R.string.msg_send_encuesta_failed));
+			rslt.setSuccess(false);
+			return rslt;
 		}
-		return null;
+	}
+	
+
+	public List<Encuesta01> findAll() throws SQLException {
+		
+		Dao<Encuesta01, Integer> encuestaDao = getHelper().getEncuestaDao();
+		List<Encuesta01> items = encuestaDao.queryForAll();
+		return items;
+		
 	}
 	
 	public DBHelper getHelper() {
@@ -219,5 +221,6 @@ public class EncuestaServiceImpl {
 		}
 		return this.dbhelper;
 	}
+
 
 }
