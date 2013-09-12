@@ -1,7 +1,6 @@
 package gob.sis.simos;
 
 import gob.sis.simos.controller.EncuestaController;
-import gob.sis.simos.controller.Result;
 import gob.sis.simos.controller.VerificacionPagoController;
 import gob.sis.simos.dto.Receta;
 import gob.sis.simos.entity.Encuesta01;
@@ -12,6 +11,7 @@ import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.fragment.RecetaCheckListFragment;
 import gob.sis.simos.fragment.VerificacionPagoCheckListFragment;
+import gob.sis.simos.soap.SendEncuestaResult;
 import gob.sis.simos.ui.DialogAddServicio;
 import gob.sis.simos.ui.DialogPickTypeReceta;
 
@@ -538,7 +538,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	
 	private ProgressDialog dialog;
 	
-	class SendEncuestaTask extends AsyncTask<Encuesta01, Void, Result> {
+	class SendEncuestaTask extends AsyncTask<Encuesta01, Void, SendEncuestaResult> {
 
 		@Override
 		protected void onPreExecute() {
@@ -549,16 +549,16 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		}
 		
 		@Override
-		protected Result doInBackground(Encuesta01... params) {
-			Result rslt = encuestaController.save(encuesta);
+		protected SendEncuestaResult doInBackground(Encuesta01... params) {
+			SendEncuestaResult rslt = encuestaController.save(encuesta);
 			return rslt;
 		}
 		
 		@Override
-		protected void onPostExecute(Result result) {
+		protected void onPostExecute(SendEncuestaResult result) {
 			dialog.dismiss();
 			Intent in = new Intent(Encuesta01PrincipalActivity.this, InformacionEncuestadoActivity.class);
-			in.putExtra("send_result", result);
+			in.putExtra("sendEncuestaResult", result);
 			setResult(RESULT_OK, in);
 			Encuesta01PrincipalActivity.this.finish();
 		}
