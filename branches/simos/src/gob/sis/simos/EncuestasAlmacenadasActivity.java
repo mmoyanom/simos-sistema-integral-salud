@@ -1,5 +1,10 @@
 package gob.sis.simos;
 
+import java.sql.SQLException;
+
+import com.google.inject.Inject;
+
+import gob.sis.simos.controller.EncuestaController;
 import gob.sis.simos.fragment.ListaEncuestasAlmacenadasFragment;
 import roboguice.activity.RoboFragmentActivity;
 import android.app.ActionBar;
@@ -10,16 +15,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 
 public class EncuestasAlmacenadasActivity extends RoboFragmentActivity implements ViewPager.OnPageChangeListener, ActionBar.TabListener {
 
-	private ListaEncuestasAlmacenadasFragment fgEncuestas_all;
-	private ListaEncuestasAlmacenadasFragment fgEncuestas_sent;
-	private ListaEncuestasAlmacenadasFragment fgEncuestas_unsent;
-	
-	private SectionsPagerAdapter mSectionsPagerAdapter;
-	private ViewPager mViewPager;
-	private ActionBar actionBar;
+			private ListaEncuestasAlmacenadasFragment fgEncuestas_all;
+			private ListaEncuestasAlmacenadasFragment fgEncuestas_sent;
+			private ListaEncuestasAlmacenadasFragment fgEncuestas_unsent;
+	@Inject private EncuestaController controller;
+			private SectionsPagerAdapter mSectionsPagerAdapter;
+			private ViewPager mViewPager;
+			private ActionBar actionBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -42,9 +48,8 @@ public class EncuestasAlmacenadasActivity extends RoboFragmentActivity implement
 					.setText(this.mSectionsPagerAdapter.getPageTitle(x))
 					.setTabListener(this));
 		}
+		
 	}
-	
-	
 
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
@@ -114,7 +119,24 @@ public class EncuestasAlmacenadasActivity extends RoboFragmentActivity implement
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		this.mViewPager.setCurrentItem(tab.getPosition());
 	}
+	
 
+	private void list(){
+		try {
+			fgEncuestas_all.setItems(controller.findAll());
+			fgEncuestas_sent.setItems(controller.findSent());
+			fgEncuestas_unsent.setItems(controller.findUnsent());
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+			showMessage(e.getMessage(), Toast.LENGTH_LONG);
+		}
+	}
+	
+	private void showMessage(String text, int length){
+		Toast.makeText(this, text, length).show();
+	}
+	
 
 
 	@Override

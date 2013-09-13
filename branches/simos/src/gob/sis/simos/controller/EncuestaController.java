@@ -20,9 +20,18 @@ public class EncuestaController {
 		return encuestaService.findAll();
 	}
 	
+	public List<Encuesta01> findUnsent() throws SQLException {
+		return encuestaService.findUnsent();
+	}
+
+	public List<Encuesta01> findSent() throws SQLException {		
+		return encuestaService.findSent();
+	}
+	
 	public SendEncuestaResult save(Encuesta01 encuesta) {
 		return encuestaService.saveEncuesta(encuesta);
 	}
+
 	
 
 }
