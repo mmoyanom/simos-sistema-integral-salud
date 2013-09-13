@@ -214,6 +214,22 @@ public class EncuestaServiceImpl {
 		
 	}
 	
+	public List<Encuesta01> findUnsent() throws SQLException {
+		
+		Dao<Encuesta01, Integer> encuestaDao = getHelper().getEncuestaDao();
+		List<Encuesta01> items = encuestaDao.queryForEq("sent",0);
+		return items;
+		
+	}
+
+	public List<Encuesta01> findSent() throws SQLException {
+		
+		Dao<Encuesta01, Integer> encuestaDao = getHelper().getEncuestaDao();
+		List<Encuesta01> items = encuestaDao.queryForEq("sent",1);
+		return items;
+		
+	}
+	
 	public DBHelper getHelper() {
 		if (this.dbhelper == null) {
 			this.dbhelper = OpenHelperManager.getHelper(this.context, //this._context,
@@ -221,6 +237,10 @@ public class EncuestaServiceImpl {
 		}
 		return this.dbhelper;
 	}
+
+
+
+
 
 
 }
