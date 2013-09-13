@@ -105,22 +105,24 @@ public class SimosSoapServices {
 		envelope.dotNet = true;
 		envelope.setOutputSoapObject(request);
 		
-		HttpTransportSE httpTransport = new HttpTransportSE("http://192.168.2.36/simosws/ApplicationService.asmx");
+		HttpTransportSE httpTransport = new HttpTransportSE("http://192.168.1.12/simosws/ApplicationService.asmx",10000);
 		try {
 			httpTransport.call(soap_action, envelope);
-			SoapObject soapObject = (SoapObject)envelope.getResponse();
+			Object soapObject = (Object)envelope.getResponse();
 			if(soapObject != null){
-				String str_result = soapObject.getPropertyAsString(0);
+				String str_result = soapObject.toString();
 				Type type = new TypeToken<SendEncuestaResult>(){}.getType();
 				SendEncuestaResult rslt = gson.fromJson(str_result, type);
 				return rslt;
 			}
 		} catch (IOException e) {		
+			e.printStackTrace();
 			SendEncuestaResult rslt = new SendEncuestaResult();
 			rslt.setErrorMessage(e.getMessage());
 			rslt.setSuccess(false);
 			return rslt;
 		} catch (XmlPullParserException e) {
+			e.printStackTrace();
 			SendEncuestaResult rslt = new SendEncuestaResult();
 			rslt.setErrorMessage(e.getMessage());
 			rslt.setSuccess(false);
