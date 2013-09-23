@@ -154,7 +154,6 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		if(this.verificacion != null){
 			this.frgmnt0.setVerificacion(this.verificacion);
 			this.frgmnt1.setVerificacion(this.verificacion);
-			//this.frgmntTickets.setVerificacion(this.verificacion);
 			this.frgmnt2.setVerificacion(this.verificacion);
 		}
 	}
@@ -222,16 +221,32 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		
 		List<Respuesta> respuestas = new ArrayList<Respuesta>();
 		if(this.frgmnt0.isVisible()){
-			List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
-			respuestas.addAll(rsp00);
+			//List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
+			//respuestas.addAll(rsp00);
+			
+			Respuesta rp7 = this.frgmnt0.getRespuestaService();
+			List<Respuesta> child = new ArrayList<Respuesta>();
+			child.add(this.frgmnt0.getRespuestaRealizoPago());
+			rp7.setChild(child);
+			respuestas.add(rp7);
+			
 		} else if(this.frgmnt2.isVisible()){
-			List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
+			/*List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
 			List<Respuesta> rsp01 = this.frgmnt1.getRespuestas();
 			List<Respuesta> rsp02 = this.frgmnt2.getRespuestas();
 			
 			respuestas.addAll(rsp00);
 			respuestas.addAll(rsp01);
-			respuestas.addAll(rsp02);
+			respuestas.addAll(rsp02);*/
+			Respuesta rp7 = this.frgmnt0.getRespuestaService();
+			List<Respuesta> child = new ArrayList<Respuesta>();
+			child.add(this.frgmnt0.getRespuestaRealizoPago());
+			child.addAll(this.frgmnt1.getRespuestas());
+			child.addAll(this.frgmnt2.getRespuestas());
+			
+			rp7.setChild(child);
+			respuestas.add(rp7);
+			
 		}
 		
 		this.verificacion.setRespuestas(respuestas);

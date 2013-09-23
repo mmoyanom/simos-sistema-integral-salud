@@ -72,7 +72,6 @@
                 android:layout_weight="0.5"
                 android:gravity="right"
                 android:textAppearance="@android:style/TextAppearance.Large"
-                android:text="45281971"
                 app:preguntaId="2" app:preguntaParentId="-1" app:opcionRespuestaId="5" />
         </LinearLayout>
         <View android:layout_width="match_parent"

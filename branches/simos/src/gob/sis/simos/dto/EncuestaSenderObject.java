@@ -2,6 +2,7 @@ package gob.sis.simos.dto;
 
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 
 import gob.sis.simos.entity.Encuesta01;
@@ -27,6 +28,8 @@ public class EncuestaSenderObject {
 		this.respuestas = respuestas;
 	}
 	
-	
+	public String toJson(Gson gson){
+		return gson.toJson(this);
+	}
 	
 }

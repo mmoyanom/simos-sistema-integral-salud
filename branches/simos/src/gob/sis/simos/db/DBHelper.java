@@ -1,8 +1,10 @@
 package gob.sis.simos.db;
 
+import gob.sis.simos.entity.Config;
 import gob.sis.simos.entity.Cuenta;
 import gob.sis.simos.entity.Encuesta01;
-import gob.sis.simos.entity.EstablecimientoSalud;
+import gob.sis.simos.entity.Asignacion;
+import gob.sis.simos.entity.Jornada;
 import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.resources.AppProperties;
@@ -27,13 +29,15 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
 	private static final String DATABASE_NAME = "simos.sqlite";
 	private static final int DATABASE_VERSION = 1;
+	private Dao<Jornada, Integer> jornadaDao;
 	private Dao<Cuenta, String> accountDao;
-	private Dao<EstablecimientoSalud, String> EESSDao;
+	private Dao<Asignacion, Integer> AsignacionDao;
 	private Dao<OpcionRespuesta, Integer> opcionesRespuestaDao;
 	private Dao<Class<?>, String> medicineDao;
 	private Dao<Class<?>, String> supplyDao;
 	private Dao<Encuesta01, Integer> encuestaDao;
 	private Dao<Respuesta, Integer> respuestaDao;
+	private Dao<Config, Integer> configDao;
 
 	public DBHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -96,11 +100,11 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 		return opcionesRespuestaDao;
 	}
 	
-	public Dao<EstablecimientoSalud, String> getEESSDao() throws SQLException {
-		if(EESSDao == null){
-			EESSDao = getDao(EstablecimientoSalud.class);
+	public Dao<Asignacion, Integer> getAsignacionDao() throws SQLException {
+		if(AsignacionDao == null){
+			AsignacionDao = getDao(Asignacion.class);
 		}
-		return EESSDao;
+		return AsignacionDao;
 	}
 	
 	public Dao<Encuesta01, Integer> getEncuestaDao() throws SQLException {
@@ -116,12 +120,27 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return respuestaDao;
 	}
+	
+	public Dao<Config, Integer> getConfig() throws SQLException {
+		if(configDao == null){
+			configDao = getDao(Config.class);
+		}
+		return configDao;
+	}
+	
+
+	public Dao<Jornada, Integer> getJornadaDao() throws SQLException {
+		if(jornadaDao == null){
+			jornadaDao = getDao(Jornada.class);
+		}
+		return jornadaDao;
+	}
 
 	@Override
 	public void close() {
 		super.close();
 		accountDao = null;
-		EESSDao = null;
+		AsignacionDao = null;
 	}
 
 	public static void copyDataBase(Context context) throws IOException {
