@@ -128,10 +128,6 @@ public class AddTicketActivity extends RoboActivity implements OnItemLongClickLi
 			if(which == DialogInterface.BUTTON_NEGATIVE){
 				
 			} else if(which == DialogInterface.BUTTON_POSITIVE){
-				/*Respuesta r = new Respuesta();
-				r.setRespuestaTexto(this.etTicket.getText().toString());
-				r.setPreguntaId(11);
-				r.setOpcionRespuestaId(55);*/
 				this.addTicket(this.etTicket.getText().toString());
 			}
 		}

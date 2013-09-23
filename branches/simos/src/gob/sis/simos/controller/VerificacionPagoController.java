@@ -16,7 +16,15 @@ public class VerificacionPagoController {
 	protected OpcionesRespuestaServiceImpl service;
 	
 	public List<OpcionRespuesta> getRespuestas(int preguntaId){
-		return service.getRespuestas(preguntaId);
+		return service.getOpcionesRespuestas(preguntaId);
+	}
+	
+	public int getRespuestasCount(){
+		return service.getRespuestasCount();
+	}
+
+	public void cleanRespuestas() {
+		service.cleanRespuestas();
 	}
 
 }

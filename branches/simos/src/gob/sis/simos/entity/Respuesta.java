@@ -27,7 +27,7 @@ public class Respuesta implements Serializable {
 	@DatabaseField(columnName="encstdo_id")
 	private Integer encuestadoId;
 	
-	@DatabaseField(columnName="preg_prnt_id")
+	@DatabaseField(columnName="rsp_prnt_id")
 	private Integer respuestaParentId;
 	
 	@DatabaseField(columnName="rsp_text")

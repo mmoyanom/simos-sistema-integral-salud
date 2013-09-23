@@ -5,15 +5,17 @@ import java.io.Serializable;
 public class SendEncuestaResult implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private boolean success = false;
+	public static final int SUCCEEDED = 1;
+	public static final int FAILED = 0;
+	private Integer result;
 	private Integer encuestaId;
 	private String errorMessage;
 	
-	public boolean isSuccess() {
-		return success;
+	public Integer getResult() {
+		return result;
 	}
-	public void setSuccess(boolean success) {
-		this.success = success;
+	public void setResult(Integer success) {
+		this.result = success;
 	}
 	public Integer getEncuestaId() {
 		return encuestaId;

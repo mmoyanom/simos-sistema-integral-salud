@@ -17,7 +17,7 @@ public class InfoEncuestadoController {
 	protected OpcionesRespuestaServiceImpl service;
 	
 	public List<OpcionRespuesta> getRespuestas(int preguntaId){
-		return service.getRespuestas(preguntaId);
+		return service.getOpcionesRespuestas(preguntaId);
 	}
 
 }

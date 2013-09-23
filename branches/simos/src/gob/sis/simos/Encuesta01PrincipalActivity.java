@@ -8,6 +8,7 @@ import gob.sis.simos.entity.ICuantificable;
 import gob.sis.simos.entity.Insumo;
 import gob.sis.simos.entity.Medicamento;
 import gob.sis.simos.entity.OpcionRespuesta;
+import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.fragment.RecetaCheckListFragment;
 import gob.sis.simos.fragment.VerificacionPagoCheckListFragment;
@@ -16,6 +17,7 @@ import gob.sis.simos.ui.DialogAddServicio;
 import gob.sis.simos.ui.DialogPickTypeReceta;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -433,7 +435,6 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		}
 	}
 
-
 	@Override
 	public void onClick(View v) {
 		
@@ -550,7 +551,23 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		
 		@Override
 		protected SendEncuestaResult doInBackground(Encuesta01... params) {
-			SendEncuestaResult rslt = encuestaController.save(encuesta);
+			Encuesta01 encta = new Encuesta01();
+			encta.setCreated(Calendar.getInstance().getTime());
+			encta.setEncuestaGrupo(3);
+			encta.setFormularioId("F1");
+			
+			List<Respuesta> rspts = new ArrayList<Respuesta>();
+			rspts.addAll(encuesta.getDatosEncuestado());
+			rspts.addAll(orderVerificaciones());
+			rspts.addAll(orderRecetas());
+			
+			encta.setRespuestas(rspts);
+			encuesta = null;
+			
+			System.gc();
+			
+			SendEncuestaResult rslt = encuestaController.save(encta);
+			
 			return rslt;
 		}
 		
@@ -563,6 +580,152 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 			Encuesta01PrincipalActivity.this.finish();
 		}
 		
+	}
+	
+	public List<Respuesta> orderVerificaciones(){
+		List<Respuesta> rspts = new ArrayList<Respuesta>();
+		for(int i=0; i < encuesta.getVerificaciones().size();i++){
+			VerificacionPago v = encuesta.getVerificaciones().get(i);
+			rspts.addAll(v.getRespuestas());
+		}
+		return rspts;
+	}
+	
+	public List<Respuesta> orderRecetas(){
+		
+		List<Respuesta> rspts = new ArrayList<Respuesta>();
+		
+		int c_index = 0;
+		for(int i = 0; i < encuesta.getRecetas().size(); i++){
+			Receta rc = encuesta.getRecetas().get(i);
+			c_index++;
+			Respuesta r_21 = new Respuesta();
+			r_21.setPreguntaId(21);
+			r_21.setOpcionRespuestaId(99);
+			r_21.setRespuestaTexto(String.format("%s", c_index));
+			List<Respuesta> r_21_child = new ArrayList<Respuesta>();
+			
+			Respuesta r_22 = new Respuesta();
+			r_22.setPreguntaId(22);
+			r_22.setPreguntaParentId(21);
+			r_22.setOpcionRespuestaId(rc.getTipoRecetaId());
+			r_21_child.add(r_22);
+			
+			List<Medicamento> meds = rc.getMedicamentos();
+			if(meds.size() > 0){
+				List<Respuesta> med_child = new ArrayList<Respuesta>();
+				for(int x = 0 ; x < meds.size() ; x++){
+					Medicamento m = meds.get(x);
+					
+					if(m.getNombre().equals(Medicamento.COMERCIAL)){
+
+						Respuesta r_23 = new Respuesta();
+						r_23.setPreguntaId(23);
+						r_23.setPreguntaParentId(21);
+						r_23.setOpcionRespuestaId(102);
+						r_23.setRespuestaTexto(m.getNombre());
+						r_23.setPrescripcionId("9999999");
+						List<Respuesta> r_23_child = new ArrayList<Respuesta>();
+						
+						Respuesta r_24 = new Respuesta();
+						r_24.setPreguntaId(24);
+						r_24.setPreguntaParentId(23);
+						r_24.setOpcionRespuestaId(109);
+						r_23_child.add(r_24);
+						
+						Respuesta r_25 = new Respuesta();
+						r_25.setPreguntaId(25);
+						r_25.setPreguntaParentId(23);
+						r_25.setOpcionRespuestaId(105);
+						r_25.setRespuestaNumero(m.getRecetado()*1.0);
+						r_23_child.add(r_25);
+						
+						r_23.setChild(r_23_child);
+						
+						med_child.add(r_23);
+					} else {
+
+						Respuesta r_23 = new Respuesta();
+						r_23.setPreguntaId(23);
+						r_23.setPreguntaParentId(21);
+						r_23.setOpcionRespuestaId(102);
+						r_23.setRespuestaTexto(m.getNombre());
+						r_23.setPrescripcionId(m.getId());
+						List<Respuesta> r_23_child = new ArrayList<Respuesta>();
+						
+						Respuesta r_24 = new Respuesta();
+						r_24.setPreguntaId(24);
+						r_24.setPreguntaParentId(23);
+						r_24.setOpcionRespuestaId(103);
+						r_23_child.add(r_24);
+						
+						Respuesta r_25 = new Respuesta();
+						r_25.setPreguntaId(25);
+						r_25.setPreguntaParentId(23);
+						r_25.setOpcionRespuestaId(105);
+						r_25.setRespuestaNumero(m.getRecetado()*1.0);
+						r_23_child.add(r_25);
+						
+						Respuesta r_26 = new Respuesta();
+						r_26.setPreguntaId(26);
+						r_26.setPreguntaParentId(23);
+						r_26.setOpcionRespuestaId(106);
+						r_26.setRespuestaNumero(m.getEntregado()*1.0);
+						r_23_child.add(r_26);
+						
+						r_23.setChild(r_23_child);
+						
+						med_child.add(r_23);
+					}
+				}
+				r_21_child.addAll(med_child);
+			}
+			
+			List<Insumo> ins = new ArrayList<Insumo>();
+			if(ins.size() > 0){
+				List<Respuesta> ins_child = new ArrayList<Respuesta>();
+				for(int x =0 ; x < ins.size(); x++){
+					Insumo in = ins.get(x);
+					
+					Respuesta r_23 = new Respuesta();
+					r_23.setPreguntaId(23);
+					r_23.setPreguntaParentId(21);
+					r_23.setOpcionRespuestaId(102);
+					r_23.setRespuestaTexto(in.getNombre());
+					r_23.setPrescripcionId(in.getId());
+					List<Respuesta> r_23_child = new ArrayList<Respuesta>();
+					
+					Respuesta r_24 = new Respuesta();
+					r_24.setPreguntaId(24);
+					r_24.setPreguntaParentId(23);
+					r_24.setOpcionRespuestaId(104);
+					r_23_child.add(r_24);
+					
+					Respuesta r_25 = new Respuesta();
+					r_25.setPreguntaId(25);
+					r_25.setPreguntaParentId(23);
+					r_25.setOpcionRespuestaId(105);
+					r_25.setRespuestaNumero(in.getRecetado()*1.0);
+					r_23_child.add(r_25);
+					
+					Respuesta r_26 = new Respuesta();
+					r_26.setPreguntaId(26);
+					r_26.setPreguntaParentId(23);
+					r_26.setOpcionRespuestaId(106);
+					r_26.setRespuestaNumero(in.getEntregado()*1.0);
+					r_23_child.add(r_26);
+					
+					r_23.setChild(r_23_child);
+					
+					ins_child.add(r_23);
+				}
+				r_21_child.addAll(ins_child);
+			}
+			// the end of the world!
+			r_21.setChild(r_21_child);
+			rspts.add(r_21);
+		}
+		return rspts;
 	}
 	
 }

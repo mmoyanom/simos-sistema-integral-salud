@@ -1,6 +1,7 @@
 package gob.sis.simos;
 
-import gob.sis.simos.adapters.EncuestaListAdapter;
+import gob.sis.simos.adapters.MenuEncuestaListAdapter;
+import gob.sis.simos.dto.OpcionMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,16 @@ public class ListaEncuestasActivity extends RoboActivity implements OnItemClickL
 		
 		this.setContentView(R.layout.actvt_lst_encsts);
 		
-		List<String> items = new ArrayList<String>();
-		items.add("Primer formulario");
+		List<OpcionMenu> items = new ArrayList<OpcionMenu>();
 		
-		EncuestaListAdapter adapter = new EncuestaListAdapter(this, R.layout.adptr_encsts_simple_list, items);
+		OpcionMenu op = new OpcionMenu();
+		op.setTitle("Verificacion de pagos y entrega de medicamentos.");
+		op.setId(R.drawable.f1);
+		op.setDescription("Contiene preguntas sobre la verificacion de pagos de servicios y entrega de medicamentos segun prescripcion.");
+		op.setValue("F1");
+		items.add(op);
+		
+		MenuEncuestaListAdapter adapter = new MenuEncuestaListAdapter(this, R.layout.simple_list_item_image, items);
 		this._lstInquest.setAdapter(adapter);
 		this._lstInquest.setOnItemClickListener(this);
 	}

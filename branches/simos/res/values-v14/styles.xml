@@ -33,9 +33,9 @@
     <style name="edittext">
         <item name="android:typeface">normal</item>
     </style>
-    <style name="login_button">
+    <!-- <style name="login_button">
         <item name="android:background">#2A49A5</item>
-    </style>
+    </style>-->
     <style name="settings_label">
         <item name="android:textColor">#EFF2FB</item>
         <item name="android:textSize">24sp</item>

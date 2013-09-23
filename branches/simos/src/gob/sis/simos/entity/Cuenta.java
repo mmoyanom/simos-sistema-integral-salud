@@ -24,6 +24,28 @@ public class Cuenta {
 	
 	@DatabaseField(columnName=LAST_LOGIN)
 	private Date lastLogin;
+	
+	@DatabaseField(columnName="session_active")
+	private boolean sessionActive;
+	
+	@DatabaseField(columnName="day_finished")
+	private boolean dayFinished;
+	
+	@DatabaseField(columnName="day_started")
+	private boolean dayStarted;
+	
+	@DatabaseField(columnName="date_started")
+	private Date dateStarted;
+	
+	
+
+	public Date getDateStarted() {
+		return dateStarted;
+	}
+
+	public void setDateStarted(Date dateStarted) {
+		this.dateStarted = dateStarted;
+	}
 
 	public Date getLastLogin() {
 		return lastLogin;
@@ -55,6 +77,30 @@ public class Cuenta {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public boolean isSessionActive() {
+		return sessionActive;
+	}
+
+	public void setSessionActive(boolean sessionActive) {
+		this.sessionActive = sessionActive;
+	}
+
+	public boolean isDayStarted() {
+		return dayStarted;
+	}
+
+	public void setDayStarted(boolean dayStarted) {
+		this.dayStarted = dayStarted;
+	}
+
+	public boolean isDayFinished() {
+		return dayFinished;
+	}
+
+	public void setDayFinished(boolean dayFinished) {
+		this.dayFinished = dayFinished;
 	}
 	
 	
