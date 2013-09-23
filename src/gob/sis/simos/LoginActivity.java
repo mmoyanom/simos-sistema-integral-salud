@@ -1,8 +1,10 @@
 package gob.sis.simos;
 
+import gob.sis.simos.controller.ConfigurationController;
 import gob.sis.simos.controller.LoginController;
 import gob.sis.simos.controller.Result;
 import gob.sis.simos.db.DBHelper;
+import gob.sis.simos.entity.Config;
 
 import java.io.IOException;
 
@@ -11,6 +13,7 @@ import roboguice.inject.InjectView;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,9 +23,13 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -30,7 +37,7 @@ import android.widget.Toast;
 import com.google.inject.Inject;
 
 
-public class LoginActivity extends RoboActivity implements OnClickListener, InputFilter, TextWatcher {
+public class LoginActivity extends RoboActivity implements OnClickListener, InputFilter, TextWatcher , DialogInterface.OnClickListener {
 	
 	@InjectView(R.id.username)
 	protected EditText _username;
@@ -42,10 +49,16 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 	protected Button _btnLogin;
 	
 	private LoginTask _loginTask;
+	private AlertDialog alertSetAddress;
+	private EditText etAddress;
 	
 	@Inject
-	protected LoginController _controller;
+	protected LoginController loginController;
+	
+	@Inject
+	protected ConfigurationController configController;
 
+	private int SESSION_ACTIVE = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +84,76 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 		this._btnLogin.setOnClickListener(this);
 		this._btnLogin.setEnabled(false);
 		
+		if(loginController.isActiveSession()){
+			Intent intent = new Intent(this, MenuPrincipalActivity.class);
+			startActivityForResult(intent, SESSION_ACTIVE);
+		}
 		
+	    LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    final View layout = inflater.inflate(R.layout.dialog_add_ticket, (ViewGroup) findViewById(R.id.layout_add_ticket));
+		
+		alertSetAddress = new AlertDialog.Builder(this).create();
+		alertSetAddress.setTitle("Configurar conexi—n");
+		alertSetAddress.setView(layout);
+		alertSetAddress.setCancelable(false);
+		alertSetAddress.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancelar", this);
+		alertSetAddress.setButton(AlertDialog.BUTTON_POSITIVE, "Guardar", this);
+		
+		etAddress = (EditText)layout.findViewById(R.id.et_ticket);
+		etAddress.setHint("Ingrese la direcci—n de conexi—n");
+	    InputFilter[] filters = new InputFilter[1];
+	    filters[0] = new InputFilter() {
+	        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+	            if (end > start) {
+	                String destTxt = dest.toString();
+	                String resultingTxt = destTxt.substring(0, dstart) + source.subSequence(start, end) + destTxt.substring(dend);
+	                if (!resultingTxt.matches ("^\\d{1,3}(\\.(\\d{1,3}(\\.(\\d{1,3}(\\.(\\d{1,3})?)?)?)?)?)?")) { 
+	                    return "";
+	                } else {
+	                    String[] splits = resultingTxt.split("\\.");
+	                    for (int i=0; i<splits.length; i++) {
+	                        if (Integer.valueOf(splits[i]) > 255) {
+	                            return "";
+	                        }
+	                    }
+	                }
+	            }
+	        return null;
+	        }
+	    };
+	    etAddress.setFilters(filters);
+		etAddress.addTextChangedListener(this);
+		etAddress.requestFocus();
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == SESSION_ACTIVE){
+			if(resultCode == RESULT_CANCELED){
+				finish();
+			} else if(resultCode == RESULT_OK){
+				this._username.setText("");
+				this._password.setText("");
+			}
+		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.login, menu);	    
+		return true;
+	}
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		Config cfg = configController.getConfig();
+		if(cfg != null){
+			etAddress.setText(cfg.getServer());
+		} else {
+			etAddress.setText("");
+		}
+		alertSetAddress.show();
 		return true;
 	}
 
@@ -173,7 +251,7 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 		protected Result doInBackground(Void... params) {
 			String username = LoginActivity.this._username.getText().toString().trim();
 			String password = LoginActivity.this._password.getText().toString().trim();
-			return LoginActivity.this._controller.login(username, password);
+			return LoginActivity.this.loginController.login(username, password);
 		}
 		
 		@Override
@@ -186,7 +264,8 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 						LoginActivity.this._username.setText("");
 						LoginActivity.this._password.setText("");
 						LoginActivity.this.showToastMessage(R.string.msg_login_succeeded);
-						LoginActivity.this._controller.startActivity(i);
+						//LoginActivity.this._controller.startActivity(i);
+						startActivityForResult(i, SESSION_ACTIVE);
 						break;
 					case LOGIN_INVALID:
 						this._progressDialog.dismiss();
@@ -200,6 +279,19 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 						break;
 				}
 			}
+		}
+	}
+
+	@Override
+	public void onClick(DialogInterface arg0, int wich) {
+		
+		if(wich == DialogInterface.BUTTON_POSITIVE){
+			Config cfg = configController.getConfig();
+			cfg.setServer(etAddress.getText().toString());
+			configController.updateConfig(cfg);
+			etAddress.setText("");
+		} else if (wich == DialogInterface.BUTTON_NEGATIVE){
+			arg0.dismiss();
 		}
 	}
 }

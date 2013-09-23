@@ -15,8 +15,10 @@
     <string name="msg_login_user_password_invalid">El usuario y contraseña no son válidos.</string>
     <string name="msg_login_failed">No se puede ingresar al sistema, intente más tarde.</string>
     <string name="msg_login_succeeded">Ingreso correcto.</string>
-    <string name="msg_send_encuesta_succeeded">La encuesta ha enviada exitosamente.</string>
+    <string name="msg_send_encuesta_succeeded">La encuesta ha sido enviada exitosamente.</string>
     <string name="msg_send_encuesta_failed">Hubo un error al enviar la encuesta. Se ha almacenado en la base de datos del dispositivo.</string>
+    <string name="msg_download_opciones_respuesta_failed">Ocurrió un error en la descarga de opciones de respuesta.</string>
+    <string name="msg_download_asignaciones_failed">Ocurrió un error en la descarga de asignaciones.</string>
     <!---->
     
     <!-- Options -->
@@ -63,6 +65,16 @@
         <item>Seleccione ésta opción para finalizar las actividades del día.</item>
         <item>Envío de encuestas pendientes, Descargar parámetros, etc.</item>
     </string-array>
+    <string-array name="main_menu_stored_enscts">
+        <item>Todas</item>
+        <item>Enviadas</item>
+        <item>No Enviadas</item>
+    </string-array>
+    <string-array name="main_menu_sync">
+        <item>Descargar parámetros</item>
+        <item>Reenviar encuestas almacenadas</item>
+    </string-array>
+    
     <string-array name="main_menu_values">
         <item>gob.sis.simos.BeginWorkingDayActivity</item>
         <item>gob.sis.simos.EndWorkingDayActivity</item>

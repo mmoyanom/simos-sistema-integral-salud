@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -28,9 +29,12 @@ public class Encuesta01 implements Serializable {
 	@Expose
 	private String nroCuestionario;
 	
-	@DatabaseField(columnName="created")
+	@DatabaseField(columnName="created",dataType=DataType.DATE_STRING)
 	@Expose
 	private Date created;
+	
+	@DatabaseField(columnName="json")
+	private String json;
 	
 	@DatabaseField(columnName="sent")
 	@Expose
@@ -43,6 +47,7 @@ public class Encuesta01 implements Serializable {
 	private List<Respuesta> datosEncuestado;
 	private List<Receta> recetas;
 	private List<VerificacionPago> verificaciones;
+	private List<Respuesta> respuestas;
 	
 	public Encuesta01() {
 		this.datosEncuestado = new ArrayList<Respuesta>();
@@ -119,5 +124,22 @@ public class Encuesta01 implements Serializable {
 		this.sent = sent;
 	}
 
+	public List<Respuesta> getRespuestas() {
+		return respuestas;
+	}
+
+	public void setRespuestas(List<Respuesta> respuestas) {
+		this.respuestas = respuestas;
+	}
+
+	public String getJson() {
+		return json;
+	}
+
+	public void setJson(String json) {
+		this.json = json;
+	}
+	
+	
 	
 }

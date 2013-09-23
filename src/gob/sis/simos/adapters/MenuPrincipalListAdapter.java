@@ -16,12 +16,15 @@ public class MenuPrincipalListAdapter extends ArrayAdapter<OpcionMenu> {
 
 	LayoutInflater inflater;
 	Context context;
-	ArrayList<OpcionMenu> items;
 	
 	public MenuPrincipalListAdapter(Context context, int textViewResourceId,ArrayList<OpcionMenu> items) {
 		super(context, textViewResourceId, items);
 		this.context = context;
-		this.items = items;
+	}
+	
+	public MenuPrincipalListAdapter(Context context, int textViewResourceId) {
+		super(context, textViewResourceId);
+		this.context = context;
 	}
 	
 	@Override
@@ -37,7 +40,7 @@ public class MenuPrincipalListAdapter extends ArrayAdapter<OpcionMenu> {
 			v.setTag(holder);
 		}else
 			holder = (ViewHolder)v.getTag();
-		OpcionMenu menuOption = this.items.get(position);
+		OpcionMenu menuOption = getItem(position);
 		if(menuOption != null){
 			holder.title.setText(menuOption.getTitle());
 			holder.description.setText(menuOption.getDescription());

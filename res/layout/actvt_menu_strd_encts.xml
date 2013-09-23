@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-	<android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
+	<ListView 
+	    android:id="@+id/lv_stored_encts"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:entries="@array/main_menu_stored_enscts">
+	</ListView>
 </LinearLayout>
