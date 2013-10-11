@@ -553,8 +553,8 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		protected SendEncuestaResult doInBackground(Encuesta01... params) {
 			Encuesta01 encta = new Encuesta01();
 			encta.setCreated(Calendar.getInstance().getTime());
-			encta.setEncuestaGrupo(3);
-			encta.setFormularioId("F1");
+			//encta.setEncuestaGrupo(3);
+			//encta.setFormularioId("F1");
 			
 			List<Respuesta> rspts = new ArrayList<Respuesta>();
 			rspts.addAll(encuesta.getDatosEncuestado());

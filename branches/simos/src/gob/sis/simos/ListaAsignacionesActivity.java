@@ -1,7 +1,7 @@
 package gob.sis.simos;
 
-import gob.sis.simos.MenuPrincipalActivity.SendEncuestasUnsentTask;
 import gob.sis.simos.adapters.AsignacionListAdapter;
+import gob.sis.simos.application.MyApplication;
 import gob.sis.simos.controller.AsignacionController;
 import gob.sis.simos.controller.EncuestaController;
 import gob.sis.simos.controller.JornadaController;
@@ -94,11 +94,20 @@ public class ListaAsignacionesActivity extends RoboActivity implements OnItemCli
 	protected void onResume() {
 		super.onResume();
 		checkDay();
+		MyApplication application = (MyApplication)getApplication();
+		application.setSelectedAsignacion(null);
 	}
 	
 	private void checkDay(){
 		
-		if(jndaController.jornadaIniciada() && !jndaController.equalsToday(jndaController.getJornada().getStart())){
+		if(jndaController.getJornada() == null)
+			return;
+		if(jndaController.getJornada().getStart() == null)
+			return;
+		if(jndaController.getJornada().getFinish() == null)
+			return;
+		
+		if(!jndaController.jornadaFinalizada() && !jndaController.equalsToday(jndaController.getJornada().getStart())){
 			Calendar c = Calendar.getInstance();
 			c.setTime(Calendar.getInstance().getTime());
 			c.set(Calendar.HOUR, 11);
@@ -148,6 +157,10 @@ public class ListaAsignacionesActivity extends RoboActivity implements OnItemCli
 
 	@Override
 	public void onItemClick(AdapterView<?> view, View v, int position, long resourceId) {
+		
+		Asignacion a = (Asignacion)_lstAsignaciones.getItemAtPosition(position);
+		MyApplication application = (MyApplication)getApplication();
+		application.setSelectedAsignacion(a);
 		
 		checkDay();
 		

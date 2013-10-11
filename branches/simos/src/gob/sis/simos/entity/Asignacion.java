@@ -18,18 +18,6 @@ public class Asignacion {
 	@DatabaseField(columnName="eess_desc")
 	private String establecimientoDesc;
 	
-	@DatabaseField(columnName="turn_id")
-	private Integer turnoId;
-	
-	@DatabaseField(columnName="turn_name")
-	private String turnoDescripcion;
-	
-	@DatabaseField(columnName="programmed")
-	private String fechaProgramada;
-	
-	@DatabaseField(columnName="created")
-	private String fechaProgramacion;
-
 	public Integer getEncuestaId() {
 		return encuestaId;
 	}
@@ -62,39 +50,5 @@ public class Asignacion {
 		this.establecimientoDesc = establecimientoDesc;
 	}
 
-	public Integer getTurnoId() {
-		return turnoId;
-	}
-
-	public void setTurnoId(Integer turnoId) {
-		this.turnoId = turnoId;
-	}
-
-	public String getTurnoDescripcion() {
-		return turnoDescripcion;
-	}
-
-	public void setTurnoDescripcion(String turnoDescripcion) {
-		this.turnoDescripcion = turnoDescripcion;
-	}
-
-	public String getFechaProgramada() {
-		return fechaProgramada;
-	}
-
-	public void setFechaProgramada(String fechaProgramada) {
-		this.fechaProgramada = fechaProgramada;
-	}
-
-	public String getFechaProgramacion() {
-		return fechaProgramacion;
-	}
-
-	public void setFechaProgramacion(String fechaProgramacion) {
-		this.fechaProgramacion = fechaProgramacion;
-	}
-	
-	
-	
 
 }

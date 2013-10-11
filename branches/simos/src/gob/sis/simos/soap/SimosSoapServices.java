@@ -1,14 +1,12 @@
 package gob.sis.simos.soap;
 
 import gob.sis.simos.R;
-import gob.sis.simos.dto.EncuestaSenderObject;
 import gob.sis.simos.resources.AppProperties;
 import gob.sis.simos.service.impl.ConfigurationServiceImpl;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.SocketTimeoutException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.ksoap2.serialization.PropertyInfo;
@@ -69,7 +67,7 @@ public class SimosSoapServices {
 		return null;
 	}
 
-	public SendEncuestaResult sendEncuesta(EncuestaSenderObject sender) {
+	/*public SendEncuestaResult sendEncuesta(EncuestaSenderObject sender) {
 		
 		String data = gson.toJson(sender);
 		
@@ -124,7 +122,7 @@ public class SimosSoapServices {
 		rslt.setErrorMessage(_context.getResources().getString(R.string.msg_send_encuesta_failed));
 		rslt.setResult(SendEncuestaResult.FAILED);
 		return rslt;
-	}
+	}*/
 	
 	public DownloadListOfAsignacionesResult getAsignaciones(String userId, Date date) {
 		this.OPERATION_NAME = "GetAsignaciones";
@@ -136,18 +134,8 @@ public class SimosSoapServices {
 		p1 = new PropertyInfo();
 		p1.setName("UsuarioId");
 		p1.setType(String.class);
-		//p1.setValue(2);
 		p1.setValue(userId);
 		request.addProperty(p1);
-		
-		PropertyInfo p2;
-		p2 = new PropertyInfo();
-		p2.setName("fecha");
-		p2.setType(String.class);
-		String yyyyMMdd = new SimpleDateFormat("yyyyMMdd").format(date);
-		//p2.setValue("20130802");
-		p2.setValue(yyyyMMdd);
-		request.addProperty(p2);
 		
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapSerializationEnvelope.VER11);
 		envelope.dotNet = true;
@@ -162,6 +150,7 @@ public class SimosSoapServices {
 				String str_result = soapObject.toString();
 				Type type = new TypeToken<DownloadListOfAsignacionesResult>(){}.getType();
 				DownloadListOfAsignacionesResult rslt = gson.fromJson(str_result, type);
+				
 				return rslt;
 			}
 		} catch (SocketTimeoutException e){
@@ -231,14 +220,14 @@ public class SimosSoapServices {
 	
 	
 	public SendEncuestaResult sendEncuestas(String data) {
-		this.OPERATION_NAME = "SetRespuestasEncuestas";
+		this.OPERATION_NAME = "SaveEncuestas";
 
 		String soap_action = this.NAMESPACE.concat(this.OPERATION_NAME);
 		SoapObject request = new SoapObject(this.NAMESPACE, this.OPERATION_NAME);
 
 		PropertyInfo pi;
 		pi = new PropertyInfo();
-		pi.setName("SrptasEncs");
+		pi.setName("data_json");
 		pi.setType(String.class);
 		pi.setValue(data);
 		request.addProperty(pi);
@@ -248,7 +237,7 @@ public class SimosSoapServices {
 		envelope.setOutputSoapObject(request);
 		
 		String url = String.format("http://%s/simosws/ApplicationService.asmx", cfgService.getConfiguration().getServer());
-		HttpTransportSE httpTransport = new HttpTransportSE(url,10000);
+		HttpTransportSE httpTransport = new HttpTransportSE(url,20000);
 		try {
 			httpTransport.call(soap_action, envelope);
 			Object soapObject = (Object)envelope.getResponse();
@@ -282,5 +271,15 @@ public class SimosSoapServices {
 		rslt.setResult(SendEncuestaResult.FAILED);
 		return rslt;
 	}
+	
+	/*private OnSendEncuestasListener onSendEncuestasListener;
+	
+	public void setOnSendEncuestasListener(OnSendEncuestasListener listener){
+		this.onSendEncuestasListener = listener;
+	}
+	
+	public interface OnSendEncuestasListener {
+		public abstract void onFinished();
+	}*/
 
 }

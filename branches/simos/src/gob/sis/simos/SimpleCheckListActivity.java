@@ -29,6 +29,8 @@ public class SimpleCheckListActivity extends RoboActivity implements OnClickList
 	
 	private SimpleCheckListAdapter adapter;
 	
+	private Integer preguntaId;
+	
 	@Inject
 	private VerificacionPagoController verificacionController;
 	
@@ -41,20 +43,96 @@ public class SimpleCheckListActivity extends RoboActivity implements OnClickList
 		Bundle b = getIntent().getExtras();
 		Integer preguntaId = b.getInt("preguntaId");
 		if(preguntaId != null){
-			if(preguntaId == 14){
+			
+			this.preguntaId = preguntaId;
+			
+			if(this.preguntaId == 19){
+				List<OpcionRespuesta> items = verificacionController.getRespuestas(19);
+				adapter = new SimpleCheckListAdapter(this, R.layout.adptr_simple_check_list, items);
+				lstCheckList.setAdapter(adapter);
+				
+				int[] int_array = b.getIntArray("bundle_pregunta_19");
+				if(int_array != null){
+					for(int x = 0 ; x < int_array.length; x++){
+						for(int i =0; i < adapter.getCount(); i++){
+							OpcionRespuesta or = adapter.getItem(i);
+							if(or.getOpcionRespuestaId().intValue() == int_array[x]){
+								or.setChecked(true);
+								break;
+							}
+						}
+					}
+				}
+				
+			} else if(this.preguntaId == 17){
+				List<OpcionRespuesta> items = verificacionController.getRespuestas(17);
+				adapter = new SimpleCheckListAdapter(this, R.layout.adptr_simple_check_list, items);
+				lstCheckList.setAdapter(adapter);
+				
+				int[] int_array = b.getIntArray("bundle_pregunta_17");
+				if(int_array != null){
+					for(int x = 0 ; x < int_array.length; x++){
+						for(int i =0; i < adapter.getCount(); i++){
+							OpcionRespuesta or = adapter.getItem(i);
+							if(or.getOpcionRespuestaId().intValue() == int_array[x]){
+								or.setChecked(true);
+								break;
+							}
+						}
+					}
+				}
+				
+			} else if(this.preguntaId == 16){
+				List<OpcionRespuesta> items = verificacionController.getRespuestas(16);
+				adapter = new SimpleCheckListAdapter(this, R.layout.adptr_simple_check_list, items);
+				lstCheckList.setAdapter(adapter);
+				
+				int[] int_array = b.getIntArray("bundle_pregunta_16");
+				if(int_array != null){
+					for(int x = 0 ; x < int_array.length; x++){
+						for(int i =0; i < adapter.getCount(); i++){
+							OpcionRespuesta or = adapter.getItem(i);
+							if(or.getOpcionRespuestaId().intValue() == int_array[x]){
+								or.setChecked(true);
+								break;
+							}
+						}
+					}
+				}
+				
+			} else if(this.preguntaId == 14){
 				List<OpcionRespuesta> items = verificacionController.getRespuestas(14);
 				adapter = new SimpleCheckListAdapter(this, R.layout.adptr_simple_check_list, items);
 				lstCheckList.setAdapter(adapter);
-			}
-		}
-		int[] int_array = b.getIntArray("bundle_payment_reasons");
-		if(int_array != null){
-			for(int x = 0 ; x < int_array.length; x++){
-				for(int i =0; i < adapter.getCount(); i++){
-					OpcionRespuesta or = adapter.getItem(i);
-					if(or.getOpcionRespuestaId().intValue() == int_array[x]){
-						or.setChecked(true);
-						break;
+				
+				int[] int_array = b.getIntArray("bundle_pregunta_14");
+				if(int_array != null){
+					for(int x = 0 ; x < int_array.length; x++){
+						for(int i =0; i < adapter.getCount(); i++){
+							OpcionRespuesta or = adapter.getItem(i);
+							if(or.getOpcionRespuestaId().intValue() == int_array[x]){
+								or.setChecked(true);
+								break;
+							}
+						}
+					}
+				}
+				
+			} else if(this.preguntaId == 11){
+				List<OpcionRespuesta> items = verificacionController.getRespuestas(11);
+				adapter = new SimpleCheckListAdapter(this, R.layout.adptr_simple_check_list, items);
+				lstCheckList.setAdapter(adapter);
+				
+				int[] int_array = b.getIntArray("bundle_pregunta_11");
+				if(int_array != null){
+					for(int x = 0 ; x < int_array.length; x++){
+						for(int i =0; i < adapter.getCount(); i++){
+							OpcionRespuesta or = adapter.getItem(i);
+							if(or.getOpcionRespuestaId().intValue() == int_array[x]){
+								or.setChecked(true);
+								break;
+							}
+						}
 					}
 				}
 			}
@@ -73,6 +151,7 @@ public class SimpleCheckListActivity extends RoboActivity implements OnClickList
 				}
 			}
 			intent.putExtra("bundle", bundle);
+			intent.putExtra("bundle_preguntaId", preguntaId);
 			
 			this.setResult(RESULT_OK, intent);
 			this.finish();

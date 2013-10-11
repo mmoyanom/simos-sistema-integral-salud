@@ -50,5 +50,14 @@ public class ConfigurationServiceImpl {
 			e.printStackTrace();
 		}
 	}
+
+	public void createConfiguration(Config cfg) {
+		try {
+			Dao<Config, Integer> dao = getHelper().getConfig();
+			dao.create(cfg);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

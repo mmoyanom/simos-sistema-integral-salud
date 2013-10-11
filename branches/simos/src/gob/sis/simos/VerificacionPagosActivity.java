@@ -87,70 +87,6 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	
 	protected void loadVerificacion(){
 		
-		/*List<Respuesta> rspts = this.verificacion.getRespuestas();
-		
-		Respuesta or9 = new Respuesta();
-		or9.setPreguntaId(9);
-		or9.setOpcionRespuestaId(39);
-		this.verificacion.getRespuestas().add(or9);
-		
-		Respuesta or10 = new Respuesta();
-		or10.setPreguntaId(10);
-		or10.setOpcionRespuestaId(42);
-		this.verificacion.getRespuestas().add(or10);
-		
-		Respuesta or11 = new Respuesta();
-		or11.setPreguntaId(11);
-		or11.setOpcionRespuestaId(46);
-		this.verificacion.getRespuestas().add(or11);
-		
-		Respuesta or12 = new Respuesta();
-		or12.setPreguntaId(12);
-		or12.setOpcionRespuestaId(55);
-		or12.setRespuestaTexto("123456;654321");
-		this.verificacion.getRespuestas().add(or12);
-		
-		Respuesta or13 = new Respuesta();
-		or13.setPreguntaId(13);
-		or13.setOpcionRespuestaId(56);
-		or13.setRespuestaNumero(18.0);
-		this.verificacion.getRespuestas().add(or13);
-		
-		Respuesta or14 = new Respuesta();
-		or14.setPreguntaId(14);
-		or14.setOpcionRespuestaId(58);
-		this.verificacion.getRespuestas().add(or14);
-		
-		Respuesta or15 = new Respuesta();
-		or15.setPreguntaId(15);
-		or15.setOpcionRespuestaId(66);
-		this.verificacion.getRespuestas().add(or15);
-		
-		Respuesta or16 = new Respuesta();
-		or16.setPreguntaId(16);
-		or16.setOpcionRespuestaId(70);
-		this.verificacion.getRespuestas().add(or16);
-		
-		Respuesta or17 = new Respuesta();
-		or17.setPreguntaId(17);
-		or17.setOpcionRespuestaId(86);
-		this.verificacion.getRespuestas().add(or17);
-		
-		Respuesta or18 = new Respuesta();
-		or18.setPreguntaId(18);
-		or18.setOpcionRespuestaId(108);
-		this.verificacion.getRespuestas().add(or18);
-		
-		Respuesta or19 = new Respuesta();
-		or19.setPreguntaId(19);
-		or19.setOpcionRespuestaId(88);
-		this.verificacion.getRespuestas().add(or19);
-		
-		Respuesta or20 = new Respuesta();
-		or20.setPreguntaId(20);
-		or20.setOpcionRespuestaId(98);
-		this.verificacion.getRespuestas().add(or20);*/
-		
 		if(this.verificacion != null){
 			this.frgmnt0.setVerificacion(this.verificacion);
 			this.frgmnt1.setVerificacion(this.verificacion);
@@ -220,10 +156,8 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 	private void saveVerificacion() {
 		
 		List<Respuesta> respuestas = new ArrayList<Respuesta>();
+		
 		if(this.frgmnt0.isVisible()){
-			//List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
-			//respuestas.addAll(rsp00);
-			
 			Respuesta rp7 = this.frgmnt0.getRespuestaService();
 			List<Respuesta> child = new ArrayList<Respuesta>();
 			child.add(this.frgmnt0.getRespuestaRealizoPago());
@@ -231,13 +165,6 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 			respuestas.add(rp7);
 			
 		} else if(this.frgmnt2.isVisible()){
-			/*List<Respuesta> rsp00 = this.frgmnt0.getRespuestas();
-			List<Respuesta> rsp01 = this.frgmnt1.getRespuestas();
-			List<Respuesta> rsp02 = this.frgmnt2.getRespuestas();
-			
-			respuestas.addAll(rsp00);
-			respuestas.addAll(rsp01);
-			respuestas.addAll(rsp02);*/
 			Respuesta rp7 = this.frgmnt0.getRespuestaService();
 			List<Respuesta> child = new ArrayList<Respuesta>();
 			child.add(this.frgmnt0.getRespuestaRealizoPago());
@@ -356,31 +283,146 @@ public class VerificacionPagosActivity extends RoboFragmentActivity implements F
 		} else if(requestCode == SELECT_ITEMS && resultCode == Activity.RESULT_OK){
 			Bundle b = data.getExtras();
 			if(b != null){
-				Bundle array = b.getBundle("bundle");
-				if(array.size() == 0){
-					this.frgmnt1.txtPaymentIn.setText("Ninguno seleccionado.");
-					return;
-				}
-				
-				String[] keys = new String[array.size()]; 
-				array.keySet().toArray(keys);
-				StringBuffer sbf = new StringBuffer();
-				this.frgmnt1.rsptsPaymentIn.clear();
-				for(int i = 0 ; i < array.size(); i++){
-					OpcionRespuesta or = (OpcionRespuesta)array.get(keys[i]);
-					sbf.append("* ").append(or.getDescripcion());
-					Respuesta r = new Respuesta();
-					r.setPreguntaId(or.getPreguntaId());
-					r.setOpcionRespuestaId(or.getOpcionRespuestaId());
-					r.setRespuestaTexto(or.getDescripcion());
+				Integer preguntaId = b.getInt("bundle_preguntaId");
+				if(preguntaId != null){
 					
-					// pregunta 14
-					this.frgmnt1.rsptsPaymentIn.add(r);
-					if(i != array.size() -1){
-						sbf.append("\n");
-					}
+					if(preguntaId == 19){
+						Bundle array = b.getBundle("bundle");
+						if(array.size() == 0){
+							this.frgmnt2.txtPregunta19.setText("Ninguno seleccionado.");
+							return;
+						}
+						
+						String[] keys = new String[array.size()]; 
+						array.keySet().toArray(keys);
+						StringBuffer sbf = new StringBuffer();
+						this.frgmnt2.rsptsPregunta19.clear();
+						for(int i = 0 ; i < array.size(); i++){
+							OpcionRespuesta or = (OpcionRespuesta)array.get(keys[i]);
+							sbf.append("* ").append(or.getDescripcion());
+							Respuesta r = new Respuesta();
+							r.setPreguntaId(or.getPreguntaId());
+							r.setOpcionRespuestaId(or.getOpcionRespuestaId());
+							r.setRespuestaTexto(or.getDescripcion());
+							
+							// pregunta 19
+							this.frgmnt2.rsptsPregunta19.add(r);
+							if(i != array.size() -1){
+								sbf.append("\n");
+							}
+						}
+						this.frgmnt2.txtPregunta19.setText(sbf.toString());
+						
+					} else if(preguntaId == 17){
+						Bundle array = b.getBundle("bundle");
+						if(array.size() == 0){
+							this.frgmnt2.txtPregunta17.setText("Ninguno seleccionado.");
+							return;
+						}
+						
+						String[] keys = new String[array.size()]; 
+						array.keySet().toArray(keys);
+						StringBuffer sbf = new StringBuffer();
+						this.frgmnt2.rsptsPregunta17.clear();
+						for(int i = 0 ; i < array.size(); i++){
+							OpcionRespuesta or = (OpcionRespuesta)array.get(keys[i]);
+							sbf.append("* ").append(or.getDescripcion());
+							Respuesta r = new Respuesta();
+							r.setPreguntaId(or.getPreguntaId());
+							r.setOpcionRespuestaId(or.getOpcionRespuestaId());
+							r.setRespuestaTexto(or.getDescripcion());
+							
+							// pregunta 17
+							this.frgmnt2.rsptsPregunta17.add(r);
+							if(i != array.size() -1){
+								sbf.append("\n");
+							}
+						}
+						this.frgmnt2.txtPregunta17.setText(sbf.toString());
+						
+					} else if(preguntaId == 16){
+						Bundle array = b.getBundle("bundle");
+						if(array.size() == 0){
+							this.frgmnt2.txtPregunta16.setText("Ninguno seleccionado.");
+							return;
+						}
+						
+						String[] keys = new String[array.size()]; 
+						array.keySet().toArray(keys);
+						StringBuffer sbf = new StringBuffer();
+						this.frgmnt2.rsptsPregunta16.clear();
+						for(int i = 0 ; i < array.size(); i++){
+							OpcionRespuesta or = (OpcionRespuesta)array.get(keys[i]);
+							sbf.append("* ").append(or.getDescripcion());
+							Respuesta r = new Respuesta();
+							r.setPreguntaId(or.getPreguntaId());
+							r.setOpcionRespuestaId(or.getOpcionRespuestaId());
+							r.setRespuestaTexto(or.getDescripcion());
+							
+							// pregunta 16
+							this.frgmnt2.rsptsPregunta16.add(r);
+							if(i != array.size() -1){
+								sbf.append("\n");
+							}
+						}
+						this.frgmnt2.txtPregunta16.setText(sbf.toString());
+						
+					} else if(preguntaId == 14){
+						Bundle array = b.getBundle("bundle");
+						if(array.size() == 0){
+							this.frgmnt1.txtPaymentIn.setText("Ninguno seleccionado.");
+							return;
+						}
+						
+						String[] keys = new String[array.size()]; 
+						array.keySet().toArray(keys);
+						StringBuffer sbf = new StringBuffer();
+						this.frgmnt1.rsptsPaymentIn.clear();
+						for(int i = 0 ; i < array.size(); i++){
+							OpcionRespuesta or = (OpcionRespuesta)array.get(keys[i]);
+							sbf.append("* ").append(or.getDescripcion());
+							Respuesta r = new Respuesta();
+							r.setPreguntaId(or.getPreguntaId());
+							r.setOpcionRespuestaId(or.getOpcionRespuestaId());
+							r.setRespuestaTexto(or.getDescripcion());
+							
+							// pregunta 14
+							this.frgmnt1.rsptsPaymentIn.add(r);
+							if(i != array.size() -1){
+								sbf.append("\n");
+							}
+						}
+						this.frgmnt1.txtPaymentIn.setText(sbf.toString());
+						
+					} else if(preguntaId == 11){
+						Bundle array = b.getBundle("bundle");
+						if(array.size() == 0){
+							this.frgmnt1.txtPaymentOut.setText("Ninguno seleccionado.");
+							return;
+						}
+						
+						String[] keys = new String[array.size()]; 
+						array.keySet().toArray(keys);
+						StringBuffer sbf = new StringBuffer();
+						this.frgmnt1.rsptsPaymentOut.clear();
+						for(int i = 0 ; i < array.size(); i++){
+							OpcionRespuesta or = (OpcionRespuesta)array.get(keys[i]);
+							sbf.append("* ").append(or.getDescripcion());
+							Respuesta r = new Respuesta();
+							r.setPreguntaId(or.getPreguntaId());
+							r.setOpcionRespuestaId(or.getOpcionRespuestaId());
+							r.setRespuestaTexto(or.getDescripcion());
+							
+							// pregunta 11
+							this.frgmnt1.rsptsPaymentOut.add(r);
+							if(i != array.size() -1){
+								sbf.append("\n");
+							}
+						}
+						this.frgmnt1.txtPaymentOut.setText(sbf.toString());
+					} 
+					
 				}
-				this.frgmnt1.txtPaymentIn.setText(sbf.toString());
 			}
 		}
 	}

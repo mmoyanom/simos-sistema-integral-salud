@@ -22,7 +22,6 @@ public class Encuesta01 implements Serializable {
 	private Integer id;
 	
 	@DatabaseField(columnName="group_id")
-	@Expose
 	private Integer encuestaGrupo;
 	
 	@DatabaseField(columnName="nro_encsta")
@@ -47,6 +46,7 @@ public class Encuesta01 implements Serializable {
 	private List<Respuesta> datosEncuestado;
 	private List<Receta> recetas;
 	private List<VerificacionPago> verificaciones;
+	@Expose
 	private List<Respuesta> respuestas;
 	
 	public Encuesta01() {

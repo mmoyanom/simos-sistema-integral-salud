@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
-    <LinearLayout
+    <!-- <LinearLayout
         android:id="@+id/indicator"
         android:layout_width="56dp"
         android:layout_height="match_parent">
@@ -17,7 +17,7 @@
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textStyle="bold"
             android:textColor="@android:color/white"/>
-    </LinearLayout>
+    </LinearLayout>-->
     
     <LinearLayout 
         android:layout_width="match_parent"
