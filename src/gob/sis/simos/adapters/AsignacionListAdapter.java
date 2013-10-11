@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class AsignacionListAdapter extends ArrayAdapter<Asignacion> {
@@ -47,8 +46,7 @@ public class AsignacionListAdapter extends ArrayAdapter<Asignacion> {
 			holder = new ViewHolder();
 			holder.title = (TextView) v.findViewById(R.id.topTitle);
 			holder.description = (TextView) v.findViewById(R.id.bottomDescription);
-			holder.indicator = (LinearLayout)v.findViewById(R.id.indicator);
-			holder.label = (TextView)v.findViewById(R.id.label);
+			
 			v.setTag(holder);
 			
 		} else
@@ -61,7 +59,7 @@ public class AsignacionListAdapter extends ArrayAdapter<Asignacion> {
 			} else {
 				holder.description.setText("Sin descripcion.");
 			}
-			if(eess.getTurnoDescripcion() != null){
+			/*if(eess.getTurnoDescripcion() != null){
 				if(eess.getTurnoDescripcion().equals("Ma–ana")){
 					holder.indicator.setBackgroundColor(mornign);
 					holder.label.setText("M");
@@ -69,15 +67,15 @@ public class AsignacionListAdapter extends ArrayAdapter<Asignacion> {
 					holder.indicator.setBackgroundColor(afternoon);
 					holder.label.setText("T");
 				}
-			}
+			}*/
 		}
 		return v;
 	}
 
 	public static class ViewHolder {
-		public View indicator;
+		//public View indicator;
 		public TextView title;
 		public TextView description;
-		public TextView label;
+		//public TextView label;
 	}
 }

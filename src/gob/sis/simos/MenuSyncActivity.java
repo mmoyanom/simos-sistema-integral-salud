@@ -15,9 +15,7 @@ import java.util.List;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +40,11 @@ public class MenuSyncActivity extends RoboActivity implements OnItemClickListene
 		super.onCreate(savedInstanceState);
 		
 		dialog = new ProgressDialog(this);
-		
+		list();
+	}
+	
+	public void list(){
+
 		String[] array = getResources().getStringArray(R.array.main_menu_sync);
 		
 		List<OpcionMenu> menu = new ArrayList<OpcionMenu>();
@@ -143,6 +145,7 @@ public class MenuSyncActivity extends RoboActivity implements OnItemClickListene
 		@Override
 		protected void onPostExecute(SendEncuestaResult result) {
 			dialog.dismiss();
+			list();
 			if(result.getResult()==SendEncuestaResult.SUCCEEDED){
 				showMessage("Las encuestas han sido enviadas exitosamente.", Toast.LENGTH_LONG);
 			} else {
@@ -155,19 +158,5 @@ public class MenuSyncActivity extends RoboActivity implements OnItemClickListene
 		Toast.makeText(this, text, length).show();
 	}
 	
-	private AlertDialog alert;
-	
-	private void showAlert(String text){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(text)
-		       .setCancelable(false)
-		       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		        	   
-		           }
-		       });
-		alert = builder.create();
-		alert.show();
-	}
 
 }

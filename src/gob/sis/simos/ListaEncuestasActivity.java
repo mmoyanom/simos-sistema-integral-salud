@@ -1,6 +1,7 @@
 package gob.sis.simos;
 
 import gob.sis.simos.adapters.MenuEncuestaListAdapter;
+import gob.sis.simos.application.MyApplication;
 import gob.sis.simos.dto.OpcionMenu;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class ListaEncuestasActivity extends RoboActivity implements OnItemClickL
 	@InjectView(R.id.lst_inquest)
 	protected ListView _lstInquest;
 	
+	private MyApplication application;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,11 +41,14 @@ public class ListaEncuestasActivity extends RoboActivity implements OnItemClickL
 		MenuEncuestaListAdapter adapter = new MenuEncuestaListAdapter(this, R.layout.simple_list_item_image, items);
 		this._lstInquest.setAdapter(adapter);
 		this._lstInquest.setOnItemClickListener(this);
+		
+		application = (MyApplication)getApplication();
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		Intent i = new Intent(this, InformacionEncuestadoActivity.class);
+		application.setSelectedFormulario(1);
 		this.startActivity(i);
 	}
 	

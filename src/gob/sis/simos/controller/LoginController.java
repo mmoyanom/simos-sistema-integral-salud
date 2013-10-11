@@ -10,9 +10,7 @@ import gob.sis.simos.service.impl.LoginServiceImpl;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -80,6 +78,7 @@ public class LoginController {
 		return this.loginService.getDateStarted();
 	}*/
 
+	
 	public Result login(String username, String password){
 		Result result = null;
 		try {

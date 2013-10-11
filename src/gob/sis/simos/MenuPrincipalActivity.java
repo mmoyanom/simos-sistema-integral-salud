@@ -98,16 +98,15 @@ public class MenuPrincipalActivity extends RoboActivity implements
 	}
 	
 	private void checkDay(){
-		/*if(jndaController.getJornada().getStart()!= null && !controller.isDateStarted(Calendar.getInstance().getTime())){
-			asigController.cleanAsignaciones();
-			
-			controller.setDayFinished(true);
-			controller.setDayStarted(false);
-			controller.setDateStarted(null);
-			notifyDayFinished();
-		}*/
 		
-		if(jndaController.jornadaIniciada() && !jndaController.equalsToday(jndaController.getJornada().getStart())){
+		if(jndaController.getJornada() == null)
+			return;
+		if(jndaController.getJornada().getStart() == null)
+			return;
+		if(jndaController.getJornada().getFinish() == null)
+			return;
+		
+		if(!jndaController.jornadaFinalizada() && !jndaController.equalsToday(jndaController.getJornada().getStart())){
 			Calendar c = Calendar.getInstance();
 			c.setTime(Calendar.getInstance().getTime());
 			c.set(Calendar.HOUR, 11);
@@ -116,7 +115,6 @@ public class MenuPrincipalActivity extends RoboActivity implements
 			Date finish = c.getTime();
 			jndaController.finalizarJornada(finish);
 			new SendEncuestasUnsentTask().execute();
-			notifyDayFinished();
 		}
 	}
 	
@@ -128,10 +126,10 @@ public class MenuPrincipalActivity extends RoboActivity implements
 	    alertDialog1.setButton(AlertDialog.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
 	        	
 	            public void onClick(DialogInterface dialog, int which) {
-	            	Intent in = new Intent(MenuPrincipalActivity.this, MenuPrincipalActivity.class);
+	            	/*Intent in = new Intent(MenuPrincipalActivity.this, MenuPrincipalActivity.class);
 	            	in.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	            	in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            	startActivity(in);
+	            	startActivity(in);*/
 	            }
 	     });
 	    alertDialog1.show();
@@ -167,6 +165,51 @@ public class MenuPrincipalActivity extends RoboActivity implements
 	
 	private void finalizeDay(String message){
 		
+		if(jndaController.getJornada() == null){
+			AlertDialog alertDialog1 = new AlertDialog.Builder(this).create();
+	        alertDialog1.setTitle("Jornada no iniciada");
+	        alertDialog1.setMessage("Usted no ha iniciado la jornada.");
+	        alertDialog1.setButton(AlertDialog.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+	        	
+	            public void onClick(DialogInterface dialog, int which) {
+	            }
+	        });
+	        alertDialog1.show();
+	        return;
+		}
+		if(jndaController.getJornada().getStart()==null){
+			AlertDialog alertDialog1 = new AlertDialog.Builder(this).create();
+	        alertDialog1.setTitle("Jornada no iniciada");
+	        alertDialog1.setMessage("Usted no ha iniciado la jornada.");
+	        alertDialog1.setButton(AlertDialog.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+	        	
+	            public void onClick(DialogInterface dialog, int which) {
+	            }
+	        });
+	        alertDialog1.show();
+	        return;
+		}
+		if(jndaController.getJornada().getFinish()==null){
+			AlertDialog alertDialog1 = new AlertDialog.Builder(this).create();
+	        alertDialog1.setTitle("Finalizar Jornada");
+	        alertDialog1.setMessage("Desea finalizar la jornada ahora?");
+	        alertDialog1.setButton(AlertDialog.BUTTON_POSITIVE,"Si", new DialogInterface.OnClickListener() {
+	        	
+	            public void onClick(DialogInterface dialog, int which) {
+	            	Date finish = Calendar.getInstance().getTime();
+	            	jndaController.finalizarJornada(finish);
+	            	new SendEncuestasUnsentTask().execute();
+	            }
+	        });
+	        alertDialog1.setButton(AlertDialog.BUTTON_NEGATIVE,"No", new DialogInterface.OnClickListener() {
+	        	
+	            public void onClick(DialogInterface dialog, int which) {
+	            }
+	        });
+	        alertDialog1.show();
+	        return;
+		}
+		
 		if(jndaController.jornadaFinalizada() && jndaController.equalsToday(jndaController.getJornada().getFinish())){
 			AlertDialog alertDialog1 = new AlertDialog.Builder(this).create();
 	        alertDialog1.setTitle("Jornada Finalizada");
@@ -178,7 +221,7 @@ public class MenuPrincipalActivity extends RoboActivity implements
 	        return;
 		}
 		
-		if(jndaController.jornadaIniciada() && jndaController.equals(jndaController.getJornada().getStart())){
+		if(!jndaController.jornadaFinalizada() && jndaController.equalsToday(jndaController.getJornada().getStart())){
 			AlertDialog alertDialog1 = new AlertDialog.Builder(this).create();
 	        alertDialog1.setTitle("Finalizar Jornada");
 	        alertDialog1.setMessage("Desea finalizar la jornada ahora?");
@@ -218,8 +261,6 @@ public class MenuPrincipalActivity extends RoboActivity implements
         alertDialog1.setButton(AlertDialog.BUTTON_POSITIVE,"Si", new DialogInterface.OnClickListener() {
         	
             public void onClick(DialogInterface dialog, int which) {
-            	//controller.setDayStarted(false);
-            	//controller.setDayFinished(true);
             	Date finish = Calendar.getInstance().getTime();
             	jndaController.finalizarJornada(finish);
             	logOut();

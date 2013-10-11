@@ -1,16 +1,16 @@
 package gob.sis.simos.controller;
 
+import gob.sis.simos.entity.Encuesta01;
+import gob.sis.simos.service.impl.EncuestaServiceImpl;
+import gob.sis.simos.soap.SendEncuestaResult;
+
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import com.google.inject.Inject;
-
-import gob.sis.simos.entity.Encuesta01;
-import gob.sis.simos.service.impl.EncuestaServiceImpl;
-import gob.sis.simos.soap.DownloadListOfOpcionRespuestaResult;
-import gob.sis.simos.soap.SendEncuestaResult;
 import roboguice.inject.ContextSingleton;
+
+import com.google.inject.Inject;
 
 @ContextSingleton
 public class EncuestaController {

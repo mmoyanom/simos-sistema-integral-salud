@@ -4,6 +4,7 @@ import gob.sis.simos.entity.Config;
 import gob.sis.simos.entity.Cuenta;
 import gob.sis.simos.entity.Encuesta01;
 import gob.sis.simos.entity.Asignacion;
+import gob.sis.simos.entity.EncuestaGrupo;
 import gob.sis.simos.entity.Jornada;
 import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
@@ -35,6 +36,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	private Dao<OpcionRespuesta, Integer> opcionesRespuestaDao;
 	private Dao<Class<?>, String> medicineDao;
 	private Dao<Class<?>, String> supplyDao;
+	private Dao<EncuestaGrupo, Integer> encuestaGrupoDao;
 	private Dao<Encuesta01, Integer> encuestaDao;
 	private Dao<Respuesta, Integer> respuestaDao;
 	private Dao<Config, Integer> configDao;
@@ -107,6 +109,13 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 		return AsignacionDao;
 	}
 	
+	public Dao<EncuestaGrupo, Integer> getEncuestaGrupoDao() throws SQLException {
+		if(encuestaGrupoDao == null){
+			encuestaGrupoDao = getDao(EncuestaGrupo.class);
+		}
+		return encuestaGrupoDao;
+	}
+	
 	public Dao<Encuesta01, Integer> getEncuestaDao() throws SQLException {
 		if(encuestaDao == null){
 			encuestaDao = getDao(Encuesta01.class);
@@ -149,25 +158,16 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 		if (!dir.exists())
 			dir.mkdir();
 		InputStream myInput = context.getAssets().open(DATABASE_NAME);
-		/*
-		 * InputStream myInput2 = context.getAssets().open("database_ab");
-		 * InputStream myInput3 = context.getAssets().open("database_ac");
-		 */
 		String outFileName = path.concat("/simos.sqlite");
 		OutputStream myOutput = new FileOutputStream(outFileName);
 		byte[] buffer = new byte[1024];
 		int length;
 		while ((length = myInput.read(buffer)) > 0) {
 			myOutput.write(buffer, 0, length);
-		}/*
-		 * while ((length = myInput2.read(buffer))>0){ myOutput.write(buffer, 0,
-		 * length); } while ((length = myInput3.read(buffer))>0){
-		 * myOutput.write(buffer, 0, length); }
-		 */
+		}
 		myOutput.flush();
 		myOutput.close();
 		myInput.close();
-		// myInput2.close();
 	}
 
 	/*

@@ -1,17 +1,19 @@
 package gob.sis.simos.controller;
 
+import gob.sis.simos.entity.Cuenta;
+import gob.sis.simos.entity.Jornada;
+import gob.sis.simos.service.impl.AsignacionServiceImpl;
+import gob.sis.simos.service.impl.JornadaServiceImpl;
+import gob.sis.simos.service.impl.LoginServiceImpl;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.annotation.SuppressLint;
-import com.google.inject.Inject;
-
 import roboguice.inject.ContextSingleton;
-import gob.sis.simos.entity.Cuenta;
-import gob.sis.simos.entity.Jornada;
-import gob.sis.simos.service.impl.JornadaServiceImpl;
-import gob.sis.simos.service.impl.LoginServiceImpl;
+import android.annotation.SuppressLint;
+
+import com.google.inject.Inject;
 
 @ContextSingleton
 public class JornadaController {
@@ -21,6 +23,9 @@ public class JornadaController {
 	
 	@Inject
 	private LoginServiceImpl loginService;
+	
+	@Inject
+	private AsignacionServiceImpl asigService;
 	
 	public Jornada getJornada(){
 		return jrnService.getJornada();
@@ -61,6 +66,7 @@ public class JornadaController {
 	public void finalizarJornada(Date finish) {
 		Jornada jr = jrnService.getJornada();
 		if(jr != null){
+			asigService.cleanAsignaciones();
 			jr.setFinish(finish);
 			jrnService.setJornada(jr);
 		}
