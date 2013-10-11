@@ -1,17 +1,14 @@
 package gob.sis.simos.service.impl;
 
 import gob.sis.simos.R;
+import gob.sis.simos.application.MyApplication;
 import gob.sis.simos.controller.Result;
 import gob.sis.simos.controller.ResultType;
 import gob.sis.simos.db.DBHelper;
-import gob.sis.simos.dto.EncuestaSenderObject;
-import gob.sis.simos.dto.Receta;
 import gob.sis.simos.entity.Cuenta;
 import gob.sis.simos.entity.Encuesta01;
-import gob.sis.simos.entity.Insumo;
-import gob.sis.simos.entity.Medicamento;
+import gob.sis.simos.entity.EncuestaGrupo;
 import gob.sis.simos.entity.Respuesta;
-import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.soap.DownloadListOfOpcionRespuestaResult;
 import gob.sis.simos.soap.SendEncuestaResult;
 import gob.sis.simos.soap.SimosSoapServices;
@@ -24,18 +21,19 @@ import java.util.Date;
 import java.util.List;
 
 import roboguice.inject.ContextSingleton;
+import android.app.Application;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.table.TableUtils;
 
 @ContextSingleton
@@ -47,6 +45,9 @@ public class EncuestaServiceImpl {
 	private Context context;
 	
 	@Inject
+	private Application application;
+	
+	@Inject
 	private LoginServiceImpl loginService;
 	
 	@Inject
@@ -54,51 +55,60 @@ public class EncuestaServiceImpl {
 	
 	private Gson gson;
 	
+	// encuestas almacenadas
 	public SendEncuestaResult SendEncuestasNoEnviadas(){
 		
 		try {
+			
+			gson = new GsonBuilder()
+	        .excludeFieldsWithoutExposeAnnotation()
+	        .create();
+			
+			Dao<EncuestaGrupo, Integer> enctaGrupoDao = getHelper().getEncuestaGrupoDao();
 			Dao<Encuesta01, Integer> encuestaDao = getHelper().getEncuestaDao();
-			
+
 			QueryBuilder<Encuesta01, Integer> builder = encuestaDao.queryBuilder();
-			builder.setWhere(builder.selectColumns("json").where().eq("sent", 0));
-			List<Encuesta01> enctas = encuestaDao.query(builder.prepare());
 			
-			JsonArray json_array = new JsonArray();
-			JsonParser parser = new JsonParser(); 
-			for(int i=0; i < enctas.size() ; i++){
-				Encuesta01 x = enctas.get(i);
-				JsonElement json_obj = parser.parse(x.getJson());
-				json_array.add(json_obj);
+			List<EncuestaGrupo> grupos = enctaGrupoDao.queryForAll();
+			
+			JsonArray array = new JsonArray();
+			
+			List<Encuesta01> enctas = new ArrayList<Encuesta01>();
+			
+			for (EncuestaGrupo eg : grupos) {
+				builder.setWhere(builder.where().eq("sent", 0).and().eq("group_id", eg.getId()));
+				enctas = encuestaDao.query(builder.prepare());
+				JsonArray json_array = new JsonArray();
+				JsonParser parser = new JsonParser();
+				for (Encuesta01 e : enctas) {
+					JsonElement json_obj = parser.parse(e.getJson());
+					json_array.add(json_obj);
+				}
+				JsonElement json_eg = parser.parse(gson.toJson(eg));
+				JsonObject json_obj = new JsonObject();
+				json_obj.add("group", json_eg);
+				json_obj.add("encta", json_array);
+				
+				array.add(json_obj);
 			}
 			
-			String data = json_array.toString();
 			SimosSoapServices services = new SimosSoapServices(context);
-			SendEncuestaResult result = services.sendEncuestas(data);
+			String str = array.toString();
+			SendEncuestaResult result = services.sendEncuestas(str);
 			
-			builder = encuestaDao.queryBuilder();
-			builder.setWhere((builder.selectColumns("id","group_id","nro_encsta","created","sent","form_id").where().eq("sent", 0)));
-			enctas = encuestaDao.query(builder.prepare());
-			
-			UpdateBuilder<Encuesta01, Integer> upBuilder = encuestaDao.updateBuilder();
-			
-			if(result.getResult()==SendEncuestaResult.SUCCEEDED){
+			if(result.getResult() == SendEncuestaResult.SUCCEEDED) {
 				for (Encuesta01 e : enctas) {
-					upBuilder.updateColumnValue("sent",1).where().eq("id", e.getId());
-					upBuilder.update();
-					//e.setSent(1);
-					//encuestaDao.update(arg0);
+					e.setSent(1);
+					encuestaDao.update(e);
 				}
-				return result;
-			} else {
-				for (Encuesta01 e : enctas) {
-					upBuilder.updateColumnValue("sent",0).where().eq("id", e.getId());
-					upBuilder.update();
-					//e.setSent(0);
-					//encuestaDao.update(e);
-				}
-				result.setErrorMessage("Error : La encuesta no ha sido enviada. ".concat(result.getErrorMessage()));
-				return result;
+				/*
+				TableUtils.clearTable(getHelper().getConnectionSource(), Respuesta.class);
+				TableUtils.clearTable(getHelper().getConnectionSource(), Encuesta01.class);
+				TableUtils.clearTable(getHelper().getConnectionSource(), EncuestaGrupo.class);
+				*/
 			}
+			return result;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			SendEncuestaResult rslt = new SendEncuestaResult();
@@ -111,13 +121,46 @@ public class EncuestaServiceImpl {
 	public SendEncuestaResult save(Encuesta01 encta){
 		
 		try {
+			
+			Cuenta account = loginService.getStoredAccount();
+			
+			MyApplication app = (MyApplication)application;
+			
+			Dao<EncuestaGrupo, Integer> enctaGrupoDao = getHelper().getEncuestaGrupoDao();
+			QueryBuilder<EncuestaGrupo, Integer> enctaGrupoBuilder = enctaGrupoDao.queryBuilder();
+			Calendar c = Calendar.getInstance();
+			
+			enctaGrupoBuilder.setWhere(enctaGrupoBuilder
+			.where().eq("id_eess", app.getAsignacion().getEstablecimientoId())
+			.and().eq("id_encta", app.getFormulario())
+			.and().eq("id_enctdor", account.getUserId())
+			.and().eq("fec_encta_yyyymmdd", new SimpleDateFormat("yyyyMMdd",java.util.Locale.getDefault()).format(c.getTime())));
+			
+			EncuestaGrupo grupo = enctaGrupoDao.queryForFirst(enctaGrupoBuilder.prepare());
+			
+			if(grupo == null){
+				grupo = new EncuestaGrupo();
+				grupo.setEncuestadorId(Integer.parseInt(account.getUserId()));
+				grupo.setEncuestaId(app.getFormulario());
+				grupo.setEstablecimientoId(app.getAsignacion().getEstablecimientoId());
+				grupo.setFechaEncuesta(c.getTime());
+				grupo.setFechaEncuestaYYYYMMDD(new SimpleDateFormat("yyyyMMdd",java.util.Locale.getDefault()).format(c.getTime()));
+				enctaGrupoDao.create(grupo);
+				
+				grupo = enctaGrupoDao.queryForMatching(grupo).get(0);
+			}
+			
 			Dao<Encuesta01, Integer> enctaDao = getHelper().getEncuestaDao();
 			
-			long count_id = enctaDao.countOf()+1;
-			Cuenta account = loginService.getStoredAccount();
-			String yyDDMM = new SimpleDateFormat("yyMMdd").format(Calendar.getInstance().getTime());
-			String format_id = String.format("G%s%s%s%03d", encta.getFormularioId(), account.getUserId(), yyDDMM, count_id);
+			long count = enctaDao.countOf();
+			String yyDDMM = new SimpleDateFormat("yyMMdd",java.util.Locale.getDefault()).format(Calendar.getInstance().getTime());
+			String formulario = String.format("F%s", app.getFormulario());
+			String gestor_id = String.format("%03d", Integer.parseInt(account.getUserId()));
+			String count_id = String.format("%03d", count+1);
+			String format_id = String.format("G%s%s%s%s", formulario, gestor_id, yyDDMM, count_id);
 			
+			encta.setFormularioId(String.format("%s", app.getFormulario()));
+			encta.setEncuestaGrupo(grupo.getId());
 			encta.setNroCuestionario(format_id);
 			
 			enctaDao.create(encta);
@@ -156,23 +199,13 @@ public class EncuestaServiceImpl {
 	        .excludeFieldsWithoutExposeAnnotation()
 	        .create();
 			
-			EncuestaSenderObject sender = new EncuestaSenderObject();
-			sender.setEncuesta(encta);
-			sender.setRespuestas(encta.getRespuestas());
-			SimosSoapServices services = new SimosSoapServices(context);
-			SendEncuestaResult result = services.sendEncuesta(sender);
-			if(result.getResult()==SendEncuestaResult.SUCCEEDED){
-				foundEncuesta.setSent(1);
-				foundEncuesta.setJson(sender.toJson(gson));
-				enctaDao.update(foundEncuesta);
-				return result;
-			} else {
-				foundEncuesta.setSent(0);
-				foundEncuesta.setJson(sender.toJson(gson));
-				enctaDao.update(foundEncuesta);
-				result.setErrorMessage("Error : La encuesta no ha sido enviada. ".concat(result.getErrorMessage()));
-				return result;
-			}
+			SendEncuestaResult result = new SendEncuestaResult();
+			result.setResult(SendEncuestaResult.SUCCEEDED);
+			
+			foundEncuesta.setSent(0);
+			foundEncuesta.setJson(gson.toJson(encta));
+			enctaDao.update(foundEncuesta);
+			return result;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -183,6 +216,7 @@ public class EncuestaServiceImpl {
 		}
 	}
 	
+	/*
 	public SendEncuestaResult saveEncuesta(Encuesta01 encuesta, int foo){
 		try {
 			encuesta.setCreated(new Date());
@@ -192,7 +226,7 @@ public class EncuestaServiceImpl {
 			
 			long count_id = encuestaDao.countOf()+1;
 			Cuenta account = loginService.getStoredAccount();
-			String yyDDMM = new SimpleDateFormat("yyMMdd").format(Calendar.getInstance().getTime());
+			String yyDDMM = new SimpleDateFormat("yyMMdd",java.util.Locale.getDefault()).format(Calendar.getInstance().getTime());
 			
 			String format_id = String.format("G%s%s%s%03d", encuesta.getFormularioId(), account.getUserId(), yyDDMM, count_id);
 			encuesta.setNroCuestionario(format_id);
@@ -350,8 +384,8 @@ public class EncuestaServiceImpl {
 			return rslt;
 		}
 	}
+	*/
 	
-
 	public List<Encuesta01> findAll() throws SQLException {
 		
 		Dao<Encuesta01, Integer> encuestaDao = getHelper().getEncuestaDao();

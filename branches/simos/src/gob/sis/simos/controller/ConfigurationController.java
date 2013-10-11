@@ -16,7 +16,20 @@ public class ConfigurationController {
 		return configService.getConfiguration();
 	}
 
-	public void updateConfig(Config cfg) {
+	public void saveConfig(Config cfg) {
+		cfg.setId(1);
+		if(configService.getConfiguration() == null){
+			configService.createConfiguration(cfg);
+			return;
+		}
+		if (configService.getConfiguration().getServer() == null){
+			configService.createConfiguration(cfg);
+			return;
+		}
+		if (configService.getConfiguration().getServer().isEmpty()){
+			configService.createConfiguration(cfg);
+			return;
+		}
 		configService.updateConfiguration(cfg);
 	}
 	

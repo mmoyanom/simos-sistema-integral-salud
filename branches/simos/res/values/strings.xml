@@ -19,6 +19,7 @@
     <string name="msg_send_encuesta_failed">Hubo un error al enviar la encuesta. Se ha almacenado en la base de datos del dispositivo.</string>
     <string name="msg_download_opciones_respuesta_failed">Ocurrió un error en la descarga de opciones de respuesta.</string>
     <string name="msg_download_asignaciones_failed">Ocurrió un error en la descarga de asignaciones.</string>
+    <string name="msg_login_no_config_registered">Debe configurar la conexión antes de realizar el login.</string>
     <!---->
     
     <!-- Options -->

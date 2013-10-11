@@ -161,8 +161,36 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 	public void onClick(View v) {
 		
 		if(v == this._btnLogin){
+			if(configController.getConfig() == null){
+				showConfigAlert();
+				return;
+			}
+			if(configController.getConfig().getServer() == null){
+				showConfigAlert();
+				return;
+			}
+			if(configController.getConfig().getServer().isEmpty()){
+				showConfigAlert();
+				return;
+			}
+			
 			this.doLogin();
 		}
+	}
+	
+	private void showConfigAlert(){
+		AlertDialog dialog = new AlertDialog.Builder(this).create();
+		dialog.setTitle("Conectar");
+		dialog.setMessage(getResources().getString(R.string.msg_login_no_config_registered));
+		dialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getString(R.string.btn_text_OK), new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				etAddress.setText("");
+				alertSetAddress.show();
+			}
+		});
+		dialog.show();
 	}
 
 	@Override
@@ -286,9 +314,11 @@ public class LoginActivity extends RoboActivity implements OnClickListener, Inpu
 	public void onClick(DialogInterface arg0, int wich) {
 		
 		if(wich == DialogInterface.BUTTON_POSITIVE){
-			Config cfg = configController.getConfig();
+			
+			Config cfg = new Config();
 			cfg.setServer(etAddress.getText().toString());
-			configController.updateConfig(cfg);
+			configController.saveConfig(cfg);
+			
 			etAddress.setText("");
 		} else if (wich == DialogInterface.BUTTON_NEGATIVE){
 			arg0.dismiss();

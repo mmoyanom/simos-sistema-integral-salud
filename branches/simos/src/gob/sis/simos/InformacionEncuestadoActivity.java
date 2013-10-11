@@ -1,6 +1,5 @@
 package gob.sis.simos;
 
-import gob.sis.simos.ListaAsignacionesActivity.SendEncuestasUnsentTask;
 import gob.sis.simos.adapters.OpcionRespuestaSpinnerAdapter;
 import gob.sis.simos.controller.AsignacionController;
 import gob.sis.simos.controller.EncuestaController;
@@ -15,7 +14,10 @@ import gob.sis.simos.ui.UIEditText;
 import gob.sis.simos.ui.UIRadioButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +33,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -39,8 +43,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.inject.Inject;
+import com.google.zxing.integration.android.IntentIntegrator;
 
-public class InformacionEncuestadoActivity extends RoboActivity implements OnCheckedChangeListener {
+public class InformacionEncuestadoActivity extends RoboActivity implements OnCheckedChangeListener, OnClickListener {
 
 	@Inject
 	protected InfoEncuestadoController infoController;
@@ -54,19 +59,22 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 	protected JornadaController jndaController;
 	
 	private Encuesta01 encuesta;
+	
 	private static final int CALL_ENCUESTA = 1;
 	
-	@InjectView(R.id.rg_refence) protected RadioGroup _rgReference;
+	public static final Collection<String> ONE_D_CODE_TYPES =
+		      list("UPC_A", "UPC_E", "EAN_8", "EAN_13", "CODE_39", "CODE_93", "CODE_128",
+		           "ITF", "RSS_14", "RSS_EXPANDED");
 	
+	@InjectView(R.id.rg_refence) protected RadioGroup _rgReference;
 	@InjectView(R.id.layout_reason) protected LinearLayout _layoutReason;
 	@InjectView(R.id.separator_reason) protected View _separator;
-	
 	@InjectView(R.id.sp_document_type) private Spinner _spDocumentType;
 	@InjectView(R.id.sp_relacion_paciente) private Spinner _spRelacionPaciente;
 	@InjectView(R.id.sp_referencia) private Spinner _spReferencia;
-	
 	@InjectView(R.id.number_id) private UIEditText etNumberId;
 	@InjectView(R.id.rg_genere) private RadioGroup rgGenere;
+	@InjectView(R.id.barcode) private ImageButton barcodeButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +104,8 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 		items = infoController.getRespuestas(6);
 		adapter = new OpcionRespuestaSpinnerAdapter(this, items);
 		_spReferencia.setAdapter(adapter);
+		
+		barcodeButton.setOnClickListener(this);
 	}
 
 	@Override
@@ -135,6 +145,12 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 			} else if(resultCode == RESULT_CANCELED){
 				showMessage(getResources().getString(R.string.msg_canceled_by_user), Toast.LENGTH_LONG);
 				return;
+			}
+		}
+		if(requestCode == IntentIntegrator.REQUEST_CODE){
+			if(resultCode == RESULT_OK){
+				String contents = data.getStringExtra("SCAN_RESULT");
+				etNumberId.setText(contents);
 			}
 		}
 	}
@@ -241,7 +257,14 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 	}
 	
 	private void checkDay(){
-		if(jndaController.jornadaIniciada() && !jndaController.equalsToday(jndaController.getJornada().getStart())){
+		if(jndaController.getJornada() == null)
+			return;
+		if(jndaController.getJornada().getStart() == null)
+			return;
+		if(jndaController.getJornada().getFinish() == null)
+			return;
+		
+		if(!jndaController.jornadaFinalizada() && !jndaController.equalsToday(jndaController.getJornada().getStart())){
 			Calendar c = Calendar.getInstance();
 			c.setTime(Calendar.getInstance().getTime());
 			c.set(Calendar.HOUR, 11);
@@ -305,6 +328,22 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 				str = "Hubo un error al enviar las encuestas.";
 			}
 			finalizeDay(str);
+		}
+	}
+	
+	private void ScanBarCode(){
+		IntentIntegrator integrator = new IntentIntegrator(this);
+		integrator.initiateScan(ONE_D_CODE_TYPES);
+	}
+	
+	private static List<String> list(String... values) {
+	    return Collections.unmodifiableList(Arrays.asList(values));
+	}
+
+	@Override
+	public void onClick(View btn) {
+		if(btn == barcodeButton){
+			ScanBarCode();
 		}
 	}
 	

@@ -3,15 +3,12 @@ package gob.sis.simos.fragment;
 import gob.sis.simos.AddTicketActivity;
 import gob.sis.simos.R;
 import gob.sis.simos.SimpleCheckListActivity;
-import gob.sis.simos.adapters.OpcionRespuestaSpinnerAdapter;
 import gob.sis.simos.controller.VerificacionPagoController;
-import gob.sis.simos.entity.OpcionRespuesta;
 import gob.sis.simos.entity.Respuesta;
 import gob.sis.simos.entity.VerificacionPago;
 import gob.sis.simos.ui.UIEditText;
 import gob.sis.simos.ui.UIRadioButton;
 import gob.sis.simos.ui.UIRadioGroup;
-import gob.sis.simos.ui.UISpinner;
 import gob.sis.simos.ui.UITextView;
 
 import java.util.ArrayList;
@@ -29,7 +26,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -44,11 +40,11 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 	protected UIRadioGroup rgImproperPayment;
 	protected UIEditText etAmount;
 	public UITextView txtPaymentIn;
+	public UITextView txtPaymentOut;
 	public UITextView txtTickets;
-	protected UISpinner spPaymentOutEESS;
-	protected LinearLayout lyPaymentOut;
 	protected LinearLayout lyPaymentIn;
 	protected LinearLayout lyTickets;
+	protected LinearLayout lyPaymentOut11;
 	protected LinearLayout lyPaymentIn14;
 	static final int IN_EESS = 40;
 	static final int OUT_EESS = 41;
@@ -58,6 +54,7 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 	private static final int SELECT_ITEMS = 5;
 	private static final int ADD_TICKETS = 6;
 	public List<Respuesta> rsptsPaymentIn;
+	public List<Respuesta> rsptsPaymentOut;
 	public List<String> rsptsTickets;
 	
 	protected int paymentoLocation;
@@ -76,11 +73,14 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 		this.rgPaymentLocation = (UIRadioGroup)v.findViewById(R.id.rg_payment_location);
 		this.rgPaymentLocation.setOnCheckedChangeListener(this);	
 		
-		this.lyPaymentOut = (LinearLayout)v.findViewById(R.id.layout_payment_out);
-		this.spPaymentOutEESS = (UISpinner)v.findViewById(R.id.sp_paymentOut);
+		this.lyPaymentOut11 = (LinearLayout)v.findViewById(R.id.ly_paymentOut11);
+		this.lyPaymentOut11.setOnClickListener(this);
 
 		this.etAmount = (UIEditText)v.findViewById(R.id.et_ammount);
 		this.etAmount.addTextChangedListener(this);
+		
+		this.txtPaymentOut = (UITextView)v.findViewById(R.id.txt_paymentOut);
+		this.rsptsPaymentOut = new ArrayList<Respuesta>();
 		
 		this.txtPaymentIn = (UITextView)v.findViewById(R.id.txt_paymentIn);
 		this.rsptsPaymentIn = new ArrayList<Respuesta>();
@@ -121,7 +121,7 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 			rpPaymentOut.setPreguntaId(11);
 			rpPaymentOut.setPreguntaParentId(7);
 			rpPaymentOut.setOpcionRespuestaId(null);
-			rspts.add(rpPaymentOut);
+			rspts.add(rpPaymentOut);	
 
 			// pregunta 12
 			if(this.rsptsTickets != null){
@@ -160,9 +160,22 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 			
 		// fuera del EESS
 		} else if(rpPaymentLocation.getOpcionRespuestaId() == 41){
-
-			// pregunta 11
-			rspts.add(this.spPaymentOutEESS.getRespuesta());
+			
+			// cambio pregunta 11
+			if(this.rsptsPaymentOut != null){
+				if(this.rsptsPaymentOut.size() > 0){
+					for(int x = 0; x < this.rsptsPaymentOut.size() ; x++){
+						this.rsptsPaymentOut.get(x).setPreguntaParentId(7);
+					}
+					rspts.addAll(this.rsptsPaymentOut);
+				} else {
+						Respuesta r = new Respuesta();
+						r.setPreguntaId(11);
+						r.setPreguntaParentId(7);
+						r.setOpcionRespuestaId(null);
+						rspts.add(r);
+				}
+			}		
 			
 			// pregunta 12
 			Respuesta rspTickets = new Respuesta();
@@ -186,12 +199,21 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 		// Ambas
 		} else if(rpPaymentLocation.getOpcionRespuestaId() == 42){
 
-			// pregunta 11
-			Respuesta rpPaymentOut = new Respuesta();
-			rpPaymentOut.setPreguntaId(11);
-			rpPaymentOut.setPreguntaParentId(7);
-			rpPaymentOut.setOpcionRespuestaId(null);
-			rspts.add(rpPaymentOut);
+			// cambio pregunta 11
+			if(this.rsptsPaymentOut != null){
+				if(this.rsptsPaymentOut.size() > 0){
+					for(int x = 0; x < this.rsptsPaymentOut.size() ; x++){
+						this.rsptsPaymentOut.get(x).setPreguntaParentId(7);
+					}
+					rspts.addAll(this.rsptsPaymentOut);
+				} else {
+						Respuesta r = new Respuesta();
+						r.setPreguntaId(11);
+						r.setPreguntaParentId(7);
+						r.setOpcionRespuestaId(null);
+						rspts.add(r);
+				}
+			}	
 
 			// pregunta 12
 			if(this.rsptsTickets != null){
@@ -238,21 +260,8 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		loadPreguntas();
+		//loadPreguntas();
 		loadVerificacion();
-	}
-
-	private void loadPreguntas() {
-		List<OpcionRespuesta> items = controller.getRespuestas(11);
-		OpcionRespuestaSpinnerAdapter adapter = new OpcionRespuestaSpinnerAdapter(getActivity(), items);
-		this.spPaymentOutEESS.setAdapter(adapter);
-		
-		items = controller.getRespuestas(14);
-		adapter = new OpcionRespuestaSpinnerAdapter(getActivity(), items);
-		//this.btnPaymentInEESS.setAdapter(adapter);
-		//this.btnPaymentInEESS.setOnClickListener(this);
-		this.lyPaymentIn14.setOnClickListener(this);
-		
 	}
 
 	public void setVisibility(int visibility){
@@ -261,47 +270,24 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		/*if(group == this.rgHaveTicket){
-			if(checkedId == R.id.rb_have_tickets_YES){
-				int idPaymentLocation = this.rgPaymentLocation.getCheckedRadioButtonId();
-				UIRadioButton rb = (UIRadioButton)this.rgPaymentLocation.findViewById(idPaymentLocation);
-				if(rb.getOpcionRespuestaId().intValue() == IN_EESS){
-					this.lyPaymentIn.setVisibility(View.VISIBLE);
-					this.lyTickets.setVisibility(View.VISIBLE);
-					this.lyPaymentOut.setVisibility(View.GONE);
-					
-				} else if(rb.getOpcionRespuestaId().intValue() == OUT_EESS){
-					this.lyPaymentIn.setVisibility(View.GONE);
-					this.lyTickets.setVisibility(View.GONE);
-					this.lyPaymentOut.setVisibility(View.VISIBLE);
-					
-				} else if(rb.getOpcionRespuestaId().intValue() == BOTH_EESS){
-					this.lyPaymentIn.setVisibility(View.VISIBLE);
-					this.lyTickets.setVisibility(View.VISIBLE);
-					this.lyPaymentOut.setVisibility(View.VISIBLE);
-				}
-				
-			} else if(checkedId == R.id.rb_have_tickets_NO){
-				
-			}
-		}*/
+		
 		if(group == this.rgPaymentLocation){
 			int id = this.rgPaymentLocation.getCheckedRadioButtonId();
 			UIRadioButton rb = (UIRadioButton)getView().findViewById(id);
 			if(rb.getOpcionRespuestaId() == IN_EESS){
 				this.lyPaymentIn.setVisibility(View.VISIBLE);
 				this.lyTickets.setVisibility(View.VISIBLE);
-				this.lyPaymentOut.setVisibility(View.GONE);
+				this.lyPaymentOut11.setVisibility(View.GONE);
 				
 			} else if(rb.getOpcionRespuestaId() == OUT_EESS){
 				this.lyPaymentIn.setVisibility(View.GONE);
 				this.lyTickets.setVisibility(View.GONE);
-				this.lyPaymentOut.setVisibility(View.VISIBLE);
+				this.lyPaymentOut11.setVisibility(View.VISIBLE);
 				
 			} else if(rb.getOpcionRespuestaId() == BOTH_EESS){
 				this.lyPaymentIn.setVisibility(View.VISIBLE);
 				this.lyTickets.setVisibility(View.VISIBLE);
-				this.lyPaymentOut.setVisibility(View.VISIBLE);
+				this.lyPaymentOut11.setVisibility(View.VISIBLE);
 			}
 		}
 	}
@@ -325,7 +311,7 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 			if(this.etAmount.getText().length() == 0){
 				return String.format(str, "Monto pagado dentro del EESS");
 			}
-			if(this.txtPaymentIn.getText().equals("Ninguno seleccionado")){
+			if(this.txtPaymentIn.getText().equals("Ninguno seleccionado.")){
 				return String.format(str, "ÀPorque pago dentro del establecimiento de salud?");
 			}
 			if(this.txtTickets.getText().equals("No se han ingresado boletas.")){
@@ -333,13 +319,19 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 			}
 			
 		} else if(rbPaymentLocation.getOpcionRespuestaId() == 41) {
-			// la spinner de paymentOutESS tiene una seleccion por defecto. No necesita validacion. 
+			
+			if(this.txtPaymentOut.getText().equals("Ninguno seleccionado.")){
+				return String.format(str, "ÀPorque pago fuera del establecimiento de salud?");
+			}
 			
 		} else if(rbPaymentLocation.getOpcionRespuestaId() == 42) {
 			if(this.etAmount.getText().length() == 0){
 				return String.format(str, "Monto pagado dentro del EESS");
 			}
-			if(this.txtPaymentIn.getText().equals("Ninguno seleccionado")){
+			if(this.txtPaymentOut.getText().equals("Ninguno seleccionado.")){
+				return String.format(str, "ÀPorque pago fuera del establecimiento de salud?");
+			}
+			if(this.txtPaymentIn.getText().equals("Ninguno seleccionado.")){
 				return String.format(str, "ÀPorque pago dentro del establecimiento de salud?");
 			}
 			if(this.txtTickets.getText().equals("No se han ingresado boletas.")){
@@ -458,16 +450,11 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 						}
 					}
 					
-					//pregunta 11
+					// pregunta 11
+					// cambio pregunta 11
 					if(or.getPreguntaId() == 11){
-						Adapter adapter = spPaymentOutEESS.getAdapter();
-						for(int x=0;x < adapter.getCount(); x++){
-							OpcionRespuesta orx = (OpcionRespuesta)adapter.getItem(x);
-							if(orx.getOpcionRespuestaId() != null){
-								if(orx.getOpcionRespuestaId().equals(or.getOpcionRespuestaId())){
-									spPaymentOutEESS.setSelection(x);
-								}
-							}
+						if(this.rsptsPaymentOut != null){
+							this.rsptsPaymentOut.add(or);
 						}
 					}
 					
@@ -538,7 +525,22 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 						Respuesta r = this.rsptsPaymentIn.get(x);
 						int_array[x] = r.getOpcionRespuestaId();
 					}
-					in.putExtra("bundle_payment_reasons", int_array);
+					in.putExtra("bundle_pregunta_14", int_array);
+				}
+			}
+			getActivity().startActivityForResult(in, SELECT_ITEMS);
+		}
+		if(view == this.lyPaymentOut11){
+			Intent in = new Intent(getActivity(), SimpleCheckListActivity.class);
+			in.putExtra("preguntaId", 11);
+			if(this.rsptsPaymentOut != null){
+				if(this.rsptsPaymentOut.size() > 0){
+					int[] int_array = new int[this.rsptsPaymentOut.size()];
+					for(int x = 0; x < this.rsptsPaymentOut.size(); x++){
+						Respuesta r = this.rsptsPaymentOut.get(x);
+						int_array[x] = r.getOpcionRespuestaId();
+					}
+					in.putExtra("bundle_pregunta_11", int_array);
 				}
 			}
 			getActivity().startActivityForResult(in, SELECT_ITEMS);
