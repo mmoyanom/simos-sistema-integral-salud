@@ -23,11 +23,11 @@ public class ConfigurationController {
 			return;
 		}
 		if (configService.getConfiguration().getServer() == null){
-			configService.createConfiguration(cfg);
+			configService.updateConfiguration(cfg);
 			return;
 		}
 		if (configService.getConfiguration().getServer().isEmpty()){
-			configService.createConfiguration(cfg);
+			configService.updateConfiguration(cfg);
 			return;
 		}
 		configService.updateConfiguration(cfg);

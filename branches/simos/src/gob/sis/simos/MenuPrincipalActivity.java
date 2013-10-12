@@ -255,13 +255,14 @@ public class MenuPrincipalActivity extends RoboActivity implements
 	private void notifyDayStarted(){
 		AlertDialog alertDialog1 = new AlertDialog.Builder(this).create();
         alertDialog1.setTitle("Finalizar Jornada");
-        alertDialog1.setMessage("Debe finalizar la jornada antes de cerrar sesi—n. Desea finalizar la jornada ahora?");
+        alertDialog1.setMessage("Debe finalizar la jornada antes de cerrar sesi—n. ÀDesea finalizar la jornada ahora?");
         alertDialog1.setButton(AlertDialog.BUTTON_POSITIVE,"Si", new DialogInterface.OnClickListener() {
         	
             public void onClick(DialogInterface dialog, int which) {
             	Date finish = Calendar.getInstance().getTime();
             	jndaController.finalizarJornada(finish);
-            	logOut();
+            	//logOut();
+            	new SendEncuestasUnsentCerrarSesionTask().execute();
             }
         });
         alertDialog1.setButton(AlertDialog.BUTTON_NEGATIVE,"No", new DialogInterface.OnClickListener() {
@@ -330,6 +331,35 @@ public class MenuPrincipalActivity extends RoboActivity implements
 				str = "Hubo un error al enviar las encuestas. Se han almacenado en el dispositivo.";
 			}
 			finalizeDay(str);
+		}
+	}
+	
+	public class SendEncuestasUnsentCerrarSesionTask extends AsyncTask<Void, Void, SendEncuestaResult> {
+
+		@Override
+		protected void onPreExecute() {
+			dialog.setCancelable(false);
+			dialog.setTitle("Enviando encuestas pendientes.");
+			dialog.setMessage(getResources().getString(R.string.please_wait));
+			dialog.show();
+		}
+		
+		@Override
+		protected SendEncuestaResult doInBackground(Void... params) {
+			SendEncuestaResult result = enctaController.SendEncuestasUnsent();
+			return result;
+		}
+		
+		@Override
+		protected void onPostExecute(SendEncuestaResult result) {
+			dialog.dismiss();
+			if(result.getResult()==SendEncuestaResult.SUCCEEDED){
+				enctaController.cleanStoredEncuestas();
+				showMessage("Las encuestas han sido enviadas exitosamente.", Toast.LENGTH_LONG);
+			} else {
+				showMessage("Hubo un error al enviar las encuestas.", Toast.LENGTH_LONG);
+			}
+			logOut();
 		}
 	}
 	

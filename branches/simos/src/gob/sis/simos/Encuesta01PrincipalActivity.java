@@ -130,9 +130,9 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
 		
 		if(tab.getPosition() == 0){
-			this.btnAdd.setText("Agregar servicio");
+			this.btnAdd.setText("Agregar Servicio");
 		} else if(tab.getPosition() == 1){
-			this.btnAdd.setText("Agregar receta");
+			this.btnAdd.setText("Agregar Receta");
 		}
 		mViewPager.setCurrentItem(tab.getPosition());
 	}
@@ -159,7 +159,11 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		} else if (item.getItemId() == R.id.item_delete) {
 			delete();
 		} else if (item.getItemId() == R.id.action_save) {
-			save();
+			if(verificacionesFragment.lstVerificaciones.getCount() == 0 && recetasFragment.lstRecetas.getCount() == 0){
+				showMessage("Para guardar una encuesta es necesario ingresar, al menos, una verificaci—n/receta.", Toast.LENGTH_LONG);
+			} else {
+				save();
+			}
 		}
 		return true;
 	}
@@ -168,7 +172,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		// TODO Auto-generated method stub
 		this.alertConfirmSave = new AlertDialog.Builder(this).create();
 		this.alertConfirmSave.setTitle("Guardar Encuesta");
-		this.alertConfirmSave.setMessage("A continuacion se guardara esta encuesta.");
+		this.alertConfirmSave.setMessage("A continuaci—n se guardar‡ esta encuesta.");
 		this.alertConfirmSave.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
 			
 			@Override
@@ -191,7 +195,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 	@Override
 	public void onBackPressed() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    builder.setMessage("Esta seguro de salir?")
+	    builder.setMessage("ÀEsta seguro de salir?")
 	           .setCancelable(false)
 	           .setPositiveButton("Si", new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
@@ -544,7 +548,7 @@ public class Encuesta01PrincipalActivity extends RoboFragmentActivity implements
 		@Override
 		protected void onPreExecute() {
 			dialog.setCancelable(false);
-			dialog.setTitle(R.string.title_send_encta);
+			dialog.setTitle(R.string.title_save_encta);
 			dialog.setMessage(getResources().getString(R.string.please_wait));
 			dialog.show();
 		}
