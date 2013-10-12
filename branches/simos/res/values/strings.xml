@@ -51,6 +51,7 @@
     <!---->
     
     <!-- dialogs -->
+    <string name="title_save_encta">Guardar Encuesta</string>
     <string name="title_send_encta">Enviando Encuesta</string>
     <string name="please_wait">Espere un poco, por favor.</string>
     <!---->
