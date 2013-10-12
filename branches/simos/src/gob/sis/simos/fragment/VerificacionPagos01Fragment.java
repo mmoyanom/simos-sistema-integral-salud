@@ -528,6 +528,7 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 					in.putExtra("bundle_pregunta_14", int_array);
 				}
 			}
+			in.putExtra("pregunta_text", getResources().getString(R.string.question_14));
 			getActivity().startActivityForResult(in, SELECT_ITEMS);
 		}
 		if(view == this.lyPaymentOut11){
@@ -540,9 +541,11 @@ public class VerificacionPagos01Fragment extends RoboFragment implements OnClick
 						Respuesta r = this.rsptsPaymentOut.get(x);
 						int_array[x] = r.getOpcionRespuestaId();
 					}
+					
 					in.putExtra("bundle_pregunta_11", int_array);
 				}
 			}
+			in.putExtra("pregunta_text", getResources().getString(R.string.question_11));
 			getActivity().startActivityForResult(in, SELECT_ITEMS);
 		}
 		if(view == this.lyTickets){
