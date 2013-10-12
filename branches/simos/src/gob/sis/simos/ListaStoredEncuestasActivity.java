@@ -117,7 +117,11 @@ public class ListaStoredEncuestasActivity extends RoboActivity {
 		@Override
 		protected void onPostExecute(SendEncuestaResult result) {
 			dialog.dismiss();
-			showMessage(result.getResult()+"", Toast.LENGTH_LONG);
+			if(result.getResult()==SendEncuestaResult.SUCCEEDED){
+				showMessage("Las encuestas han sido enviadas exitosamente.", Toast.LENGTH_LONG);
+			} else {
+				showMessage("Hubo un error al enviar las encuestas.", Toast.LENGTH_LONG);
+			}
 			setResult(RESULT_OK);
 			finish();
 		}
