@@ -24,7 +24,7 @@
             android:id="@+id/btn_add"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:text="Agregar boleta"
+            android:text="Agregar Boleta"
             android:textColor="#FFFFFF"/>
     </LinearLayout>
 </LinearLayout>
