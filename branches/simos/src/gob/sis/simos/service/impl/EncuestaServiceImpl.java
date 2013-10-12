@@ -101,11 +101,6 @@ public class EncuestaServiceImpl {
 					e.setSent(1);
 					encuestaDao.update(e);
 				}
-				/*
-				TableUtils.clearTable(getHelper().getConnectionSource(), Respuesta.class);
-				TableUtils.clearTable(getHelper().getConnectionSource(), Encuesta01.class);
-				TableUtils.clearTable(getHelper().getConnectionSource(), EncuestaGrupo.class);
-				*/
 			}
 			System.gc();
 			return result;
