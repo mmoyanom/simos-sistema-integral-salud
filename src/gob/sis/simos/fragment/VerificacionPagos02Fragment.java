@@ -255,6 +255,7 @@ public class VerificacionPagos02Fragment extends RoboFragment implements OnClick
 					in.putExtra("bundle_pregunta_16", int_array);
 				}
 			}
+			in.putExtra("pregunta_text", getResources().getString(R.string.question_16));
 			getActivity().startActivityForResult(in, SELECT_ITEMS);
 		}
 		if(view == this.lyPregunta17){
@@ -270,6 +271,7 @@ public class VerificacionPagos02Fragment extends RoboFragment implements OnClick
 					in.putExtra("bundle_pregunta_17", int_array);
 				}
 			}
+			in.putExtra("pregunta_text", getResources().getString(R.string.question_17));
 			getActivity().startActivityForResult(in, SELECT_ITEMS);
 		}
 		if(view == this.lyPregunta19){
@@ -285,6 +287,7 @@ public class VerificacionPagos02Fragment extends RoboFragment implements OnClick
 					in.putExtra("bundle_pregunta_19", int_array);
 				}
 			}
+			in.putExtra("pregunta_text", getResources().getString(R.string.question_19));
 			getActivity().startActivityForResult(in, SELECT_ITEMS);
 		}
 	}

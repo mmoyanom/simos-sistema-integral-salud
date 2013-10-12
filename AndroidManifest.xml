@@ -95,7 +95,7 @@
             android:theme="@style/Theme01" >
         </activity>
         <activity
-            android:name="gob.sis.simos.MenuEncuestasAlmacenadasActivity"
+            android:name="gob.sis.simos.ReporteActivity"
             android:label="Reporte del día"
             android:screenOrientation="portrait"
             android:theme="@style/Theme01">

@@ -2,6 +2,7 @@ package gob.sis.simos;
 
 import gob.sis.simos.adapters.MenuEncuestaListAdapter;
 import gob.sis.simos.controller.EncuestaController;
+import gob.sis.simos.controller.JornadaController;
 import gob.sis.simos.dto.OpcionMenu;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,10 +24,13 @@ import android.widget.Toast;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.actvt_menu_strd_encts)
-public class MenuEncuestasAlmacenadasActivity extends RoboFragmentActivity implements OnItemClickListener {
+public class ReporteActivity extends RoboFragmentActivity implements OnItemClickListener {
 
 	@Inject 							
-	private EncuestaController controller;
+	private EncuestaController EnctaController;
+	
+	@Inject
+	private JornadaController JndController;
 	
 	@InjectView(R.id.lv_stored_encts)
 	private ListView lvStoredEncuestas;
@@ -48,21 +52,21 @@ public class MenuEncuestasAlmacenadasActivity extends RoboFragmentActivity imple
 			Date today = Calendar.getInstance().getTime();
 			
 			OpcionMenu op1 = new OpcionMenu();
-			op1.setValue(this.controller.findAllByDate(today).size()+"");
+			op1.setValue(this.EnctaController.findAllByDate(today).size()+"");
 			op1.setTitle(array[0]+String.format("(%s)",op1.getValue()));
 			op1.setId(R.drawable.all);
 			op1.setDescription("Todas las encuestas realizadas.");
 			menu.add(op1);
 			
 			OpcionMenu op2 = new OpcionMenu();
-			op2.setValue(this.controller.findSentByDate(today).size()+"");
+			op2.setValue(this.EnctaController.findSentByDate(today).size()+"");
 			op2.setTitle(array[1]+String.format("(%s)",op2.getValue()));
 			op2.setId(R.drawable.sent);
 			op2.setDescription("Todas las encuestas que fueron enviadas.");
 			menu.add(op2);
 			
 			OpcionMenu op3 = new OpcionMenu();
-			op3.setValue(this.controller.findUnsentByDate(today).size()+"");
+			op3.setValue(this.EnctaController.findUnsentByDate(today).size()+"");
 			op3.setTitle(array[2]+String.format("(%s)",op3.getValue()));
 			op3.setId(R.drawable.unsent);
 			op3.setDescription("Todas las encuestas que no han podido ser enviadas.");
@@ -71,6 +75,20 @@ public class MenuEncuestasAlmacenadasActivity extends RoboFragmentActivity imple
 			adapter = new MenuEncuestaListAdapter(this, R.layout.simple_list_item_image,menu);
 			this.lvStoredEncuestas.setAdapter(adapter);
 			this.lvStoredEncuestas.setOnItemClickListener(this);
+			
+			
+			if(JndController.jornadaFinalizada() && JndController.equalsToday(JndController.getJornada().getFinish())){
+				AlertDialog alertDialog1 = new AlertDialog.Builder(this).create();
+		        alertDialog1.setTitle("Jornada Finalizada");
+		        alertDialog1.setMessage("Esta jornada ha sido finalizada.");
+		        alertDialog1.setButton(AlertDialog.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int which) {
+		            	finish();
+		            }
+		        });
+		        alertDialog1.show();
+		        return;
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,21 +111,21 @@ public class MenuEncuestasAlmacenadasActivity extends RoboFragmentActivity imple
 			Date today = Calendar.getInstance().getTime();
 			
 			OpcionMenu op1 = new OpcionMenu();
-			op1.setValue(this.controller.findAllByDate(today).size()+"");
+			op1.setValue(this.EnctaController.findAllByDate(today).size()+"");
 			op1.setTitle(array[0]+String.format("(%s)",op1.getValue()));
 			op1.setId(R.drawable.all);
 			op1.setDescription("Todas las encuestas realizadas.");
 			menu.add(op1);
 			
 			OpcionMenu op2 = new OpcionMenu();
-			op2.setValue(this.controller.findSentByDate(today).size()+"");
+			op2.setValue(this.EnctaController.findSentByDate(today).size()+"");
 			op2.setTitle(array[1]+String.format("(%s)",op2.getValue()));
 			op2.setId(R.drawable.sent);
 			op2.setDescription("Todas las encuestas que fueron enviadas.");
 			menu.add(op2);
 			
 			OpcionMenu op3 = new OpcionMenu();
-			op3.setValue(this.controller.findUnsentByDate(today).size()+"");
+			op3.setValue(this.EnctaController.findUnsentByDate(today).size()+"");
 			op3.setTitle(array[2]+String.format("(%s)",op3.getValue()));
 			op3.setId(R.drawable.unsent);
 			op3.setDescription("Todas las encuestas que no han podido ser enviadas.");

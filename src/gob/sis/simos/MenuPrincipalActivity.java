@@ -6,15 +6,12 @@ import gob.sis.simos.controller.EncuestaController;
 import gob.sis.simos.controller.JornadaController;
 import gob.sis.simos.controller.LoginController;
 import gob.sis.simos.dto.OpcionMenu;
-import gob.sis.simos.entity.Jornada;
 import gob.sis.simos.soap.SendEncuestaResult;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import com.google.inject.Inject;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
@@ -26,9 +23,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.inject.Inject;
 
 public class MenuPrincipalActivity extends RoboActivity implements
 		OnItemClickListener {
@@ -103,12 +102,11 @@ public class MenuPrincipalActivity extends RoboActivity implements
 			return;
 		if(jndaController.getJornada().getStart() == null)
 			return;
-		if(jndaController.getJornada().getFinish() == null)
-			return;
 		
 		if(!jndaController.jornadaFinalizada() && !jndaController.equalsToday(jndaController.getJornada().getStart())){
+			
 			Calendar c = Calendar.getInstance();
-			c.setTime(Calendar.getInstance().getTime());
+			c.setTime(jndaController.getJornada().getStart());
 			c.set(Calendar.HOUR, 11);
 			c.set(Calendar.MINUTE, 59);
 			c.set(Calendar.SECOND, 59);
@@ -148,7 +146,7 @@ public class MenuPrincipalActivity extends RoboActivity implements
 			finalizeDay("Esta jornada ya ha sido finalizada.");
 			
 		} else if(position == 2){
-			Intent i = new Intent(this, MenuEncuestasAlmacenadasActivity.class);
+			Intent i = new Intent(this, ReporteActivity.class);
 			this.startActivity(i);
 		} else if(position == 3){
 			Intent i = new Intent(this, MenuSyncActivity.class);
