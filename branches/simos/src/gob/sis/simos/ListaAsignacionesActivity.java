@@ -1,5 +1,6 @@
 package gob.sis.simos;
 
+import gob.sis.simos.MenuPrincipalActivity.SendEncuestasUnsentTask;
 import gob.sis.simos.adapters.AsignacionListAdapter;
 import gob.sis.simos.application.MyApplication;
 import gob.sis.simos.controller.AsignacionController;
@@ -104,12 +105,11 @@ public class ListaAsignacionesActivity extends RoboActivity implements OnItemCli
 			return;
 		if(jndaController.getJornada().getStart() == null)
 			return;
-		if(jndaController.getJornada().getFinish() == null)
-			return;
 		
 		if(!jndaController.jornadaFinalizada() && !jndaController.equalsToday(jndaController.getJornada().getStart())){
+			
 			Calendar c = Calendar.getInstance();
-			c.setTime(Calendar.getInstance().getTime());
+			c.setTime(jndaController.getJornada().getStart());
 			c.set(Calendar.HOUR, 11);
 			c.set(Calendar.MINUTE, 59);
 			c.set(Calendar.SECOND, 59);

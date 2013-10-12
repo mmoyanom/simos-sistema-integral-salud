@@ -107,6 +107,7 @@ public class EncuestaServiceImpl {
 				TableUtils.clearTable(getHelper().getConnectionSource(), EncuestaGrupo.class);
 				*/
 			}
+			System.gc();
 			return result;
 			
 		} catch (SQLException e) {
@@ -501,6 +502,9 @@ public class EncuestaServiceImpl {
 
 	public void cleanStoredEncuestas() {
 		try {
+			Dao<Encuesta01, Integer> enctaGrupoDao = getHelper().getEncuestaDao();
+			TableUtils.clearTable(enctaGrupoDao.getConnectionSource(), EncuestaGrupo.class);
+			
 			Dao<Encuesta01, Integer> enctaDao = getHelper().getEncuestaDao();
 			TableUtils.clearTable(enctaDao.getConnectionSource(), Encuesta01.class);
 			

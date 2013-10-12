@@ -41,6 +41,12 @@ public class SimpleCheckListActivity extends RoboActivity implements OnClickList
 		this.btnOk.setOnClickListener(this);
 		
 		Bundle b = getIntent().getExtras();
+		
+		String pregunta_text = b.getString("pregunta_text");
+		if (pregunta_text != null) {
+			setTitle(pregunta_text);
+		}
+		
 		Integer preguntaId = b.getInt("preguntaId");
 		if(preguntaId != null){
 			
