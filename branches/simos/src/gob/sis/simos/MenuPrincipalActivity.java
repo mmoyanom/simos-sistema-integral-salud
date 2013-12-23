@@ -61,12 +61,6 @@ public class MenuPrincipalActivity extends RoboActivity implements
 		op1.setDescription("Seleccione esta opci—n para consultar sus establecimientos asignados para el d’a.");
 		menu.add(op1);
 		
-		OpcionMenu op2 = new OpcionMenu();
-		op2.setTitle("Finalizar jornada");
-		op2.setId(R.drawable.finish_day);
-		op2.setDescription("Seleccione esta opci—n para finalizar las actividades del d’a.");
-		menu.add(op2);
-		
 		OpcionMenu op3 = new OpcionMenu();
 		op3.setTitle("Reporte del d’a");
 		op3.setId(R.drawable.reports);
@@ -78,6 +72,12 @@ public class MenuPrincipalActivity extends RoboActivity implements
 		op4.setId(R.drawable.sync);
 		op4.setDescription("Env’o de las encuestas pendientes, descargar par‡metros, etc.");
 		menu.add(op4);
+		
+		OpcionMenu op2 = new OpcionMenu();
+		op2.setTitle("Finalizar jornada");
+		op2.setId(R.drawable.finish_day);
+		op2.setDescription("Seleccione esta opci—n para finalizar las actividades del d’a.");
+		menu.add(op2);
 		
 		OpcionMenu op5 = new OpcionMenu();
 		op5.setTitle("Cerrar sesi—n");
