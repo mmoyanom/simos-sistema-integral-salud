@@ -34,18 +34,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import android.content.Context;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.widget.EditText;
+
 import com.google.inject.Inject;
 import com.google.zxing.integration.android.IntentIntegrator;
 
-public class InformacionEncuestadoActivity extends RoboActivity implements OnCheckedChangeListener, OnClickListener {
+public class InformacionEncuestadoActivity extends RoboActivity implements OnCheckedChangeListener, OnClickListener,OnItemSelectedListener{
 
 	@Inject
 	protected InfoEncuestadoController infoController;
@@ -96,6 +104,28 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 		List<OpcionRespuesta> items = infoController.getRespuestas(1);
 		OpcionRespuestaSpinnerAdapter adapter = new OpcionRespuestaSpinnerAdapter(this, items);
 		_spDocumentType.setAdapter(adapter);
+		
+		_spDocumentType.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
+					int position, long id) {
+					
+				TextView txtDocType = (TextView)selectedItemView;
+				if (txtDocType.getText().toString().equals("DNI")){
+					etNumberId.setMaxValue(8);
+				}else{
+					etNumberId.setMaxValue(9);
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parentView) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
 		items = infoController.getRespuestas(4);
 		adapter = new OpcionRespuestaSpinnerAdapter(this, items);
@@ -346,5 +376,17 @@ public class InformacionEncuestadoActivity extends RoboActivity implements OnChe
 			ScanBarCode();
 		}
 	}
-	
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }
